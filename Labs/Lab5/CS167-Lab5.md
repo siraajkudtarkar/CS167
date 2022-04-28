@@ -277,7 +277,7 @@ Note: The entry with the code `response` corresponds to the header file. We can 
 Submission file format:
 
 ```console
-<UCRNetID>_lab3.{tar.gz | zip}
+<UCRNetID>_lab5.{tar.gz | zip}
   - src/
   - pom.xml
   - README.md
