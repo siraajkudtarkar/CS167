@@ -1,6 +1,7 @@
 # Lab 5
 
 ## Student information
+
 * Full name:
 * E-mail:
 * UCR NetID:
@@ -8,7 +9,7 @@
 
 ## Answers
 
-* (Q1) Do you think it will use your local cluster? Why or why not? 
+* (Q1) Do you think it will use your local cluster? Why or why not?
 
 * (Q2) Does the application use the cluster that you started? How did you find out?
 
