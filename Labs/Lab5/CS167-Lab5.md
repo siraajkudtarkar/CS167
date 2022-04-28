@@ -9,7 +9,8 @@
 ## Prerequisites
 
 * Setup the development environment as explained in [Lab 1](../Lab1/lab1.md).
-* Download [Apache Spark 3.2.1](https://spark.apache.org/downloads.html). Choose the package type *Pre-built for Apache Hadoop 3.3 and later*.
+* Download [Apache Spark 3.2.1](https://spark.apache.org/downloads.html). Choose the package type **Pre-built with user-provided Apache Hadoop**.
+  * Direct link: [spark-3.2.1-bin-without-hadoop.tgz](https://www.apache.org/dyn/closer.lua/spark/spark-3.2.1/spark-3.2.1-bin-without-hadoop.tgz)
 * Download these two sample files [sample file 1](../Lab3/nasa_19950801.tsv), [sample file 2](https://drive.google.com/open?id=1pDNwfsx5jrAqaSy8AKEZyfubCE358L2p). Decompress the second file after download. These are the same files we used in [Lab 3](../Lab3/CS167_Lab3.md).
 * For Windows users, install the Ubuntu app from Microsoft Store and set it up. Part of this lab cannot run natively on Windows.
 
@@ -21,9 +22,38 @@ Note: We recommend that you use the standard Apache Spark 3.2.1 in this lab. Oth
 
 1. Expand the downloaded Apache Spark to your home directory.
 2. Set the environment variable `SPARK_HOME` to the expanded Spark directory. Add `$SPARK_HOME/bin` to the `PATH` environment variable. See [Lab 1](../Lab1/lab1.md) for details on how to do it.
-3. Make a copy of the file `$SPARK_HOME/conf/spark-defaults.conf.template` to `$SPARK_HOME/conf/spark-defaults.conf`.
-4. (On Windows) In `$SPARK_HOME/conf/spark-defaults.conf`, add the line `spark.driver.host  127.0.0.1`.
-5. To test that Spark is running correctly, run the command `spark-submit` from the command line to see Spark usage. Then use the following command to run one of the Spark examples.
+
+    * Linux and MacOS
+        In your profile file (*.bashrc*, *.bash_profile*, *.zshrc* or *.zprofile*):
+
+        1. Add
+
+            ```bash
+            # Linux
+            export SPARK_HOME="/home/$LOGNAME/cs167/spark-3.2.1-bin-without-hadoop"
+
+            # MacOS
+            export SPARK_HOME="/Users/$LOGNAME/cs167/spark-3.2.1-bin-without-hadoop"
+            ```
+
+        2. Add `$SPARK_HOME/bin:` to `PATH` variable like
+
+            ```bash
+            # This line must be after all the export lines
+            PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$HADOOP_HOME/bin:$SPARK_HOME/bin:$PATH
+            ```
+
+    * Windows
+        1. Add a new variable under **User variables for xxx**: Variable name: `SPARK_HOME`, Variable value: `C:\cs167\spark-3.2.1-bin-without-hadoop`
+        2. Add `%SPARK_HOME%\bin` to `Path` variable
+
+3. Configure Spark to use your previsouly installed Hadoop. Reference: [Using Spark's "Hadoop Free" Build
+](https://spark.apache.org/docs/latest/hadoop-provided.html)
+    1. Go to `$SPARK_HOME/conf`, make a copy of **spark-env.sh.template** to **spark-env.sh**.
+    2. Add `export SPARK_DIST_CLASSPATH=$(hadoop classpath)` to **spark-env.sh**.
+4. Make a copy of the file `$SPARK_HOME/conf/spark-defaults.conf.template` to `$SPARK_HOME/conf/spark-defaults.conf`.
+5. (On Windows) In `$SPARK_HOME/conf/spark-defaults.conf`, add the line `spark.driver.host  127.0.0.1`.
+6. To test that Spark is running correctly, run the command [spark-submit](https://spark.apache.org/docs/latest/submitting-applications.html) from the command line to see Spark usage. Then use the following command to run one of the Spark examples.
 
     ```bash
     spark-submit run-example org.apache.spark.examples.SparkPi
@@ -95,16 +125,16 @@ Note: We recommend that you use the standard Apache Spark 3.2.1 in this lab. Oth
     ```
 
 3. Switch to the command line. Compile your code using the command `mvn package`.
-4. Run your program from command line using the following command. Do not forget to replace `<UCRNetID>` with the correct one.
+4. Run your program from command line using the following command. Do not forget to replace `<UCRNetID>` with the correct one. Also, make sure hdfs namenode and datanode are running.
 
-    ```shell
-    spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.App target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar nasa_19950801.tsv
+    ```bash
+    spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.App target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar hdfs:///nasa_19950801.tsv
     ```
 
     Hint: You may use the following command to only print the needed line (Linux and MacOS only).
 
     ```bash
-    spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.App target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar nasa_19950801.tsv 2>/dev/null | grep "Number of lines in the log file"
+    spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.App target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar hdfs:///nasa_19950801.tsv 2>/dev/null | grep "Number of lines in the log file"
     ```
 
 ### IV. Run in Pseudo-distributed Mode (Manual Configuration) (30 minutes)
@@ -171,7 +201,7 @@ We do not want to change the code every time we switch between local and cluster
 5. You can manually override the master on the `spark-submit` command. Try the following line and observe what the master is.
 
     ```bash
-    spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.App --master local[2] target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar nasa_19950801.tsv
+    spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.App --master local[2] target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar hdfs:///nasa_19950801.tsv
     ```
 
     Note: `local[2]` means that it runs on the local mode with two cores.
@@ -211,7 +241,7 @@ In the next part, we will extend the program to use more Spark functions. We wil
     Hint: You may use the following command to only print the needed line (Linux and MacOS only).
 
     ```bash
-    spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.Filter --master local[2] target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar nasa_19950801.tsv 2>/dev/null | grep "lines with response code"
+    spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.Filter --master local[2] target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar hdfs:///nasa_19950801.tsv 2>/dev/null | grep "lines with response code"
     ```
 
     ***(Q5) For the previous command that prints the number of matching lines, list all the processed input splits.***
@@ -219,7 +249,7 @@ In the next part, we will extend the program to use more Spark functions. We wil
     Hint: Search for the patterm `HadoopRDD: Input split` in the output on the console. The input splits is printed as `path:start+length`. On Linux or MacOS, you may try the following command
 
     ```bash
-    spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.Filter --master local[2] target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar nasa_19950801.tsv | grep "lHadoopRDD: Input split"
+    spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.Filter --master local[2] target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar hdfs:///nasa_19950801.tsv | grep "lHadoopRDD: Input split"
     ```
 
 5. In addition to counting the lines, let us also write the matching lines to another file. Add the following part at the beginning of the `main` function.
@@ -236,7 +266,7 @@ In the next part, we will extend the program to use more Spark functions. We wil
     matchingLines.saveAsTextFile(outputFile);
     ```
 
-7. Run your program again with the following parameters `nasa_19950801.tsv filter_output 200`.
+7. Run your program again with the following parameters `hdfs:///nasa_19950801.tsv hdfs:///filter_output 200`.
 
     ***(Q6) For the previous command that counts the lines and prints the output, how many splits were generated?***
 
@@ -274,14 +304,15 @@ Note: The entry with the code `response` corresponds to the header file. We can 
 
 * Note 1: Don't forget to include your information in the README file.
 * Note 2: Don't forget to remove any unnecessary test or binary files.
+
 Submission file format:
 
 ```console
 <UCRNetID>_lab3.{tar.gz | zip}
-  - src/
-  - pom.xml
-  - README.md
-  - run.sh
+- src/
+- pom.xml
+- README.md
+- run.sh
 ```
 
 Requirements:
@@ -298,7 +329,8 @@ See how to create the archive file for submission at [here](../MakeArchive.md).
 
 Do not forget to stop Spark master and slave using the following commands.
 
-```shell
+```bash
 $SPARK_HOME/sbin/stop-master.sh
 $SPARK_HOME/sbin/stop-worker.sh
+# Also stop hdfs datanode and namenode
 ```
