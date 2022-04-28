@@ -12,7 +12,7 @@
 * Download [Apache Spark 3.2.1](https://spark.apache.org/downloads.html). Choose the package type **Pre-built with user-provided Apache Hadoop**.
   * Direct link: [spark-3.2.1-bin-without-hadoop.tgz](https://www.apache.org/dyn/closer.lua/spark/spark-3.2.1/spark-3.2.1-bin-without-hadoop.tgz)
 * Download these two sample files [sample file 1](../Lab3/nasa_19950801.tsv), [sample file 2](https://drive.google.com/open?id=1pDNwfsx5jrAqaSy8AKEZyfubCE358L2p). Decompress the second file after download. These are the same files we used in [Lab 3](../Lab3/CS167_Lab3.md).
-* For Windows users, install the Ubuntu app from Microsoft Store and set it up. Part of this lab cannot run natively on Windows.
+* For Windows users, install the [Ubuntu app](https://ubuntu.com/wsl) from Microsoft Store and set it up. Part of this lab cannot run natively on Windows.
 
 ## Lab Work
 
@@ -51,8 +51,8 @@ Note: We recommend that you use the standard Apache Spark 3.2.1 in this lab. Oth
 ](https://spark.apache.org/docs/latest/hadoop-provided.html)
     1. Go to `$SPARK_HOME/conf`, make a copy of **spark-env.sh.template** to **spark-env.sh**.
     2. Add `export SPARK_DIST_CLASSPATH=$(hadoop classpath)` to **spark-env.sh**.
-4. Make a copy of the file `$SPARK_HOME/conf/spark-defaults.conf.template` to `$SPARK_HOME/conf/spark-defaults.conf`.
-5. (On Windows) In `$SPARK_HOME/conf/spark-defaults.conf`, add the line `spark.driver.host  127.0.0.1`.
+4. Make a copy of the file **$SPARK_HOME/conf/spark-defaults.conf.template** to **$SPARK_HOME/conf/spark-defaults.conf**.
+5. (On Windows) In **$SPARK_HOME/conf/spark-defaults.conf**, add the line `spark.driver.host  127.0.0.1`.
 6. To test that Spark is running correctly, run the command [spark-submit](https://spark.apache.org/docs/latest/submitting-applications.html) from the command line to see Spark usage. Then use the following command to run one of the Spark examples.
 
     ```bash
@@ -210,7 +210,7 @@ We do not want to change the code every time we switch between local and cluster
 
 In the next part, we will extend the program to use more Spark functions. We will use the [filter](https://spark.apache.org/docs/latest/api/java/org/apache/spark/rdd/RDD.html#filter-scala.Function1-) transformation to find log entries with a specific response code.
 
-1. Make a copy of the current sample class and named it `Filter`. Place it in the same package as the App class.
+1. Make a copy of the current sample class and named it `Filter`. Place it in the same package as the `App` class.
 2. Add the following line to set the desired code to the value `200`.
 
     ```java
