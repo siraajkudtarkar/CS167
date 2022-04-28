@@ -107,13 +107,13 @@ $SPARK_HOME/sbin/start-slave.sh --host 127.0.0.1 spark://127.0.0.1:7077
 Notice: you can find the correct host and bind address from the web interface.
 4. Now, if you refresh the master web interface, you should be able to see one worker node.
 ![Spark master with one slave/worker node](images/spark-master-one-slave.png)
-5. Now, go back to your program and run the JAR file using the same `spark-submit` command that you had earlier. (Q1) Do you think it will use your local cluster? Why or why not?   
+5. Now, go back to your program and run the JAR file using the same `spark-submit` command that you had earlier. **(Q1) Do you think it will use your local cluster? Why or why not?**   
 Hint: To find out, check the [web interface](http://localhost:8080) and observe any new applications that get listed.
 6. To use the pseudo-cluster that we just started, change the following line in your code to look as follows.
 ```java
 JavaSparkContext spark = new JavaSparkContext("spark://127.0.0.1:7077", "CS167-Lab5");
 ```
-7. Now, compile and then run your program from command line as you did before. Make sure to run it from WSL (Windows users). (Q2) Does the application use the cluster that you started? How did you find out?
+7. Now, compile and then run your program from command line as you did before. Make sure to run it from WSL (Windows users). **(Q2) Does the application use the cluster that you started? How did you find out?**
 
 ### V. Make the Application Portable (15 minutes)
 We do not want to change the code every time we switch between local and cluster mode.
@@ -131,8 +131,8 @@ JavaSparkContext spark = new JavaSparkContext(conf);
 This code first creates a `SparkConf` instance using the default configuration. If Spark master is already configured, it will use the default configuraiton. If not, it will use the local mode.
 
 2. Edit your `$SPARK_HOME/conf/spark-defaults.conf` and add the line `spark.master spark://127.0.0.1:7077`. The configurations in this file are automatically loaded when you use spark-submit and instantiate a new instance of SparkConf using the default constructor.
-2. Run the code from IntelliJ IDEA. (Q3) What is the Spark master printed on the standard output on IntelliJ IDEA?
-3. Compile the code from command line and run using `spark-submit`. (Q4) What is the Spark master printed on the standard output on the terminal?
+2. Run the code from IntelliJ IDEA. **(Q3) What is the Spark master printed on the standard output on IntelliJ IDEA?**
+3. Compile the code from command line and run using `spark-submit`. **(Q4) What is the Spark master printed on the standard output on the terminal?**
 4. You can manually override the master on the `spark-submit` command. Try the following line and observe what the master is.
 
 ```shell
@@ -177,10 +177,10 @@ final String desiredCode = args[2];
 matchingLines.saveAsTextFile(outputFile);
 ```
 8. Run your program again with the following parameters `nasa_19950801.tsv filter_output 200`.
-9. (Q6) For the previous command that counts the lines and prints the output, how many splits were generated?
-(Q7) Compare this number to the one you got earlier.
-(Q8) Explain why we get these numbers.
-10. (Q9) What can you do to the current code to ensure that the file is read only once?  
+9. **(Q6) For the previous command that counts the lines and prints the output, how many splits were generated?**
+**(Q7) Compare this number to the one you got earlier.**
+**(Q8) Explain why we get these numbers.**
+10. **(Q9) What can you do to the current code to ensure that the file is read only once?**  
 Hint: Use the `cache` function in Spark.
 
 ### VII. Aggregation Operation (20 minutes)
