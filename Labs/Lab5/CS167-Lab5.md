@@ -8,10 +8,10 @@
 
 ## Prerequisites
 
-* Setup the development environment as explained in [Lab 1](../Lab1/lab1.md).
+* Setup the development environment as explained in [Lab 1](../Lab1/CS167-Lab1.md).
 * Download [Apache Spark 3.2.1](https://spark.apache.org/downloads.html). Choose the package type **Pre-built with user-provided Apache Hadoop**.
   * Direct link: [spark-3.2.1-bin-without-hadoop.tgz](https://www.apache.org/dyn/closer.lua/spark/spark-3.2.1/spark-3.2.1-bin-without-hadoop.tgz)
-* Download these two sample files [sample file 1](../Lab3/nasa_19950801.tsv), [sample file 2](https://drive.google.com/open?id=1pDNwfsx5jrAqaSy8AKEZyfubCE358L2p). Decompress the second file after download. These are the same files we used in [Lab 3](../Lab3/CS167_Lab3.md).
+* Download these two sample files [sample file 1](../Lab3/nasa_19950801.tsv), [sample file 2](https://drive.google.com/open?id=1pDNwfsx5jrAqaSy8AKEZyfubCE358L2p). Decompress the second file after download. These are the same files we used in [Lab 3](../Lab3/CS167-Lab3.md).
 * For Windows users, install the [Ubuntu app](https://ubuntu.com/wsl) from Microsoft Store and set it up. Part of this lab cannot run natively on Windows.
 
 ## Lab Work
@@ -21,7 +21,7 @@
 Note: We recommend that you use the standard Apache Spark 3.2.1 in this lab. Other versions might come with different default configuration that make it hard to debug the problems that you might face.
 
 1. Expand the downloaded Apache Spark to your home directory.
-2. Set the environment variable `SPARK_HOME` to the expanded Spark directory. Add `$SPARK_HOME/bin` to the `PATH` environment variable. See [Lab 1](../Lab1/lab1.md) for details on how to do it.
+2. Set the environment variable `SPARK_HOME` to the expanded Spark directory. Add `$SPARK_HOME/bin` to the `PATH` environment variable. See [Lab 1](../Lab1/CS167-Lab1.md) for details on how to do it.
 
     * Linux and MacOS
         In your profile file (*.bashrc*, *.bash_profile*, *.zshrc* or *.zprofile*):
@@ -299,7 +299,7 @@ Note: The entry with the code `response` corresponds to the header file. We can 
 
 ### VIII. Submission (15 minutes)
 
-1. Add a `README` file with all your answers. Use this [template](CS167-Lab5-README.md).
+1. Add a `README` file with all your answers. Use this [template](./CS167-Lab5-README.md).
 2. Add a `run` script that compiles and runs your filter operation on the input file `nasa_19950630.22-19950728.12.tsv` with response code 302. Then, it should run the aggregation method on the same input file. The output files should be named `filter_output` and `aggregation_output` accordingly. Assume that the input is in the current working directory so your `run` sccript should just use the input file name as a parameter and not an absolute path.
 
 * Note 1: Don't forget to include your information in the README file.
