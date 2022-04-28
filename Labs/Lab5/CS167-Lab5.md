@@ -11,7 +11,7 @@
 * Setup the development environment as explained in [Lab 1](../Lab1/CS167-Lab1.md).
 * Download [Apache Spark 3.2.1](https://spark.apache.org/downloads.html). Choose the package type **Pre-built with user-provided Apache Hadoop**.
   * Direct link: [spark-3.2.1-bin-without-hadoop.tgz](https://www.apache.org/dyn/closer.lua/spark/spark-3.2.1/spark-3.2.1-bin-without-hadoop.tgz)
-* Download these two sample files [sample file 1](../Lab4/nasa_19950801.tsv), [sample file 2](https://drive.google.com/open?id=1pDNwfsx5jrAqaSy8AKEZyfubCE358L2p). Decompress the second file after download. These are the same files we used in [Lab 4](../Lab3/CS167-Lab4.md).
+* Download these two sample files [sample file 1](../Lab4/nasa_19950801.tsv), [sample file 2](https://drive.google.com/open?id=1pDNwfsx5jrAqaSy8AKEZyfubCE358L2p). Decompress the second file after download. These are the same files we used in [Lab 4](../Lab4/CS167-Lab4.md).
 * For Windows users, install the [Ubuntu app](https://ubuntu.com/wsl) from Microsoft Store and set it up. Part of this lab cannot run natively on Windows.
 
 ## Lab Work
