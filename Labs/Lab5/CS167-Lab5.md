@@ -246,7 +246,7 @@ In the next part, we will extend the program to use more Spark functions. We wil
 
     ***(Q9) What can you do to the current code to ensure that the file is read only once?***
 
-    Hint: Use the `cache` function in Spark.
+    Hint: Use the [cache](https://spark.apache.org/docs/latest/api/java/org/apache/spark/api/java/JavaRDD.html#cache--) function in Spark.
 
 ### VII. Aggregation Operation (20 minutes)
 
