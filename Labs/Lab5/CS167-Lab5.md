@@ -6,6 +6,8 @@
 * Run a Spark program from the IDE.
 * Run a Spark program from command line in local and cluster modes.
 
+---
+
 ## Prerequisites
 
 * Setup the development environment as explained in [Lab 1](../Lab1/CS167-Lab1.md).
@@ -13,7 +15,10 @@
   * Direct link: [spark-3.2.1-bin-without-hadoop.tgz](https://www.apache.org/dyn/closer.lua/spark/spark-3.2.1/spark-3.2.1-bin-without-hadoop.tgz)
 * Download these two sample files [sample file 1](../Lab4/nasa_19950801.tsv), [sample file 2](https://drive.google.com/open?id=1pDNwfsx5jrAqaSy8AKEZyfubCE358L2p). Decompress the second file after download. These are the same files we used in [Lab 4](../Lab4/CS167-Lab4.md).
 * For Windows users, install the [Ubuntu app](https://ubuntu.com/wsl) from Microsoft Store and set it up to use Windows Subsystem for Linux. Part of this lab cannot run natively on Windows.
-   1. Install Java 11 for your new Linux subsystem using ```sudo apt install openjdk-11-jdk``` You can check if Java is installed correctly with ```java --version```
+   1. Refer to [Lab 1](../Lab1/CS167-Lab1.md) to download and install for Oracle JDK 8. Note, you must use **x64 Compressed Archive** rather than installing OpenJDK from `apt` command.
+   2. You may need to set all environment variables for JDK, Maven, Hadoop and Spark in WSL.
+
+---
 
 ## Lab Work
 
@@ -72,6 +77,8 @@ Note: We recommend that you use the standard Apache Spark 3.2.1 in this lab. Oth
     spark-submit run-example org.apache.spark.examples.SparkPi 2>/dev/null | grep "Pi is roughly"
     ```
 
+---
+
 ### II. Project Setup (20 minutes) - In home
 
 1. Create a new empty project using Maven for Lab 5. See [Lab 1](../Lab1/CS167-Lab1.md) for more details.
@@ -97,6 +104,8 @@ Note: We recommend that you use the standard Apache Spark 3.2.1 in this lab. Oth
     </dependencies>
     ```
 
+---
+
 ### III. Sample Spark Code (20 minutes)
 
 1. Edit the `App` class and add the following sample code.
@@ -106,16 +115,13 @@ Note: We recommend that you use the standard Apache Spark 3.2.1 in this lab. Oth
     import org.apache.spark.api.java.JavaSparkContext;
 
     public class App {
-      public static void main( String[] args ) {
-        final String inputfile = args[0];
-        JavaSparkContext spark = new JavaSparkContext("local[*]", "CS167-Lab5");
-        try {
-          JavaRDD<String> logFile = spark.textFile(inputfile);
-          System.out.printf("Number of lines in the log file %d\n", logFile.count());
-        } finally {
-          spark.close();
+        public static void main( String[] args ) {
+            final String inputPath = args[0];
+            try (JavaSparkContext spark = new JavaSparkContext("local[*]", "CS167-Lab5")) {
+                JavaRDD<String> logFile = spark.textFile(inputPath);
+                System.out.printf("Number of lines in the log file %d\n", logFile.count());
+            }
         }
-      }
     }
     ```
 
@@ -137,6 +143,8 @@ Note: We recommend that you use the standard Apache Spark 3.2.1 in this lab. Oth
     ```bash
     spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.App target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar hdfs:///nasa_19950801.tsv 2>/dev/null | grep "Number of lines in the log file"
     ```
+
+---
 
 ### IV. Run in Pseudo-distributed Mode (Manual Configuration) (30 minutes)
 
@@ -165,7 +173,13 @@ Similar to Hadoop, we will run Spark in pseudo-distributed mode to mimic the dis
 
     Hint: To find out, check the [web interface](http://localhost:8080) and observe any new applications that get listed.
 
-6. To use the pseudo-cluster that we just started, change the following line in your code to look as follows.
+6. To use the pseudo-cluster that we just started, change the following code from
+
+    ```java
+    JavaSparkContext spark = new JavaSparkContext("local[*]", "CS167-Lab5")
+    ```
+
+    to
 
     ```java
     JavaSparkContext spark = new JavaSparkContext("spark://127.0.0.1:7077", "CS167-Lab5");
@@ -175,6 +189,8 @@ Similar to Hadoop, we will run Spark in pseudo-distributed mode to mimic the dis
 
     ***(Q2) Does the application use the cluster that you started? How did you find out?***
 
+---
+
 ### V. Make the Application Portable (15 minutes)
 
 We do not want to change the code every time we switch between local and cluster mode.
@@ -182,23 +198,38 @@ We do not want to change the code every time we switch between local and cluster
 1. To automatically set an appropriate master, change your code to look as follows.
 
     ```java
-    SparkConf conf = new SparkConf();
-    if (!conf.contains("spark.master"))
-      conf.setMaster("local[*]");
-    System.out.printf("Using Spark master '%s'\n", conf.get("spark.master"));
-    conf.setAppName("lab5");
-    JavaSparkContext spark = new JavaSparkContext(conf);
+    import org.apache.spark.SparkConf;
+    import org.apache.spark.api.java.JavaRDD;
+    import org.apache.spark.api.java.JavaSparkContext;
+
+    public class App {
+        public static void main(String[] args) {
+            final String inputPath = args[0];
+            SparkConf conf = new SparkConf();
+            if (!conf.contains("spark.master"))
+                conf.setMaster("local[*]");
+            System.out.printf("Using Spark master '%s'\n", conf.get("spark.master"));
+            conf.setAppName("CS167-Lab5");
+            try (JavaSparkContext spark = new JavaSparkContext(conf)) {
+                JavaRDD<String> logFile = spark.textFile(inputPath);
+                System.out.printf("Number of lines in the log file %d\n", logFile.count());
+            }
+        }
+    }
     ```
 
-    This code first creates a `SparkConf` instance using the default configuration. If Spark master is already configured, it will use the default configuraiton. If not, it will use the local mode.
+    This code first creates a [SparkConf](https://spark.apache.org/docs/latest/api/java/org/apache/spark/SparkConf.html) instance using the default configuration. If Spark master is already configured, it will use the default configuraiton. If not, it will use the local mode.
 
 2. Edit your `$SPARK_HOME/conf/spark-defaults.conf` and add the line `spark.master spark://127.0.0.1:7077`. The configurations in this file are automatically loaded when you use spark-submit and instantiate a new instance of SparkConf using the default constructor.
+
 3. Run the code from IntelliJ IDEA.
 
     ***(Q3) What is the Spark master printed on the standard output on IntelliJ IDEA?***
+
 4. Compile the code from command line and run using `spark-submit`.
 
     ***(Q4) What is the Spark master printed on the standard output on the terminal?***
+
 5. You can manually override the master on the `spark-submit` command. Try the following line and observe what the master is.
 
     ```bash
@@ -206,6 +237,8 @@ We do not want to change the code every time we switch between local and cluster
     ```
 
     Note: `local[2]` means that it runs on the local mode with two cores.
+
+---
 
 ### VI. Filter Operation (30 minutes)
 
@@ -222,7 +255,7 @@ In the next part, we will extend the program to use more Spark functions. We wil
 
     ```java
     JavaRDD<String> matchingLines = logFile.filter(line -> line.split("\t")[5].equals(desiredCode));
-    System.out.printf("The file '%s' contains %d lines with response code %s\n", inputfile, matchingLines.count(), desiredCode);
+    System.out.printf("The file '%s' contains %d lines with response code %s\n", inputPath, matchingLines.count(), desiredCode);
     ```
 
     Note: the following expression in Java
@@ -256,15 +289,15 @@ In the next part, we will extend the program to use more Spark functions. We wil
 5. In addition to counting the lines, let us also write the matching lines to another file. Add the following part at the beginning of the `main` function.
 
     ```java
-    final String inputfile = args[0];
-    final String outputFile = args[1];
+    final String inputPath = args[0];
+    final String outputPath = args[1];
     final String desiredCode = args[2];
     ```
 
 6. After the `printf` command the prints the number of matching lines, add the following line:
 
     ```java
-    matchingLines.saveAsTextFile(outputFile);
+    matchingLines.saveAsTextFile(outputPath);
     ```
 
 7. Run your program again with the following parameters `hdfs:///nasa_19950801.tsv hdfs:///filter_output 200`.
@@ -278,6 +311,8 @@ In the next part, we will extend the program to use more Spark functions. We wil
     ***(Q9) What can you do to the current code to ensure that the file is read only once?***
 
     Hint: Use the [cache](https://spark.apache.org/docs/latest/api/java/org/apache/spark/api/java/JavaRDD.html#cache--) function in Spark.
+
+---
 
 ### VII. Aggregation Operation (20 minutes)
 
@@ -297,6 +332,8 @@ In this part, we will run an aggregation function to count number of records for
     ```
 
 Note: The entry with the code `response` corresponds to the header file. We can easily filter this value at the end but we will leave it like this for simplicity.
+
+---
 
 ### VIII. Submission (15 minutes)
 
@@ -325,6 +362,8 @@ Requirements:
 * Do not include any other files/folders, otherwise points will be deducted.
 
 See how to create the archive file for submission at [here](../MakeArchive.md).
+
+---
 
 ### IX. Cleanup
 
