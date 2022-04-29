@@ -17,6 +17,7 @@
 * For Windows users, install the [Ubuntu app](https://ubuntu.com/wsl) from Microsoft Store and set it up to use Windows Subsystem for Linux. Part of this lab cannot run natively on Windows.
    1. Refer to [Lab 1](../Lab1/CS167-Lab1.md) to download and install for Oracle JDK 8. Note, you must use **x64 Compressed Archive** rather than installing OpenJDK from `apt` command.
    2. You may need to set all environment variables for JDK, Maven, Hadoop and Spark in WSL.
+        * Check this [stack overflow answewr](https://stackoverflow.com/a/63075133) for how to set Windows environment variables in WSL.
 
 ---
 
@@ -74,7 +75,7 @@ Note: We recommend that you use the standard Apache Spark 3.2.1 in this lab. Oth
     Hint: You may use the following command to only print the needed line (Linux and MacOS only).
 
     ```bash
-    spark-submit run-example org.apache.spark.examples.SparkPi 2>/dev/null | grep "Pi is roughly"
+    spark-submit run-example org.apache.spark.examples.SparkPi 2>/dev/null
     ```
 
 ---
@@ -141,7 +142,7 @@ Note: We recommend that you use the standard Apache Spark 3.2.1 in this lab. Oth
     Hint: You may use the following command to only print the needed line (Linux and MacOS only).
 
     ```bash
-    spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.App target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar hdfs:///nasa_19950801.tsv 2>/dev/null | grep "Number of lines in the log file"
+    spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.App target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar hdfs:///nasa_19950801.tsv 2>/dev/null
     ```
 
 ---
@@ -228,6 +229,10 @@ We do not want to change the code every time we switch between local and cluster
 
 4. Compile the code from command line and run using `spark-submit`.
 
+    ```bash
+    spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.App target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar hdfs:///nasa_19950801.tsv
+    ```
+
     ***(Q4) What is the Spark master printed on the standard output on the terminal?***
 
 5. You can manually override the master on the `spark-submit` command. Try the following line and observe what the master is.
@@ -275,7 +280,7 @@ In the next part, we will extend the program to use more Spark functions. We wil
     Hint: You may use the following command to only print the needed line (Linux and MacOS only).
 
     ```bash
-    spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.Filter --master local[2] target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar hdfs:///nasa_19950801.tsv 2>/dev/null | grep "lines with response code"
+    spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.Filter target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar hdfs:///nasa_19950801.tsv 2>/dev/null
     ```
 
     ***(Q5) For the previous command that prints the number of matching lines, list all the processed input splits.***
@@ -283,7 +288,7 @@ In the next part, we will extend the program to use more Spark functions. We wil
     Hint: Search for the patterm `HadoopRDD: Input split` in the output on the console. The input splits is printed as `path:start+length`. On Linux or MacOS, you may try the following command
 
     ```bash
-    spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.Filter --master local[2] target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar hdfs:///nasa_19950801.tsv | grep "lHadoopRDD: Input split"
+    spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.Filter target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar hdfs:///nasa_19950801.tsv 2>&1 | grep "HadoopRDD: Input split"
     ```
 
 5. In addition to counting the lines, let us also write the matching lines to another file. Add the following part at the beginning of the `main` function.
@@ -302,6 +307,16 @@ In the next part, we will extend the program to use more Spark functions. We wil
 
 7. Run your program again with the following parameters `hdfs:///nasa_19950801.tsv hdfs:///filter_output 200`.
 
+    ```bash
+    spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.Filter target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar hdfs:///nasa_19950801.tsv hdfs:///filter_output 200
+    ```
+
+    You can use the following command to count the total number of lines in the output files.
+
+    ```bash
+    hadoop fs -cat /filter_output/part-"*" | wc -l
+    ```
+
     ***(Q6) For the previous command that counts the lines and prints the output, how many splits were generated?***
 
     ***(Q7) Compare this number to the one you got earlier.***
@@ -318,9 +333,39 @@ In the next part, we will extend the program to use more Spark functions. We wil
 
 In this part, we will run an aggregation function to count number of records for each response code.
 
-1. Make a copy of the class `App` into a new class named `Aggregation`.
-2. Create a [JavaPairRDD<String, Integer>](https://spark.apache.org/docs/latest/api/java/index.html?org/apache/spark/api/java/JavaPairRDD.html) that contains key-value pairs. The key is the response code (as a string) and the value is 1. You will use the [mapToPair](https://spark.apache.org/docs/latest/api/java/org/apache/spark/api/java/JavaRDDLike.html#mapToPair-org.apache.spark.api.java.function.PairFunction-) transformation and the [Tuple2](https://www.scala-lang.org/api/current/scala/Tuple2.html) class.
-3. To count the number of records per response code, use the action [countByKey](https://spark.apache.org/docs/latest/api/java/org/apache/spark/api/java/JavaPairRDD.html#countByKey--).
+1. Use the template code below to create a new class `Aggregation`.
+
+    ```java
+    import org.apache.spark.SparkConf;
+    import org.apache.spark.api.java.JavaPairRDD;
+    import org.apache.spark.api.java.JavaRDD;
+    import org.apache.spark.api.java.JavaSparkContext;
+    import scala.Tuple2;
+
+    import java.util.Map;
+
+    public class Aggregation {
+        public static void main(String[] args) {
+            final String inputPath = args[0];
+            SparkConf conf = new SparkConf();
+            if (!conf.contains("spark.master"))
+                conf.setMaster("local[*]");
+            System.out.printf("Using Spark master '%s'\n", conf.get("spark.master"));
+            conf.setAppName("CS167-Lab5");
+            try (JavaSparkContext spark = new JavaSparkContext(conf)) {
+                JavaRDD<String> logFile = spark.textFile(inputPath);
+                JavaPairRDD<String, Integer> codes = // To do 1: transform via `mapToPair`, return `Tuple2`
+                Map<String, Long> counts = // To do 2: `countByKey`
+                for (Map.Entry<String, Long> entry : counts.entrySet()) {
+                    System.out.printf("Code '%s' : number of entries %d\n", entry.getKey(), entry.getValue());
+                }
+            }
+        }
+    }
+    ```
+
+2. Create a [JavaPairRDD<String, Integer>](https://spark.apache.org/docs/latest/api/java/index.html?org/apache/spark/api/java/JavaPairRDD.html) that contains key-value pairs. The key is the response code (as a string) and the value is 1. You will use the [mapToPair](https://spark.apache.org/docs/latest/api/java/org/apache/spark/api/java/JavaRDDLike.html#mapToPair-org.apache.spark.api.java.function.PairFunction-) transformation and the [Tuple2](https://www.scala-lang.org/api/current/scala/Tuple2.html) class (Complete `// To do 1`).
+3. To count the number of records per response code, use the action [countByKey](https://spark.apache.org/docs/latest/api/java/org/apache/spark/api/java/JavaPairRDD.html#countByKey--) (Complete `// To do 2`).
 4. Write the aggregate values to the standard output. The output should look similar to the following.
 
     ```text
@@ -331,7 +376,19 @@ In this part, we will run an aggregation function to count number of records for
     Code '200' : number of entries 27972
     ```
 
-Note: The entry with the code `response` corresponds to the header file. We can easily filter this value at the end but we will leave it like this for simplicity.
+    Note: The entry with the code `response` corresponds to the header file. We can easily filter this value at the end but we will leave it like this for simplicity.
+
+    Command:
+
+    ```bash
+    spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.Aggregation target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar hdfs:///nasa_19950801.tsv
+    ```
+
+    To print the desired output only:
+
+    ```bash
+    spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.Aggregation target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar hdfs:///nasa_19950801.tsv 2>/dev/null
+    ```
 
 ---
 
