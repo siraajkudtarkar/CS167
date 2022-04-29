@@ -116,7 +116,7 @@ Note: We recommend that you use the standard Apache Spark 3.2.1 in this lab. Oth
     import org.apache.spark.api.java.JavaSparkContext;
 
     public class App {
-        public static void main( String[] args ) {
+        public static void main(String[] args) {
             final String inputPath = args[0];
             try (JavaSparkContext spark = new JavaSparkContext("local[*]", "CS167-Lab5")) {
                 JavaRDD<String> logFile = spark.textFile(inputPath);
@@ -427,7 +427,7 @@ See how to create the archive file for submission at [here](../MakeArchive.md).
 Do not forget to stop Spark master and slave using the following commands.
 
 ```bash
-$SPARK_HOME/sbin/stop-master.sh
 $SPARK_HOME/sbin/stop-worker.sh
+$SPARK_HOME/sbin/stop-master.sh
 # Also stop hdfs datanode and namenode
 ```
