@@ -73,7 +73,7 @@ Assume you want to install JDK 8 to `~\jdk1.8.0_331` in WSL.
 
     Be careful about the letter case and slashes (`/` in Linux vs `\` in Windows). The driver letter shall be lower case after **/mnt**. Also, Linux filesystem is case sensitive, so the path in WSL must be exactly the same as the path in Windows.
 
-    Also, since we don't use Maven in WSL, we don't set `MAVEN_HOME` here. If you want to use Maven as well, just add one line for `MAVEN_HOME` and add its `bin` folder to `PATH`.
+    Since we don't use Maven in WSL, we don't set `MAVEN_HOME` here. If you want to use Maven as well, just add one line for `MAVEN_HOME` and add its `bin` folder to `PATH`.
 
     At this moment, you have two JDK 8 installed. One Windows JDK for Windows use only, one Linux JDK for WSL use only. Hadoop, Spark (and Maven) can be shared by both Windows and WSL.
 
@@ -128,11 +128,11 @@ Assume you want to install JDK 8 to `~\jdk1.8.0_331` in WSL.
 
     $ spark-submit --version
     Welcome to
-        ____              __
-        / __/__  ___ _____/ /__
-        _\ \/ _ \/ _ `/ __/  '_/
+       ____              __
+      / __/__  ___ _____/ /__
+     _\ \/ _ \/ _ `/ __/  '_/
     /___/ .__/\_,_/_/ /_/\_\   version 3.2.1
-        /_/
+       /_/
                             
     Using Scala version 2.12.15, Java HotSpot(TM) 64-Bit Server VM, 1.8.0_331
     Branch HEAD
