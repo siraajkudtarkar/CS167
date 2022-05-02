@@ -31,15 +31,23 @@ Assume you want to install JDK 8 to `~\jdk1.8.0_331` in WSL.
     cd ~
     ```
 
-3. Open Windows Explorer for your WSL home directory.
+3. Get the absolute path of your home directory, run
+
+    ```bash
+    pwd
+    ```
+
+    It will print something like `/home/yourname`. Copy this path as we will use it later.
+
+4. Open Windows Explorer for your WSL home directory.
 
     ```bash
     explorer.exe .
     ```
 
-4. Copy your downloaded JDK 8's tar.gz file, **jdk-8u331-linux-x64.tar.gz** for example, to the opened Windows Explorer window.
+5. Copy your downloaded JDK 8's tar.gz file, **jdk-8u331-linux-x64.tar.gz** for example, to the opened Windows Explorer window.
 
-5. In WSL Terminal, run
+6. In WSL Terminal, run
 
     ```bash
     tar -xf jdk-8u331-linux-x64.tar.gz
@@ -63,8 +71,10 @@ Assume you want to install JDK 8 to `~\jdk1.8.0_331` in WSL.
 
 3. Add the following lines into **.bashrc**:
 
+    Replace `yourname` with your actual home directory path.
+
     ```text
-    export JAVA_HOME="~/jdk1.8.0_331"
+    export JAVA_HOME="/home/yourname/jdk1.8.0_331"
     export HADOOP_HOME="/mnt/c/cs167/hadoop-3.2.2"
     export SPARK_HOME="/mnt/c/cs167/spark-3.2.1-bin-without-hadoop"
 
