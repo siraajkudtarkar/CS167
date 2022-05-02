@@ -17,6 +17,7 @@
 * For Windows users, install the [Ubuntu app](https://ubuntu.com/wsl) from Microsoft Store and set it up to use Windows Subsystem for Linux. Part of this lab cannot run natively on Windows.
    1. Refer to [Lab 1](../Lab1/CS167-Lab1.md) to download and install for Oracle JDK 8. Note, you must use **x64 Compressed Archive** rather than installing OpenJDK from `apt` command.
    2. You may need to set all environment variables for JDK, Maven, Hadoop and Spark in WSL.
+        * You may try [this link](./WSL.md)
         * Check this [stack overflow answewr](https://stackoverflow.com/a/63075133) for how to set Windows environment variables in WSL.
 
 ---
