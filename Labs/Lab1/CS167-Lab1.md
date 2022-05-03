@@ -185,7 +185,7 @@ Follow the instructions below to complete this lab. If you have any questions, p
         ```
 
   6. Reload the current environment
-      - Run command `source ~/.bash_rc` (Change the file name accodingly).
+      - Run command `source ~/.bashrc` (Change the file name accodingly).
       - Or, quit the terminal app and restart it.
   7. Verify the environment variables again
 
@@ -617,6 +617,20 @@ You can also refer to our template at [HERE](CS167-Lab1-README.md) (Click on the
 ---
 
 ## Frequent Problems
+
+**Problems**
+
+Environment variables do not preserve. All `*_HOME` variables become empty when the terminal restarts.
+
+**Resolution**
+
+- If you see `(base)` in the begining of every line in the terminal, it's likely you have **Conda** (Anaconda, miniforge, etc) installed. Run the following command to disable its auto-start.
+
+  ```bash
+  conda config --set auto_activate_base false
+  ```
+
+- It is possible some profile file of higher priority overrides the file you edited. For example, `.bash_profile` may override `.bashrc`, and `.zprofile` may override `.zshrc`. Try to move your settings to a file with higher priority.
 
 **Problem**
 

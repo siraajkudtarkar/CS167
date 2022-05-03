@@ -10,8 +10,11 @@
   * You don't need text editor if you know how to use Linux text edit commands like `vi` or `nano`.
 * Download Oracle JDK 8 for Linux.
   1. Go to [https://www.oracle.com/java/technologies/downloads/#java8-linux](https://www.oracle.com/java/technologies/downloads/#java8-linux)
-  2. Download **x64 Compressed Archive**. The current latest version is **jdk-8u331-linux-x64.tar.gz**.
-      * Download **ARM 64 Compressed Archive** if your Windows is running on ARM CPU, like Surface.
+  2. Download **XXX Compressed Archive**. The current latest version is **8u333**.
+  * If your system is 64bit Intel/AMD CPU (x64, x86_64 or AMD64), download **x64 Compressed Archive &rarr; jdk-8u333-linux-x64.tar.gz**.
+  * If your system is 32bit Intel/AMD CPU (x86), download **x86 Compressed Archive &rarr; jdk-8u333-linux-i586.tar.gz**.
+  * If your system is 64bit ARM CPU (ARM64), download **ARM 64 Compressed Archive &rarr; jdk-8u333-linux-aarch64.tar.gz**.
+    * ARM64 CPU may be more commonly seen in tablets, like Surface series.
 * Download and install Spark, refer to [lab 5](./CS167-Lab5.md) for detailed instructions.
 * Assume you have installed Hadoop and Spark in the following locations:
   * Hadoop: `C:\cs167\hadoop-3.2.2`
@@ -22,7 +25,7 @@
 
 ## Install Oracle JDK 8 for WSL
 
-Assume you want to install JDK 8 to `~\jdk1.8.0_331` in WSL.
+Assume you want to install JDK 8 to `~\jdk1.8.0_333` in WSL.
 
 1. Open WSL terminal.
 2. Go to your home directory.
@@ -45,15 +48,15 @@ Assume you want to install JDK 8 to `~\jdk1.8.0_331` in WSL.
     explorer.exe .
     ```
 
-5. Copy your downloaded JDK 8's tar.gz file, **jdk-8u331-linux-x64.tar.gz** for example, to the opened Windows Explorer window.
+5. Copy your downloaded JDK 8's tar.gz file, **jdk-8u333-linux-x64.tar.gz** for example, to the opened Windows Explorer window.
 
 6. In WSL Terminal, run
 
     ```bash
-    tar -xf jdk-8u331-linux-x64.tar.gz
+    tar -xf jdk-8u333-linux-x64.tar.gz
     ```
 
-    Once it's done, you shall see a directory **jdk1.8.0_331** created under your WSL home directory. You can either check it via Windows Explorer, or via `ls` command.
+    Once it's done, you shall see a directory **jdk1.8.0_333** created under your WSL home directory. You can either check it via Windows Explorer, or via `ls` command.
 
 ---
 
@@ -74,7 +77,7 @@ Assume you want to install JDK 8 to `~\jdk1.8.0_331` in WSL.
     Replace `yourname` with your actual home directory path.
 
     ```text
-    export JAVA_HOME="/home/yourname/jdk1.8.0_331"
+    export JAVA_HOME="/home/yourname/jdk1.8.0_333"
     export HADOOP_HOME="/mnt/c/cs167/hadoop-3.2.2"
     export SPARK_HOME="/mnt/c/cs167/spark-3.2.1-bin-without-hadoop"
 
@@ -126,7 +129,7 @@ Assume you want to install JDK 8 to `~\jdk1.8.0_331` in WSL.
 
     ```console
     $ javac -version
-    javac 1.8.0_331
+    javac 1.8.0_333
 
     $ hadoop version
     Hadoop 3.2.3
@@ -144,7 +147,7 @@ Assume you want to install JDK 8 to `~\jdk1.8.0_331` in WSL.
     /___/ .__/\_,_/_/ /_/\_\   version 3.2.1
        /_/
                             
-    Using Scala version 2.12.15, Java HotSpot(TM) 64-Bit Server VM, 1.8.0_331
+    Using Scala version 2.12.15, Java HotSpot(TM) 64-Bit Server VM, 1.8.0_333
     Branch HEAD
     Compiled by user hgao on 2022-01-20T18:44:36Z
     Revision 4f25b3f71238a00508a356591553f2dfa89f8290
