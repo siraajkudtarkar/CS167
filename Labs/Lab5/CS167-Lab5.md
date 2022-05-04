@@ -52,13 +52,20 @@ Note: We recommend that you use the standard Apache Spark 3.2.1 in this lab. Oth
             ```
 
     * Windows
-        1. Add a new variable under **User variables for xxx**: Variable name: `SPARK_HOME`, Variable value: `C:\cs167\spark-3.2.1-bin-without-hadoop`
+        1. Add a new variable under **User variables for xxx**:
+            * Variable name: `SPARK_HOME`
+            * Variable value: `C:\cs167\spark-3.2.1-bin-without-hadoop`
         2. Add `%SPARK_HOME%\bin` to `Path` variable
 
 3. Configure Spark to use your previsouly installed Hadoop. Reference: [Using Spark's "Hadoop Free" Build
 ](https://spark.apache.org/docs/latest/hadoop-provided.html)
     1. Go to `$SPARK_HOME/conf`, make a copy of **spark-env.sh.template** to **spark-env.sh**.
-    2. Add `export SPARK_DIST_CLASSPATH=$(hadoop classpath)` to **spark-env.sh**.
+    2. Add `export SPARK_DIST_CLASSPATH=$(hadoop classpath)` to the end of **spark-env.sh**.
+    3. **Windows only**
+        1. In terminal, run `hadoop classpath`, copy its result string.
+        2. Add an environment variable:
+            * Variable name: `SPARK_DIST_CLASSPATH`
+            * Variable value: the string you copied from the `hadoop classpath` command.
 4. Make a copy of the file **$SPARK_HOME/conf/spark-defaults.conf.template** to **$SPARK_HOME/conf/spark-defaults.conf**.
 5. (On Windows) In **$SPARK_HOME/conf/spark-defaults.conf**, add the line `spark.driver.host  127.0.0.1`.
 6. To test that Spark is running correctly, run the command [spark-submit](https://spark.apache.org/docs/latest/submitting-applications.html) from the command line to see Spark usage. Then use the following command to run one of the Spark examples.
