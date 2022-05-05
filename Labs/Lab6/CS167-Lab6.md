@@ -350,8 +350,8 @@ A few commands in the next sections may require more than 2 arguments.
 
 6. For `avg-bytes-by-code` you need to compute the average, rather than the summation. A simple reduce function cannot be used to compute the average since the average function is not associative. However, it can be computed using a combination of sum and count.
 7. The easiest way to compute the average is to combine the output of the two commands `count-by-code` and `sum-bytes-by-code`. The average is simply the sum divided by count.
-    * Complete `TODO 7b`, it it the same as `TODO 6b`
-    * Complete `TODO 7c`, it it the same as `TODO 5b`
+    * Complete `TODO 7b`, it is the same as `TODO 6b`
+    * Complete `TODO 7c`, it is the same as `TODO 5b`
 8. Bonus (+3 points): The drawback of the above method is that it will need to scan the input twice to count each function, sum and count. It is possible to compute both functions in one scan over the input and without caching any intermediate RDDs. Complete this part to get three bonus points on this lab. Explain your method in the README file and add the code snippet that performs this task. Mark your answer with (B). Hint, check the [aggregateByKey](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/PairRDDFunctions.html#aggregateByKey[U](zeroValue:U)(seqOp:(U,V)=>U,combOp:(U,U)=>U)(implicitevidence$3:scala.reflect.ClassTag[U]):org.apache.spark.rdd.RDD[(K,U)]) function.
     * *Optional*: Complete `TODO 7f`
 9. A sample output is given below.
@@ -384,19 +384,23 @@ A few commands in the next sections may require more than 2 arguments.
 ### VIII. `top-host` (10 minutes)
 
 1. In this part we want to count the number of entries per host and output the one with the highest number of entries.
+    * Complete `TODO 8a`
 2. While we could use the function `countByKey` it could be inefficient since it returns all the values to the driver node. Unlike the response codes, there could be too many distinct values of `host` and we do not want to return all of them.
 3. Instead of `countByKey` we will use the method `reduceByKey` which runs as a transformation and keeps the result in an RDD.
+    * Complete `TODO 8b`
 4. After that, we will use the transformation [`sortBy`](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/RDD.html#sortBy[K](f:T=%3EK,ascending:Boolean,numPartitions:Int)(implicitord:Ordering[K],implicitctag:scala.reflect.ClassTag[K]):org.apache.spark.rdd.RDD[T]) to sort the results in *descending* order.
+    * Complete `TODO 8c`
 5. Finally, we will use the action [`first`](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/RDD.html#first():T) to return only the first value.
+    * Complete `TODO 8d`
 6. Sample output
 
     ```text
     Top host in the file 'nasa_19950801.tsv' by number of entries
     Host: edams.ksc.nasa.gov
     Number of entries: 364
+    ```
 
-
-
+    ```text
     Top host in the file 19950630.23-19950801.00.tsv by number of entries
     Host: piweba3y.prodigy.com
     Number of entries: 17572
