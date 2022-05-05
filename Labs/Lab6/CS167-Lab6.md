@@ -25,7 +25,7 @@ The lab has two parts. The first part implements some operations using the Scala
 
 ## Part A. Spark RDD
 
-### I. Project Setup (10 minutes)
+### I. Project Setup (10 minutes) (In home)
 We will follow a slightly modified version of the instructions on the [official Scala website](https://docs.scala-lang.org/tutorials/scala-with-maven.html). Mainly, we will avoid the interactive steps and combine all our choices in one command line.
 1. To generate a new Maven project that works with Scala, use the following command:
 ```console
@@ -70,7 +70,7 @@ Note: Do not forget to replace `<UCRNetID>` with your UCR Net ID.
 
 Note: Do not forget to replace `[UCRNetID]` with your net ID.
 
-### II. Initialize with Spark RDD (5 minutes)
+### II. Initialize with Spark RDD (5 minutes) (In home)
 In this part, you will initialize your project with Spark.
 1. In `App` class, add the following stub code. (Do not remove the package line in your code)
 ```scala
@@ -122,7 +122,7 @@ Note: Unlike the switch statement in C and Java, the [match statement](https://d
 
 2. Take a few minutes to check the stub code and understand what it does. It has two required command-line arguments. (Q1) What are these two arguments?
 
-### III. Read and parse the input file (10 minutes)
+### III. Read and parse the input file (10 minutes) (In home)
 1. Since most of the commands will need to split the input line and skip the first line, let us do this first.
 2. Use a filter transformation to skip the first line. For simplicity, we will detect the first line as the line that starts with `"host\tlogname"`
 3. Use a map transformation to split each line using the tab character `"\t"` as a separator.
@@ -287,7 +287,7 @@ Number of entries: 17572
 
 In this part, we will repeat the same work done above using SparkSQL to see the difference. If you are not familiar with SQL, check this [SQL Tutorial](https://www.w3schools.com/sql/).
 
-### I. Project Setup (1 minute)
+### I. Project Setup (1 minute) (In home)
 
 1. In the `pom.xml` file, add the following dependency.
 ```xml
@@ -298,7 +298,7 @@ In this part, we will repeat the same work done above using SparkSQL to see the 
 </dependency>
 ```
 
-### II. Initialize a SparkSession (5 minutes)
+### II. Initialize a SparkSession (5 minutes) (In home)
 Create a new Scala class of type Object named `AppSQL`. Add the following stub code to it.
 
 ```scala
@@ -336,7 +336,7 @@ object AppSQL {
 
 * Note: A Scala object is a Singleton class with one object instantiated automatically. All methods inside the object are treated as static methods.
 
-### III. Read and parse the input file (5 minutes)
+### III. Read and parse the input file (10 minutes) (In home)
 Spark SQL is equipped with a CSV parser that can read semi-structured CSV files.
 1. Use the following code to open the sample file and print the first few lines.
 ```scala
