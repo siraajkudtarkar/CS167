@@ -184,7 +184,7 @@ In this part, you will initialize your project with Spark.
 
 ---
 
-### III. Read and parse the input file (10 minutes) (In home)
+### III. Read and parse the input file (Part A) (10 minutes) (In home)
 
 Since most of the commands will need to split the input line and skip the first line, let us do this first.
 
@@ -401,7 +401,7 @@ A few commands in the next sections may require more than 2 arguments.
     ```
 
     ```text
-    Top host in the file 19950630.23-19950801.00.tsv by number of entries
+    Top host in the file '19950630.23-19950801.00.tsv' by number of entries
     Host: piweba3y.prodigy.com
     Number of entries: 17572
     ```
@@ -426,7 +426,7 @@ In this part, we will repeat the same work done above using SparkSQL to see the 
 
 ### II. Initialize a SparkSession (5 minutes) (In home)
 
-Create a new Scala class of type Object named `AppSQL`. Add the following stub code to it.
+Create a new Scala class of type **Object** named `AppSQL`. Add the following stub code to it.
 
 ```scala
 import org.apache.spark.sql.SparkSession
@@ -457,13 +457,17 @@ object AppSQL {
 
 * Note: To create a new Scala object, check the following instructions.
 
-![Create scala class](images/new-scala-class.png)
+    1. Right click your package name in the project browser. Select `New`, then select `Scala Class`.
 
-![Create scala object](images/new-scala-object.png)
+        <p align="center"><img src="images/new-scala-class.png" style="width:831px;"/></p>
+
+    2. In the popped up `Create New Scala Class` dialog, type `AppSQL`, then select `Object`.
+
+        <p align="center"><img src="images/new-scala-object.png" style="width:376px;"/></p>
 
 * Note: A Scala object is a Singleton class with one object instantiated automatically. All methods inside the object are treated as static methods.
 
-### III. Read and parse the input file (10 minutes) (In home)
+### III. Read and parse the input file (Part B) (10 minutes) (In home)
 
 Spark SQL is equipped with a CSV parser that can read semi-structured CSV files.
 
@@ -589,7 +593,7 @@ In this part, we will run some relational operators through the Dataframe/SparkS
 
     ```SQL
     SELECT count(*)
-    FROM log_lines
+    FROM log_lines;
     ```
 
     The following code snippet shows how to run this SQL query in your code.
@@ -625,13 +629,16 @@ In this part, we will run some relational operators through the Dataframe/SparkS
     ```SQL
     SELECT count(*)
     FROM log_lines
-    WHERE response=200
+    WHERE response=200;
     ```
 
 4. The command `time-filter` should count all the records that happened in a time interval `[from, to]`. The two parameters are provided as the third and forth command line arguments. You will use the `filter` function but this time with the `between` expression. Again, you can just provide the filter predicate as a string, i.e., `"time BETWEEN 807274014 AND 807283738"`, or as a Scala expression, i.e., `$"time".between(807274014, 807283738)`. This will be followed by `count` to count the records. A sample output is given below.
 
     ```text
     Total count for file 'nasa_19950801.tsv' in time range [807274014, 807283738] is 6389
+    ```
+
+    ```text
     Total count for file '19950630.23-19950801.00.tsv' in time range [804955673, 805590159] is 554919
     ```
 
@@ -640,7 +647,7 @@ In this part, we will run some relational operators through the Dataframe/SparkS
     ```SQL
     SELECT count(*)
     FROM log_lines
-    WHERE time BETWEEN [from] AND [to]
+    WHERE time BETWEEN [from] AND [to];
     ```
 
     You should replace `[from]` and `[to]` with the correct parameters passed through command line. You can use the [string interpolation](https://docs.scala-lang.org/overviews/scala-book/two-notes-about-strings.html) feature in Scala to keep your code readable.
@@ -657,9 +664,9 @@ In this part, we will run some relational operators through the Dataframe/SparkS
     |     304| 2421|
     |     302|  355|
     +--------+-----+
+    ```
 
-
-
+    ```text
     Number of lines per code for the file '19950630.23-19950801.00.tsv'
     +--------+-------+
     |response|  count|
@@ -672,9 +679,9 @@ In this part, we will run some relational operators through the Dataframe/SparkS
     |     304| 132627|
     |     302|  46573|
     +--------+-------+
+    ```
 
-
-
+    ```text
     Total bytes per code for the file nasa_19950801.tsv
     +--------+----------+
     |response|sum(bytes)|
@@ -684,8 +691,9 @@ In this part, we will run some relational operators through the Dataframe/SparkS
     |     304|         0|
     |     302|     26005|
     +--------+----------+
+    ```
 
-
+    ```text
     Total bytes per code for the file 19950630.23-19950801.00.tsv
     +--------+-----------+
     |response| sum(bytes)|
@@ -698,7 +706,9 @@ In this part, we will run some relational operators through the Dataframe/SparkS
     |     304|          0|
     |     302|    3682049|
     +--------+-----------+
+    ```
 
+    ```text
     Average bytes per code for the file nasa_19950801.tsv
     +--------+------------------+
     |response|        avg(bytes)|
@@ -708,9 +718,9 @@ In this part, we will run some relational operators through the Dataframe/SparkS
     |     304|               0.0|
     |     302| 73.25352112676056|
     +--------+------------------+
+    ```
 
-
-
+    ```text
     Average bytes per code for the file 19950630.23-19950801.00.tsv
     +--------+------------------+
     |response|        avg(bytes)|
@@ -730,7 +740,7 @@ In this part, we will run some relational operators through the Dataframe/SparkS
     ```SQL
     SELECT response, SUM(bytes)
     FROM log_lines
-    GROUP BY response
+    GROUP BY response;
     ```
 
 6. The command `top-host` should group records by host, `groupBy("host")`, then count records in each group `count()`. After that, you should sort the results in descending order by count, `orderBy($"count".desc)`. Finally, return the top result using the method `first()`. The final result will be of type `Row`. To access the host and number of records for the top result, you can use one of the methods `Row#getAs(String)` and `Row#getAs(Int)` which retrieve an attribute by its name and index, respectively. The final output should look similar to the following.
@@ -739,9 +749,9 @@ In this part, we will run some relational operators through the Dataframe/SparkS
     Top host in the file 'nasa_19950801.tsv' by number of entries
     Host: edams.ksc.nasa.gov
     Number of entries: 364
+    ```
 
-
-
+    ```text
     Top host in the file '19950630.23-19950801.00.tsv' by number of entries
     Host: piweba3y.p`rodigy.com
     Number of entries: 17572
@@ -754,7 +764,7 @@ In this part, we will run some relational operators through the Dataframe/SparkS
     FROM log_lines
     GROUP BY host
     ORDER BY cnt DESC
-    LIMIT 1
+    LIMIT 1;
     ```
 
 7. (Bonus +3 points) Add a new command, `comparison` that counts records by response code before and after a specific timestamp. The timstamp is given as a command-line argument. You can do that by first creating two Dataframes by filtering the input twice. For each Dataframe, you can count the records by response code as done in the operation `count-by-code`. Finally, you can join the results of the two Dataframes by code to place them side-by-side in one Dataset. The join method may look like the following line:
@@ -775,8 +785,9 @@ In this part, we will run some relational operators through the Dataframe/SparkS
     |     304|        1925|        496|
     |     302|         272|         83|
     +--------+------------+-----------+
+    ```
 
-
+    ```text
     Comparison of the number of lines per code before and after 805383872 on file '19950630.23-19950801.00.tsv'
     +--------+------------+-----------+
     |response|count_before|count_after|
