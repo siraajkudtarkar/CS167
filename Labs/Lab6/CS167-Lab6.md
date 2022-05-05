@@ -1,7 +1,5 @@
 # Lab 6
 
----
-
 ## Objectives
 
 * Getting started with using Scala to access Spark RDD and Spark SQL.
@@ -19,10 +17,9 @@
   * Download these two sample files [sample file 1](../Lab4/nasa_19950801.tsv), [sample file 2](https://drive.google.com/open?id=1pDNwfsx5jrAqaSy8AKEZyfubCE358L2p). Decompress the second file after download. These are the same files we used in [Lab 4](../Lab4/CS167-Lab4.md).
     * Depending on how you extract the second file, it could be named either `nasa_19950630.22-19950728.12.tsv` or `19950630.23-19950801.00.tsv`. In this lab, we will use these two names interchangeably.
   * For Windows users, install the [Ubuntu app](https://ubuntu.com/wsl) from Microsoft Store and set it up to use Windows Subsystem for Linux. Part of this lab cannot run natively on Windows.
-    1. Refer to [Lab 1](../Lab1/CS167-Lab1.md) to download and install for Oracle JDK 8. Note, you must use **x64 Compressed Archive** rather than installing OpenJDK from `apt` command.
-    2. You may need to set all environment variables for JDK, Maven, Hadoop and Spark in WSL. Check [this link](../Lab5/WSL.md) for detailed instructions.
-* To add Scala language support to IntelliJ, you can install the [Scala plugin](https://plugins.jetbrains.com/plugin/1347-scala). Please check the [plugin management page](https://www.jetbrains.com/help/idea/managing-plugins.html) to see the details about installing and managing plugins in Intellij.
-  <p align="center"><img src="images/1.scala-plugin-idea.png"/></p>
+    * Check [this link](../Lab5/WSL.md) for detailed instructions.
+* To add Scala language support to IntelliJ, you can install the [Scala plugin](https://plugins.jetbrains.com/plugin/1347-scala). Please check the [plugin management page](https://www.jetbrains.com/help/idea/managing-plugins.html) to see the details about installing and managing plugins in Intellij. Make sure you restart IntelliJ aftering installing the plugin.
+  <p align="center"><img src="images/idea-scala-plugin.png" style="width:912px;"/></p>
 * If you are not yet familiar with Scala, please check [this tutorial](https://docs.scala-lang.org/tutorials/scala-for-java-programmers.html) to help with the transition from Java to Scala.
 
 ---
@@ -37,8 +34,6 @@ The lab has two parts. The first part implements some operations using the Scala
 
 ## Lab Work
 
----
-
 ## Part A. Spark RDD
 
 ### I. Project Setup (10 minutes) (In home)
@@ -52,6 +47,8 @@ We will follow a slightly modified version of the instructions on the [official 
     ```
 
     Note: Do not forget to replace `<UCRNetID>` with your UCR Net ID.
+
+    If you cannot run the above command, check [Create lab 6 project from IntelliJ](#create-lab-6-project-from-intellij).
 
 2. Change into the project directory and type `mvn package` once to make sure that it compiles.
 3. To configure your project with Spark, merge the following configuration in `pom.xml`.
@@ -75,6 +72,8 @@ We will follow a slightly modified version of the instructions on the [official 
     ```
 
 4. Import your project into IntelliJ IDEA in the same way you did in previous labs and make sure it compiles. Run the main function in `App` class to make sure it works.
+
+---
 
 ### II. Initialize with Spark RDD (5 minutes) (In home)
 
@@ -132,6 +131,8 @@ In this part, you will initialize your project with Spark.
 2. Take a few minutes to check the stub code and understand what it does. It has two required command-line arguments.
     * ***(Q1)*** What are these two arguments?
 
+---
+
 ### III. Read and parse the input file (10 minutes) (In home)
 
 1. Since most of the commands will need to split the input line and skip the first line, let us do this first.
@@ -145,6 +146,8 @@ In this part, you will initialize your project with Spark.
     ```
 
 6. A few commands in the next sections may require more than 2 arguments.
+
+---
 
 ### IV. `count-all` and `code-filter` (10 minutes)
 
@@ -183,6 +186,8 @@ In this part, you will initialize your project with Spark.
 
     * Note: In Scala, the keyword `val` declares a constant while the keyword `var` declares a variable.
 
+---
+
 ### V. `time-filter` (10 minutes)
 
 1. In this part, we need to count the number of lines that have a timestmap in a given range `[start, end]`.
@@ -206,6 +211,8 @@ In this part, you will initialize your project with Spark.
       ```scala
       println(s"Total count for file '$inputfile' in time range [$from, $to] is $count")
       ```
+
+---
 
 ### VI. `count-by-code` (10 minutess)
 
@@ -244,6 +251,8 @@ In this part, you will initialize your project with Spark.
 
     * Note: In Scala, the expression `(x,y)` creates a tuple with the two given values. You can similarly create tuples with more values, e.g., `(x,y,z)` for a triplet. Tuples in Scala are immutable, i.e., once created, you cannot modify them.
     * In the Scala API, there is no explicit defintion for a PairRDD. Any RDD that has a value of type Tuple2, i.e., a tuple with two values, will be automatically treated as a pair RDD.
+
+---
 
 ### VII. `sum-bytes-by-code` and `avg-bytes-by-code` (15 minutes)
 
@@ -304,6 +313,8 @@ In this part, you will initialize your project with Spark.
     ```
 
     ***(Q2)*** If you do this bonus part, copy and paste your code in the README file as an answer to this question.
+
+---
 
 ### VIII. `top-host` (10 minutes)
 
@@ -748,137 +759,149 @@ The following reading material could help you with your lab.
 * [Dataset API Docs](hhttp://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.sql.Dataset)
 * [SQL Tutorial](https://www.w3schools.com/sql/)
 
+## Create Lab 6 Project from IntelliJ
+
+1. Create `New Project` from IntelliJ.
+    <p align="center"><img src="images/idea-new-project.png" style="width:912px;"/></p>
+
+2. In the popped up `New Project` window, click `Add` for **Archetype:**.
+    <p align="center"><img src="images/idea-add-archetype-1.png" style="width:912px;"/></p>
+
+3. In the popped up `Add Archetype` dialog, fill the following information and then click `Add`.
+    * `GroupId` &rarr; `net.alchim31.maven`
+    * `ArtifactId` &rarr; `scala-archetype-simple`
+    * `Version` &rarr; `1.7`
+
+    <p align="center"><img src="images/idea-add-archetype-2.png" style="width:482px;"/></p>
+
+4. In the `New Project` window:
+    1. Chcek if `Archetype` is `net.alchim31.maven:scala-archetype-simple` and `Version` is `1.7`.
+    2. Check if `JDK` is `1.8` and showing `Oracle`. If not, change it to Oracle JDK 1.8.
+    3. Expand `Advanced Settings`, and fill the following information (Replace `<UCRNetID>` with your UCR Net ID):
+        * `GroupId` &rarr; `edu.ucr.cs.cs167.<UCRNetID>`
+        * `ArtifactId` &rarr; `<UCRNetID>_lab6`
+
+    <p align="center"><img src="images/idea-new-project-config.png" style="width:912px;"/></p>
+
 ## FAQ
 
 * Q: My code does not compile using `mvn package`.
-* A: Check your `pom.xml` file and make sure that the following sections are there in your file.
 
-```xml
-  <properties>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <encoding>UTF-8</encoding>
-    <scala.version>2.12.6</scala.version>
-    <scala.compat.version>2.12</scala.compat.version>
-    <spec2.version>4.2.0</spec2.version>
-    <spark.version>3.2.1</spark.version>
-  </properties>
+    A: Check your `pom.xml` file and make sure that the following sections are there in your file.
+
+    ```xml
+      <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <encoding>UTF-8</encoding>
+        <scala.version>2.12.6</scala.version>
+        <scala.compat.version>2.12</scala.compat.version>
+        <spec2.version>4.2.0</spec2.version>
+        <spark.version>3.2.1</spark.version>
+      </properties>
 
 
-  <dependencies>
-    <dependency>
-      <groupId>org.scala-lang</groupId>
-      <artifactId>scala-library</artifactId>
-      <version>${scala.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.spark</groupId>
-      <artifactId>spark-core_${scala.compat.version}</artifactId>
-      <version>${spark.version}</version>
-      <scope>compile</scope>
-    </dependency>
+      <dependencies>
+        <dependency>
+          <groupId>org.scala-lang</groupId>
+          <artifactId>scala-library</artifactId>
+          <version>${scala.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.spark</groupId>
+          <artifactId>spark-core_${scala.compat.version}</artifactId>
+          <version>${spark.version}</version>
+          <scope>compile</scope>
+        </dependency>
 
-    <!-- Test -->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.scalatest</groupId>
-      <artifactId>scalatest_${scala.compat.version}</artifactId>
-      <version>3.0.5</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.specs2</groupId>
-      <artifactId>specs2-core_${scala.compat.version}</artifactId>
-      <version>${spec2.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.specs2</groupId>
-      <artifactId>specs2-junit_${scala.compat.version}</artifactId>
-      <version>${spec2.version}</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+        <!-- Test -->
+        <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>4.12</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.scalatest</groupId>
+          <artifactId>scalatest_${scala.compat.version}</artifactId>
+          <version>3.0.5</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.specs2</groupId>
+          <artifactId>specs2-core_${scala.compat.version}</artifactId>
+          <version>${spec2.version}</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.specs2</groupId>
+          <artifactId>specs2-junit_${scala.compat.version}</artifactId>
+          <version>${spec2.version}</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
 
-  <build>
-    <sourceDirectory>src/main/scala</sourceDirectory>
-    <testSourceDirectory>src/test/scala</testSourceDirectory>
-    <plugins>
-      <plugin>
-        <!-- see http://davidb.github.com/scala-maven-plugin -->
-        <groupId>net.alchim31.maven</groupId>
-        <artifactId>scala-maven-plugin</artifactId>
-        <version>3.3.2</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>compile</goal>
-              <goal>testCompile</goal>
-            </goals>
+      <build>
+        <sourceDirectory>src/main/scala</sourceDirectory>
+        <testSourceDirectory>src/test/scala</testSourceDirectory>
+        <plugins>
+          <plugin>
+            <!-- see http://davidb.github.com/scala-maven-plugin -->
+            <groupId>net.alchim31.maven</groupId>
+            <artifactId>scala-maven-plugin</artifactId>
+            <version>3.3.2</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>compile</goal>
+                  <goal>testCompile</goal>
+                </goals>
+                <configuration>
+                  <args>
+                    <arg>-dependencyfile</arg>
+                    <arg>${project.build.directory}/.scala_dependencies</arg>
+                  </args>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.21.0</version>
             <configuration>
-              <args>
-                <arg>-dependencyfile</arg>
-                <arg>${project.build.directory}/.scala_dependencies</arg>
-              </args>
+              <!-- Tests will be run with scalatest-maven-plugin instead -->
+              <skipTests>true</skipTests>
             </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.21.0</version>
-        <configuration>
-          <!-- Tests will be run with scalatest-maven-plugin instead -->
-          <skipTests>true</skipTests>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.scalatest</groupId>
-        <artifactId>scalatest-maven-plugin</artifactId>
-        <version>2.0.0</version>
-        <configuration>
-          <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
-          <junitxml>.</junitxml>
-          <filereports>TestSuiteReport.txt</filereports>
-          <!-- Comma separated list of JUnit test class names to execute -->
-          <jUnitClasses>samples.AppTest</jUnitClasses>
-        </configuration>
-        <executions>
-          <execution>
-            <id>test</id>
-            <goals>
-              <goal>test</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
-```
+          </plugin>
+          <plugin>
+            <groupId>org.scalatest</groupId>
+            <artifactId>scalatest-maven-plugin</artifactId>
+            <version>2.0.0</version>
+            <configuration>
+              <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+              <junitxml>.</junitxml>
+              <filereports>TestSuiteReport.txt</filereports>
+              <!-- Comma separated list of JUnit test class names to execute -->
+              <jUnitClasses>samples.AppTest</jUnitClasses>
+            </configuration>
+            <executions>
+              <execution>
+                <id>test</id>
+                <goals>
+                  <goal>test</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    ```
 
 * Q: IntelliJ IDEA does not show the green run arrow next to the `App` class.
-* A: Check if there is a message at the top asking you to set up Scala SDK. Click on that button and follow the instructions to install the default SDK version 2.12.
+
+    A: Check if there is a message at the top asking you to set up Scala SDK. Click on that button and follow the instructions to install the default SDK version 2.12.
 
 * Q: IntelliJ IDEA does not recognize Scala code.
-* A: Make sure that the Scala plugin is installed on IntelliJ IDEA.
 
-* Q: I could not create the initial Maven project from command-line.
-* A: As an alternative solution, you can create the project directly from IntelliJIDEA as a new Maven project with the correct archetype information.
-
-![New Maven Project](images/1.new-maven-project.png)
-
-![Select archetype if listed](images/2.archetype-selected.png)
-
-If you do not find the archetype listed, click `Add Archetype` and enter the information below.
-
-![Add archetype](images/3.scala-archetype.png)
-
-Finally, set the correct information for your groupId and artifactId as shown below.
-![Set groupId](images/4.set-groupId.png)
-![Set artifactId](images/5.set-artifactId.png)
+    A: Make sure that the Scala plugin is installed on IntelliJ IDEA.
