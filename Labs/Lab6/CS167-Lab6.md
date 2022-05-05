@@ -120,7 +120,7 @@ object App {
 
 Note: Unlike the switch statement in C and Java, the [match statement](https://docs.scala-lang.org/tour/pattern-matching.html) in Scala does not require a break at the end of each case.
 
-2. Take a few minutes to check the stub code and understand what it does. It has two required command-line arguments. (Q1) What are these two arguments?
+2. Take a few minutes to check the stub code and understand what it does. It has two required command-line arguments. ***(Q1)*** What are these two arguments?
 
 ### III. Read and parse the input file (10 minutes) (In home)
 1. Since most of the commands will need to split the input line and skip the first line, let us do this first.
@@ -264,6 +264,8 @@ Code,Avg(bytes)
 500,0.0
 ```
 
+***(Q2)*** If you do this bonus part, copy and paste your code in the README file as an answer to this question.
+
 ### VIII. `top-host` (10 minutes)
 1. In this part we want to count the number of entries per host and output the one with the highest number of entries.
 2. While we could use the function `countByKey` it could be inefficient since it returns all the values to the driver node. Unlike the response codes, there could be too many distinct values of `host` and we do not want to return all of them.
@@ -398,7 +400,7 @@ root
  |-- referer: string (nullable = true)
  |-- useragent: string (nullable = true)
 ```
-6. Comment the line `option("inferSchema", "true")` and run your program again. (Q1) What is the type of the attributes `time` and `bytes` this time? Why?
+6. Comment the line `option("inferSchema", "true")` and run your program again. ***(Q3)*** What is the type of the attributes `time` and `bytes` this time? Why?
 7. To use SQL queries, you should add the following line to create a view named `log_lines` that points to your input.
 ```scala
 input.createOrReplaceTempView("log_lines")
@@ -625,6 +627,8 @@ Comparison of the number of lines per code before and after 805383872 on file '1
 +--------+------------+-----------+
 ```
 Hint: By default, the name of the column that results from the `count` function is named `count`. You can rename this column in each Datafame separately using the method `withColumnRenamed`, for example, for the count-before dataframe, the stament will be `withColumnRenamed("count", "count_before")`.
+
+***(Q4)*** If you do this bonus part, copy and paste your code in the README file as an aswer to this question.
 
 ## Submission (15 minutes)
 1. Add a `README` file with all your answers.
