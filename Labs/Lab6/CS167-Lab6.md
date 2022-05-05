@@ -92,7 +92,7 @@ In this part, you will initialize your project with Spark.
 
     object App {
 
-      def main(args : Array[String]) {
+      def main(args: Array[String]) {
         val command: String = args(0)
         val inputfile: String = args(1)
 
@@ -100,30 +100,76 @@ In this part, you will initialize your project with Spark.
         if (!conf.contains("spark.master"))
           conf.setMaster("local[*]")
         println(s"Using Spark master '${conf.get("spark.master")}'")
-        conf.setAppName("lab6")
+        conf.setAppName("CS167_Lab6")
         val sparkContext = new SparkContext(conf)
         try {
           val inputRDD: RDD[String] = sparkContext.textFile(inputfile)
-          // TODO Parse the input file using the tab separator and skip the first line
+          val validLines = // TODO 1a: filter lines which do not start with "host\tlogname" from `inputRDD`
+          val parsedLines: RDD[Array[String]] = // TODO 1b: split each line by "\t" from `validLines` via `map`
           val t1 = System.nanoTime
+          var valid_command = true
           command match {
-          case "count-all" =>
-            // TODO count total number of records in the file
-          case "code-filter" =>
-            // TODO Filter the file by response code, args(2), and print the total number of matching lines
-          case "time-filter" =>
-            // TODO Filter by time range [from = args(2), to = args(3)], and print the total number of matching lines
-          case "count-by-code" =>
-            // TODO Group the lines by response code and count the number of records per group
-          case "sum-bytes-by-code" =>
-            // TODO Group the lines by response code and sum the total bytes per group
-          case "avg-bytes-by-code" =>
-            // TODO Group the liens by response code and calculate the average bytes per group
-          case "top-host" =>
-            // TODO print the host the largest number of lines and print the number of lines
+            case "count-all" =>
+              // Count total number of records in the file
+              val count: Long = // TODO 2: count total number of records in the file on `parsedLines`
+              println(s"Total count for file '$inputfile' is $count")
+            case "code-filter" =>
+              // Filter the file by response code, args(2), and print the total number of matching lines
+              val responseCode = args(2)
+              val filteredLines: RDD[Array[String]] = // TODO 3: `filter` on `parsedLines` by `responseCode`
+              val count = filteredLines.count()
+              println(s"Total count for file '$inputfile' with response code $responseCode is $count")
+            case "time-filter" =>
+              // Filter by time range [from = args(2), to = args(3)], and print the total number of matching lines
+              val from = args(2).toLong
+              val to = args(3).toLong
+              val filteredLines: RDD[Array[String]] = // TODO 4: `filter` on `parsedLines` by time (column 2) with `from` and `to`
+              val count = filteredLines.count()
+              println(s"Total count for file '$inputfile' in time range [$from, $to] is $count")
+            case "count-by-code" =>
+              // Group the lines by response code and count the number of records per group
+              val loglinesByCode: RDD[(String, Int)] = // TODO 5a: `map` on `parsedLines` by response code (column 5)
+              val counts: Map[String, Long] = // TODO 5b: `countByKey` on `loglinesByCode`
+              println(s"Number of lines per code for the file '$inputfile'")
+              println("Code,Count")
+              counts.foreach(pair => println(s"${pair._1},${pair._2}"))
+            case "sum-bytes-by-code" =>
+              // Group the lines by response code and sum the total bytes per group
+              val loglinesByCode: RDD[(String, Int)] = // TODO 6a: `map` on `parsedLines` by response code (column 5) and bytes (column 6)
+              val sums: RDD[(String, Long)] = // TODO 6b: `reduceByKey` on `loglinesByCode`
+              println(s"Total bytes per code for the file '$inputfile'")
+              println("Code,Sum(bytes)")
+              sums.foreach(pair => println(s"${pair._1},${pair._2}"))
+            case "avg-bytes-by-code" =>
+              // Group the liens by response code and calculate the average bytes per group
+              val loglinesByCode: RDD[(String, Long)] = // TODO 7a: `map` on `parsedLines` by response code (column 5) and bytes (column 6)
+              val sums: RDD[(String, Long)] = // TODO 7b: `reduceByKey` on `loglinesByCode`
+              val counts: Map[String, Long] = // TODO 7c: `countByKey` on `loglinesByCode`
+              println(s"Average bytes per code for the file '$inputfile'")
+              println("Code,Avg(bytes)")
+              sums.foreach(pair => {
+                val code = pair._1
+                val sum = pair._2
+                val count = counts(code)
+                println(s"$code,${sum.toDouble / count}")
+              })
+              // TODO 6f: replace the above codes for bonus with `aggregateByKey`
+            case "top-host" =>
+              // Print the host the largest number of lines and print the number of lines
+              val loglinesByHost: RDD[(String, Int)] = // TODO 8a: `map` on `parsedLines` by host (column 0)
+              val counts: RDD[(String, Int)] = // TODO 8b: `reduceByKey` on `loglinesByHost`
+              val sorted: RDD[(String, Int)] = // TODO 8c: `sortBy` on `counts`
+              val topHost: (String, Int) = // TODO 8d: `first` on `sorted`
+              println(s"Top host in the file '$inputfile' by number of entries")
+              println(s"Host: ${topHost._1}")
+              println(s"Number of entries: ${topHost._2}")
+            case _ => valid_command = false
           }
           val t2 = System.nanoTime
-          println(s"Command '${command}' on file '${inputfile}' finished in ${(t2-t1)*1E-9} seconds")
+          if (valid_command)
+            println(s"Command '$command' on file '$inputfile' finished in ${(t2 - t1) * 1E-9} seconds")
+          else
+            Console.err.println(s"Invalid command '$command'")
         } finally {
           sparkContext.stop
         }
@@ -140,17 +186,16 @@ In this part, you will initialize your project with Spark.
 
 ### III. Read and parse the input file (10 minutes) (In home)
 
-1. Since most of the commands will need to split the input line and skip the first line, let us do this first.
-2. Use a filter transformation to skip the first line. For simplicity, we will detect the first line as the line that starts with `"host\tlogname"`
-3. Use a map transformation to split each line using the tab character `"\t"` as a separator.
-4. Note that since the filter and map operations are transformations, not actions, none of them will be executed until you use them.
-5. After parsing, you should have an RDD declared as follows:
+Since most of the commands will need to split the input line and skip the first line, let us do this first.
 
-    ```scala
-    val parsedLines: RDD[Array[String]] = ...
-    ```
+1. Use a filter transformation to skip the first line. For simplicity, we will detect the first line as the line that starts with `"host\tlogname"`
+    * Complete `TODO 1a`
+2. Use a map transformation to split each line using the tab character `"\t"` as a separator.
+    * Complete `TODO 1b`
 
-6. A few commands in the next sections may require more than 2 arguments.
+Note that since the filter and map operations are transformations, not actions, none of them will be executed until you use them.
+
+A few commands in the next sections may require more than 2 arguments.
 
 ---
 
@@ -160,19 +205,22 @@ In this part, you will initialize your project with Spark.
 
     ```text
     Total count for file 'nasa_19950801.tsv' is 30969
+    ```
+
+    ```text
     Total count for file '19950630.23-19950801.00.tsv' is 1891709
     ```
 
-    Hint: Use the following statement to print the output as shown above.
+2. The `code-filter` command should count the lines that match a desired response code. The desired code is provided as a third command line argument. This method should use the [`filter`](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/RDD.html#filter(f:T=>Boolean):org.apache.spark.rdd.RDD[T]) transformation followed by the `count` action.
+    * Complete `TODO 3`
 
-    ```scala
-    println(s"Total count for file '${inputfile}' is ${count}")
-    ```
-
-2. The `code-filter` command should count the lines that match a desired response code. The desired code is provided as a third command line argument. This method should use the [`filter`](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/RDD.html#filter(f:T=>Boolean):org.apache.spark.rdd.RDD[T]) transformation followed by the `count` action. Below is the expected output for the two sample files.
+    Below is the expected output for the two sample files.
 
     ```text
     Total count for file 'nasa_19950801.tsv' with response code 200 is 27972
+    ```
+
+    ```text
     Total count for file '19950630.23-19950801.00.tsv' with response code 302 is 46573
     ```
 
@@ -196,6 +244,7 @@ In this part, you will initialize your project with Spark.
 ### V. `time-filter` (10 minutes)
 
 1. In this part, we need to count the number of lines that have a timestmap in a given range `[start, end]`.
+    * Complete `TODO 4`
 2. The interval is given as two additional arguments as integers.
 3. Do not forget to use the method [`String#toLong`](https://www.scala-lang.org/api/2.13.6/scala/collection/StringOps.html#toLong:Long) in Scala to convert the String argument to a long integer to enable numeric comparison.
 4. Similar to `code-filter`, you will need a filter followed by count to complete this part. The filter will be:
@@ -208,6 +257,9 @@ In this part, you will initialize your project with Spark.
 
     ```text
     Total count for file 'nasa_19950801.tsv' in time range [807274014, 807283738] is 6389
+    ```
+
+    ```text
     Total count for file '19950630.23-19950801.00.tsv' in time range [804955673, 805590159] is 554919
     ```
 
@@ -222,7 +274,9 @@ In this part, you will initialize your project with Spark.
 ### VI. `count-by-code` (10 minutess)
 
 1. This part requires grouping the records by response code first. In Scala, this is done using a map operation that returns a tuple `(key,value)`.
+    * Complete `TODO 5a` and `TODO 7c`
 2. You can directly count each group using the function [`countByKey`](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/PairRDDFunctions.html#countByKey():scala.collection.Map[K,Long]).
+    * Complete `TODO 5b`
 3. To print the output on the resulting map, you can use the method `foreach` on that map. A sample output is given below.
 
     ```text
@@ -232,10 +286,10 @@ In this part, you will initialize your project with Spark.
     200,27972
     302,355
     304,2421
+    ```
 
-
-
-    Number of lines per code for the file 19950630.23-19950801.00.tsv
+    ```text
+    Number of lines per code for the file '19950630.23-19950801.00.tsv'
     Code,Count
     302,46573
     501,14
@@ -262,9 +316,13 @@ In this part, you will initialize your project with Spark.
 ### VII. `sum-bytes-by-code` and `avg-bytes-by-code` (15 minutes)
 
 1. This method is similar to the previous one except that it will calculate the summation of bytes for each code.
-2. To do that, you can first use the [`map`](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/RDD.html#map[U](f:T=>U)(implicitevidence$3:scala.reflect.ClassTag[U]):org.apache.spark.rdd.RDD[U]) function to produce only the `code` and the `bytes`. Then, you can use the mehod [`reducyByKey`](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/PairRDDFunctions.html#reduceByKey(func:(V,V)=>V):org.apache.spark.rdd.RDD[(K,V)]) to compute the summation.
-3. The reduce method is Spark is different that the reduce method in Hadoop. Instead of taking all the values, it only takes two values at a time. To compute the summation, your reduce function should return the sum of the two values given to it.
+2. To do that, you can first use the [`map`](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/RDD.html#map[U](f:T=>U)(implicitevidence$3:scala.reflect.ClassTag[U]):org.apache.spark.rdd.RDD[U]) function to produce only the `code` and the `bytes`.
+    * Complete `TODO 6a` and `TODO 7a`
+3. Then, you can use the mehod [`reducyByKey`](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/PairRDDFunctions.html#reduceByKey(func:(V,V)=>V):org.apache.spark.rdd.RDD[(K,V)]) to compute the summation. The reduce method is Spark is different that the reduce method in Hadoop. Instead of taking all the values, it only takes two values at a time. To compute the summation, your reduce function should return the sum of the two values given to it.
+    * Complete `TODO 6b` and `TODO 7b`
+
 4. Since reduceByKey is a transformation, you will need to use the [`collect`](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/RDD.html#collect():Array[T]) action to get the results back.
+
 5. A sample output is given below.
 
     ```text
@@ -274,11 +332,10 @@ In this part, you will initialize your project with Spark.
     200,481974462
     302,26005
     304,0
+    ```
 
-
-
-
-    Total bytes per code for the file 19950630.23-19950801.00.tsv
+    ```text
+    Total bytes per code for the file '19950630.23-19950801.00.tsv'
     Code,Sum(bytes)
     501,0
     403,0
@@ -293,7 +350,10 @@ In this part, you will initialize your project with Spark.
 
 6. For `avg-bytes-by-code` you need to compute the average, rather than the summation. A simple reduce function cannot be used to compute the average since the average function is not associative. However, it can be computed using a combination of sum and count.
 7. The easiest way to compute the average is to combine the output of the two commands `count-by-code` and `sum-bytes-by-code`. The average is simply the sum divided by count.
+    * Complete `TODO 7b`, it it the same as `TODO 6b`
+    * Complete `TODO 7c`, it it the same as `TODO 5b`
 8. Bonus (+3 points): The drawback of the above method is that it will need to scan the input twice to count each function, sum and count. It is possible to compute both functions in one scan over the input and without caching any intermediate RDDs. Complete this part to get three bonus points on this lab. Explain your method in the README file and add the code snippet that performs this task. Mark your answer with (B). Hint, check the [aggregateByKey](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/PairRDDFunctions.html#aggregateByKey[U](zeroValue:U)(seqOp:(U,V)=>U,combOp:(U,U)=>U)(implicitevidence$3:scala.reflect.ClassTag[U]):org.apache.spark.rdd.RDD[(K,U)]) function.
+    * *Optional*: Complete `TODO 7f`
 9. A sample output is given below.
 
     ```text
@@ -303,9 +363,9 @@ In this part, you will initialize your project with Spark.
     200,17230.604247104246
     302,73.25352112676056
     304,0.0
+    ```
 
-
-
+    ```text
     Average bytes per code for the file '19950630.23-19950801.00.tsv'
     Code,Avg(bytes)
     501,0.0
