@@ -122,7 +122,7 @@ Note: Unlike the switch statement in C and Java, the [match statement](https://d
 
 2. Take a few minutes to check the stub code and understand what it does. It has two required command-line arguments. (Q1) What are these two arguments?
 
-### III. Read and parse the input file (15 minutes)
+### III. Read and parse the input file (10 minutes)
 1. Since most of the commands will need to split the input line and skip the first line, let us do this first.
 2. Use a filter transformation to skip the first line. For simplicity, we will detect the first line as the line that starts with `"host\tlogname"`
 3. Use a map transformation to split each line using the tab character `"\t"` as a separator.
@@ -133,7 +133,7 @@ val parsedLines: RDD[Array[String]] = ...
 ```
 6. A few commands in the next sections may require more than 2 arguments.
 
-### IV. `count-all` and `code-filter` (15 minutes)
+### IV. `count-all` and `code-filter` (10 minutes)
 1. The `count-all` command should use the method [`RDD#count`](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/RDD.html#count():Long) which is an action to count the total number of records in the input file. Below is the expected output for the two sample files.
 ```text
 Total count for file 'nasa_19950801.tsv' is 30969
@@ -178,7 +178,7 @@ Hint: You can use the following print command:
 println(s"Total count for file '$inputfile' in time range [$from, $to] is $count")
 ```
 
-### VI. `count-by-code` (15 minutess)
+### VI. `count-by-code` (10 minutess)
 1. This part requires grouping the records by response code first. In Scala, this is done using a map operation that returns a tuple `(key,value)`.
 2. You can directly count each group using the function [`countByKey`](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/PairRDDFunctions.html#countByKey():scala.collection.Map[K,Long]).
 3. To print the output on the resulting map, you can use the method `foreach` on that map. A sample output is given below.
@@ -264,7 +264,7 @@ Code,Avg(bytes)
 500,0.0
 ```
 
-### VIII. `top-host` (20 minutes)
+### VIII. `top-host` (10 minutes)
 1. In this part we want to count the number of entries per host and output the one with the highest number of entries.
 2. While we could use the function `countByKey` it could be inefficient since it returns all the values to the driver node. Unlike the response codes, there could be too many distinct values of `host` and we do not want to return all of them.
 3. Instead of `countByKey` we will use the method `reduceByKey` which runs as a transformation and keeps the result in an RDD.
@@ -336,7 +336,7 @@ object AppSQL {
 
 * Note: A Scala object is a Singleton class with one object instantiated automatically. All methods inside the object are treated as static methods.
 
-### III. Read and parse the input file (10 minutes)
+### III. Read and parse the input file (5 minutes)
 Spark SQL is equipped with a CSV parser that can read semi-structured CSV files.
 1. Use the following code to open the sample file and print the first few lines.
 ```scala
@@ -404,7 +404,7 @@ root
 input.createOrReplaceTempView("log_lines")
 ```
 
-### IV. Query the Dataframe using Dataframe Operators (60 minutes)
+### IV. Query the Dataframe using Dataframe Operators (45 minutes)
 In this part, we will run some relational operators through the Dataframe/SparkSQL API. The logic of these queries is similar to what we did in part A. This will allow you to compare and contrast the two APIs.
 
 * Note: For each of the following, you are free to use SQL queries directly or build the query using the Dataframe API. Instructions for both are given for each command.
@@ -773,3 +773,18 @@ The following reading material could help you with your lab.
 
 * Q: IntelliJ IDEA does not recognize Scala code.
 * A: Make sure that the Scala plugin is installed on IntelliJ IDEA.
+
+* Q: I could not create the initial Maven project from command-line.
+* A: As an alternative solution, you can create the project directly from IntelliJIDEA as a new Maven project with the correct archetype information.
+
+![New Maven Project](images/1.new-maven-project.png)
+
+![Select archetype if listed](images/2.archetype-selected.png)
+
+If you do not find the archetype listed, click `Add Archetype` and enter the information below.
+
+![Add archetype](images/3.scala-archetype.png)
+
+Finally, set the correct information for your groupId and artifactId as shown below.
+![Set groupId](images/4.set-groupId.png)
+![Set artifactId](images/5.set-artifactId.png)
