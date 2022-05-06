@@ -604,7 +604,7 @@ Note: For each of the following, you are free to use SQL queries directly or bui
           command match {
             case "count-all" =>
               // Count total number of records in the file
-              val count: Long = input.count()  // TODO 9: count total number of records in the file on `input`
+              val count: Long = // TODO 9: count total number of records in the file on `input`
               println(s"Total count for file '$inputfile' is $count")
             case "code-filter" =>
               // Filter the file by response code, args(2), and print the total number of matching lines
@@ -651,9 +651,9 @@ Note: For each of the following, you are free to use SQL queries directly or bui
               // TODO 16a: comment the following line
               println("Not implemented")
               // TODO 16b: Uncomment the following lines and complete your function here
-              // println(s"Comparison of the number of lines per code before and after ${filterTimestamp} on file ${inputfile}")
-              // println("Code,CountBefore,CountAfter")
               // val filterTimestamp: Long = args(2).toLong
+              // println(s"Comparison of the number of lines per code before and after $filterTimestamp on file '$inputfile'")
+              // println("Code,CountBefore,CountAfter")
               // val query: String = // Write your query here. Results must be ordered by `response` in ascending order
               // spark.sql(query).foreach(row => println(s"${row.get(0)},${row.get(1)},${row.get(2)}"))
             case _ => validCommand = false
@@ -777,30 +777,24 @@ Note: For each of the following, you are free to use SQL queries directly or bui
     which joins two dataframes, namely, `countsBefore` and `countsAfter`, using the common key `response`. You can then print out the final result using the `show` command as follows.
 
     ```text
-    Comparison of the number of lines per code before and after 807295758 on file 'nasa_19950801.tsv'
-    +--------+------------+-----------+
-    |response|count_before|count_after|
-    +--------+------------+-----------+
-    |     404|         199|         22|
-    |     200|       22248|       5724|
-    |     304|        1925|        496|
-    |     302|         272|         83|
-    +--------+------------+-----------+
+    Comparison of the number of lines per code before and after 807295758 on file `nasa_19950801.tsv`
+    Code,CountBefore,CountAfter
+    200,22248,5724
+    302,272,83
+    304,1925,496
+    404,199,22
     ```
 
     ```text
     Comparison of the number of lines per code before and after 805383872 on file '19950630.23-19950801.00.tsv'
-    +--------+------------+-----------+
-    |response|count_before|count_after|
-    +--------+------------+-----------+
-    |     501|           2|         12|
-    |     500|          53|          9|
-    |     403|          19|         35|
-    |     404|        3864|       6981|
-    |     200|      594412|    1107122|
-    |     304|       38000|      94627|
-    |     302|       21057|      25516|
-    +--------+------------+-----------+
+    Code,CountBefore,CountAfter
+    200,594412,1107122
+    302,21057,25516
+    304,38000,94627
+    403,19,35
+    404,3864,6981
+    500,53,9
+    501,2,12
     ```
 
     Hint: By default, the name of the column that results from the `count` function is named `count`. You can rename this column in each Datafame separately using the method `withColumnRenamed`, for example, for the count-before dataframe, the stament will be `withColumnRenamed("count", "count_before")`.
