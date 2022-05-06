@@ -768,7 +768,10 @@ Note: For each of the following, you are free to use SQL queries directly or bui
     LIMIT 1;
     ```
 
-7. (Bonus +3 points) Add a new command, `comparison` that counts records by response code before and after a specific timestamp. The timstamp is given as a command-line argument. You can do that by first creating two Dataframes by filtering the input twice. For each Dataframe, you can count the records by response code as done in the operation `count-by-code`. Finally, you can join the results of the two Dataframes by code to place them side-by-side in one Dataset. The join method may look like the following line:
+7. (Bonus +3 points) Add a new command, `comparison` that counts records by response code before and after a specific timestamp.
+    * *Optional*: Complete `TODO 16a` and `TODO 16b`
+
+    The timstamp is given as a command-line argument. You can do that by first creating two Dataframes by filtering the input twice. For each Dataframe, you can count the records by response code as done in the operation `count-by-code`. Finally, you can join the results of the two Dataframes by code to place them side-by-side in one Dataset. The join method may look like the following line:
 
     ```scala
     countsBefore.join(countsAfter, "response")
@@ -800,6 +803,35 @@ Note: For each of the following, you are free to use SQL queries directly or bui
     Hint: By default, the name of the column that results from the `count` function is named `count`. You can rename this column in each Datafame separately using the method `withColumnRenamed`, for example, for the count-before dataframe, the stament will be `withColumnRenamed("count", "count_before")`.
 
     ***(Q4) If you do this bonus part, copy and paste your code in the README file as an aswer to this question.***
+
+---
+
+## Commands
+
+You can use the following commands for testing.
+
+```bash
+# Part A
+spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.App --master "local[*]" target/<UCRNetID>_lab6-1.0-SNAPSHOT.jar count-all nasa_19950801.tsv
+spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.App --master "local[*]" target/<UCRNetID>_lab6-1.0-SNAPSHOT.jar code-filter nasa_19950801.tsv 200
+spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.App --master "local[*]" target/<UCRNetID>_lab6-1.0-SNAPSHOT.jar time-filter nasa_19950801.tsv 807274014 807283738
+spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.App --master "local[*]" target/<UCRNetID>_lab6-1.0-SNAPSHOT.jar count-by-code nasa_19950801.tsv
+spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.App --master "local[*]" target/<UCRNetID>_lab6-1.0-SNAPSHOT.jar sum-bytes-by-code nasa_19950801.tsv
+spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.App --master "local[*]" target/<UCRNetID>_lab6-1.0-SNAPSHOT.jar avg-bytes-by-code nasa_19950801.tsv
+spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.App --master "local[*]" target/<UCRNetID>_lab6-1.0-SNAPSHOT.jar top-host nasa_19950801.tsv
+
+# Part B
+spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.AppSQL --master "local[*]" target/<UCRNetID>_lab6-1.0-SNAPSHOT.jar count-all nasa_19950801.tsv
+spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.AppSQL --master "local[*]" target/<UCRNetID>_lab6-1.0-SNAPSHOT.jar code-filter nasa_19950801.tsv 200
+spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.AppSQL --master "local[*]" target/<UCRNetID>_lab6-1.0-SNAPSHOT.jar time-filter nasa_19950801.tsv 807274014 807283738
+spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.AppSQL --master "local[*]" target/<UCRNetID>_lab6-1.0-SNAPSHOT.jar count-by-code nasa_19950801.tsv
+spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.AppSQL --master "local[*]" target/<UCRNetID>_lab6-1.0-SNAPSHOT.jar sum-bytes-by-code nasa_19950801.tsv
+spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.AppSQL --master "local[*]" target/<UCRNetID>_lab6-1.0-SNAPSHOT.jar avg-bytes-by-code nasa_19950801.tsv
+spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.AppSQL --master "local[*]" target/<UCRNetID>_lab6-1.0-SNAPSHOT.jar top-host nasa_19950801.tsv
+spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.AppSQL --master "local[*]" target/<UCRNetID>_lab6-1.0-SNAPSHOT.jar comparison nasa_19950801.tsv 807295758
+```
+
+Hint: Add `2>/dev/null` to the end of each command to hide logging information from Spark.
 
 ## Submission (15 minutes)
 
@@ -846,6 +878,8 @@ Requirements:
 
 See how to create the archive file for submission at [here](../MakeArchive.md).
 
+---
+
 ## Further Readings
 
 The following reading material could help you with your lab.
@@ -855,6 +889,8 @@ The following reading material could help you with your lab.
 * [Spark SQL Programming Guide](http://spark.apache.org/docs/latest/sql-getting-started.html)
 * [Dataset API Docs](hhttp://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.sql.Dataset)
 * [SQL Tutorial](https://www.w3schools.com/sql/)
+
+---
 
 ## Create Lab 6 Project from IntelliJ
 
@@ -879,6 +915,8 @@ The following reading material could help you with your lab.
         * `ArtifactId` &rarr; `<UCRNetID>_lab6`
 
     <p align="center"><img src="images/idea-new-project-config.png" style="width:912px;"/></p>
+
+---
 
 ## FAQ
 
