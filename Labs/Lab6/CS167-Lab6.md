@@ -18,8 +18,10 @@
     * Depending on how you extract the second file, it could be named either `nasa_19950630.22-19950728.12.tsv` or `19950630.23-19950801.00.tsv`. In this lab, we will use these two names interchangeably.
   * For Windows users, install the [Ubuntu app](https://ubuntu.com/wsl) from Microsoft Store and set it up to use Windows Subsystem for Linux. Part of this lab cannot run natively on Windows.
     * Check [this link](../Lab5/WSL.md) for detailed instructions.
-* To add Scala language support to IntelliJ, you can install the [Scala plugin](https://plugins.jetbrains.com/plugin/1347-scala). Please check the [plugin management page](https://www.jetbrains.com/help/idea/managing-plugins.html) to see the details about installing and managing plugins in Intellij. Make sure you restart IntelliJ aftering installing the plugin.
+* To add Scala language support to IntelliJ, you can install the [Scala plugin](https://plugins.jetbrains.com/plugin/1347-scala). Please check the [plugin management page](https://www.jetbrains.com/help/idea/managing-plugins.html) to see the details about installing and managing plugins in Intellij. Make sure you restart IntelliJ after installing the plugin.
+
   <p align="center"><img src="images/idea-scala-plugin.png" style="width:912px;"/></p>
+
 * If you are not yet familiar with Scala, please check [this tutorial](https://docs.scala-lang.org/tutorials/scala-for-java-programmers.html) to help with the transition from Java to Scala.
 
 ---
@@ -90,6 +92,8 @@ In this part, you will initialize your project with Spark.
     import org.apache.spark.rdd.RDD
     import org.apache.spark.{SparkConf, SparkContext}
 
+    import scala.collection.Map
+
     object App {
 
       def main(args: Array[String]) {
@@ -104,7 +108,7 @@ In this part, you will initialize your project with Spark.
         val sparkContext = new SparkContext(conf)
         try {
           val inputRDD: RDD[String] = sparkContext.textFile(inputfile)
-          val validLines = // TODO 1a: filter lines which do not start with "host\tlogname" from `inputRDD`
+          val validLines: RDD[String] = // TODO 1a: filter lines which do not start with "host\tlogname" from `inputRDD`
           val parsedLines: RDD[Array[String]] = // TODO 1b: split each line by "\t" from `validLines` via `map`
           val t1 = System.nanoTime
           var valid_command = true
@@ -115,31 +119,31 @@ In this part, you will initialize your project with Spark.
               println(s"Total count for file '$inputfile' is $count")
             case "code-filter" =>
               // Filter the file by response code, args(2), and print the total number of matching lines
-              val responseCode = args(2)
+              val responseCode: String = args(2)
               val filteredLines: RDD[Array[String]] = // TODO 3: `filter` on `parsedLines` by `responseCode`
-              val count = filteredLines.count()
+              val count: Long = filteredLines.count()
               println(s"Total count for file '$inputfile' with response code $responseCode is $count")
             case "time-filter" =>
               // Filter by time range [from = args(2), to = args(3)], and print the total number of matching lines
-              val from = args(2).toLong
-              val to = args(3).toLong
+              val from: Long = args(2).toLong
+              val to: Long = args(3).toLong
               val filteredLines: RDD[Array[String]] = // TODO 4: `filter` on `parsedLines` by time (column 2) with `from` and `to`
-              val count = filteredLines.count()
+              val count: Long = filteredLines.count()
               println(s"Total count for file '$inputfile' in time range [$from, $to] is $count")
             case "count-by-code" =>
               // Group the lines by response code and count the number of records per group
-              val loglinesByCode: RDD[(String, Int)] = // TODO 5a: `map` on `parsedLines` by response code (column 5)
+              val loglinesByCode: RDD[(String, Long)] = // TODO 5a: `map` on `parsedLines` by response code (column 5)
               val counts: Map[String, Long] = // TODO 5b: `countByKey` on `loglinesByCode`
               println(s"Number of lines per code for the file '$inputfile'")
               println("Code,Count")
-              counts.foreach(pair => println(s"${pair._1},${pair._2}"))
+              counts.toSeq.sortBy(_._1).foreach(pair => println(s"${pair._1},${pair._2}"))
             case "sum-bytes-by-code" =>
               // Group the lines by response code and sum the total bytes per group
-              val loglinesByCode: RDD[(String, Int)] = // TODO 6a: `map` on `parsedLines` by response code (column 5) and bytes (column 6)
+              val loglinesByCode: RDD[(String, Long)] = // TODO 6a: `map` on `parsedLines` by response code (column 5) and bytes (column 6)
               val sums: RDD[(String, Long)] = // TODO 6b: `reduceByKey` on `loglinesByCode`
               println(s"Total bytes per code for the file '$inputfile'")
               println("Code,Sum(bytes)")
-              sums.foreach(pair => println(s"${pair._1},${pair._2}"))
+              sums.sortByKey().collect().foreach(pair => println(s"${pair._1},${pair._2}"))
             case "avg-bytes-by-code" =>
               // Group the liens by response code and calculate the average bytes per group
               val loglinesByCode: RDD[(String, Long)] = // TODO 7a: `map` on `parsedLines` by response code (column 5) and bytes (column 6)
@@ -147,7 +151,7 @@ In this part, you will initialize your project with Spark.
               val counts: Map[String, Long] = // TODO 7c: `countByKey` on `loglinesByCode`
               println(s"Average bytes per code for the file '$inputfile'")
               println("Code,Avg(bytes)")
-              sums.foreach(pair => {
+              sums.sortByKey().collect().foreach(pair => {
                 val code = pair._1
                 val sum = pair._2
                 val count = counts(code)
@@ -156,10 +160,10 @@ In this part, you will initialize your project with Spark.
               // TODO 6f: replace the above codes for bonus with `aggregateByKey`
             case "top-host" =>
               // Print the host the largest number of lines and print the number of lines
-              val loglinesByHost: RDD[(String, Int)] = // TODO 8a: `map` on `parsedLines` by host (column 0)
-              val counts: RDD[(String, Int)] = // TODO 8b: `reduceByKey` on `loglinesByHost`
-              val sorted: RDD[(String, Int)] = // TODO 8c: `sortBy` on `counts`
-              val topHost: (String, Int) = // TODO 8d: `first` on `sorted`
+              val loglinesByHost: RDD[(String, Long)] = // TODO 8a: `map` on `parsedLines` by host (column 0)
+              val counts: RDD[(String, Long)] = // TODO 8b: `reduceByKey` on `loglinesByHost`
+              val sorted: RDD[(String, Long)] = // TODO 8c: `sortBy` on `counts`
+              val topHost: (String, Long) = // TODO 8d: `first` on `sorted`
               println(s"Top host in the file '$inputfile' by number of entries")
               println(s"Host: ${topHost._1}")
               println(s"Number of entries: ${topHost._2}")
@@ -282,22 +286,22 @@ A few commands in the next sections may require more than 2 arguments.
     ```text
     Number of lines per code for the file 'nasa_19950801.tsv'
     Code,Count
-    404,221
     200,27972
     302,355
     304,2421
+    404,221
     ```
 
     ```text
     Number of lines per code for the file '19950630.23-19950801.00.tsv'
     Code,Count
+    200,1701534
     302,46573
-    501,14
+    304,132627
+    403,54
     404,10845
     500,62
-    403,54
-    304,132627
-    200,1701534
+    501,14
     ```
 
     * Hint: Use the following set of commands to print the output shown above:
@@ -305,7 +309,7 @@ A few commands in the next sections may require more than 2 arguments.
       ```scala
       println(s"Number of lines per code for the file '$inputfile'")
       println("Code,Count")
-      counts.foreach(pair => println(s"${pair._1},${pair._2}"))
+      counts.toSeq.sortBy(_._1).foreach(pair => println(s"${pair._1},${pair._2}"))
       ```
 
     * Note: In Scala, the expression `(x,y)` creates a tuple with the two given values. You can similarly create tuples with more values, e.g., `(x,y,z)` for a triplet. Tuples in Scala are immutable, i.e., once created, you cannot modify them.
@@ -328,25 +332,23 @@ A few commands in the next sections may require more than 2 arguments.
     ```text
     Total bytes per code for the file 'nasa_19950801.tsv'
     Code,Sum(bytes)
-    404,0
     200,481974462
     302,26005
     304,0
+    404,0
     ```
 
     ```text
     Total bytes per code for the file '19950630.23-19950801.00.tsv'
     Code,Sum(bytes)
-    501,0
-    403,0
-    304,0
     200,38692291442
-    404,0
     302,3682049
+    304,0
+    403,0
+    404,0
     500,0
+    501,0
     ```
-
-    Note: The order of the output might be different than the one shown above.
 
 6. For `avg-bytes-by-code` you need to compute the average, rather than the summation. A simple reduce function cannot be used to compute the average since the average function is not associative. However, it can be computed using a combination of sum and count.
 7. The easiest way to compute the average is to combine the output of the two commands `count-by-code` and `sum-bytes-by-code`. The average is simply the sum divided by count.
@@ -359,22 +361,22 @@ A few commands in the next sections may require more than 2 arguments.
     ```text
     Average bytes per code for the file 'nasa_19950801.tsv'
     Code,Avg(bytes)
-    404,0.0
     200,17230.604247104246
     302,73.25352112676056
     304,0.0
+    404,0.0
     ```
 
     ```text
     Average bytes per code for the file '19950630.23-19950801.00.tsv'
     Code,Avg(bytes)
-    501,0.0
-    403,0.0
-    304,0.0
     200,22739.652244386536
-    404,0.0
     302,79.0597341807485
+    304,0.0
+    403,0.0
+    404,0.0
     500,0.0
+    501,0.0
     ```
 
     ***(Q2) If you do this bonus part, copy and paste your code in the README file as an answer to this question.***
