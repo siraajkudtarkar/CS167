@@ -80,6 +80,10 @@ We will follow a slightly modified version of the instructions on the [official 
 
 4. Run the main function in `App` class in Intellij to make sure it works. Also, in the command line, change into the project directory and type `mvn package` once to make sure that it compiles.
 
+5. Because this lab contains many tests with different arguments, you have two options to simplify your work:
+    * Run all tests via command line, all commands can be found at [Commands](#commands).
+    * Run all tests inside IntelliJ, you will need to create a configuration for each test, check [IntelliJ Configurations](#intellij-configurations) for pre-defined configurations.
+
 ---
 
 ### II. Initialize with Spark RDD (5 minutes) (In home)
@@ -843,6 +847,48 @@ spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.AppSQL --master "local[*]" targ
 ```
 
 Hint: Add `2>/dev/null` to the end of each command to hide logging information from Spark.
+
+---
+
+## IntelliJ Configurations
+
+1. Download [runConfigurations.zip](./runConfigurations.zip) and unzip it.
+
+2. Copy the unzipped `runConfigurations` directory. Shortcut is `Ctrl + C` on Linux and Windows, `Command + C` on MacOS.
+
+3. In your project browser in IntelliJ, right click `.idea` directory, select `Paste`. Shortcut is `Ctrl + V` on Linux and Windows, `Command + V` on MacOS (Make sure you have `.idea` directory selected).
+    <p align="center"><img src="images/idea-paste-config.png" style="width:418px;"/></p>
+
+4. A `Copy` dialog will show, you don't need to change anything. Click `OK` to continue.
+    <p align="center"><img src="images/copy-dialog.png" style="width:746px;"/></p>
+
+5. Expand `.idea` directory, then expand `runConfigurations` directory. You will find some XML files. You will need to make some simple changes to **ALL** these XML files, which replace `<UCRNetID>` to your actual UCR Net ID.
+    <p align="center"><img src="images/config-xml-before-replace.png" style="width:1259px;"/></p>
+
+6. Open every XML file, do a **replace** (shortcut is `Ctrl + R` on Linux and Windows, `Command + R` on MacOS). Type `<UCRNetID>` in the upper text field, and your actual UCR Net ID in the lower text field. Then click `Replace All`.
+    <p align="center"><img src="images/config-xml-replace.png" style="width:979px;"/></p>
+
+    <center>&#8595;</center>
+
+    <p align="center"><img src="images/config-xml-after-replace.png" style="width:974px;"/></p>
+
+7. Repeat step for all the 15 XML files.
+
+8. Save all modified XML files. You can do this in a batch by right clicking the XML file's tab and select `Close All Tabs`.
+
+9. Click the `Add Configuration...` button next to the green hammer icon.
+    <p align="center"><img src="images/idea-add-config.png" style="width:389px;"/></p>
+
+10. You shall see `Application` folder in the left panel. Expand it, you shall see `App` and `AppSQL` two folders. Expand them, and you shall see all the 15 configurations.
+    <p align="center"><img src="images/run-debug-config.png" style="width:1152px;"/></p>
+
+11. You can open a configuration to check its content. Make sure it is using `java 8`. Click `OK` to close this window if you are done.
+    <p align="center"><img src="images/config-preview.png" style="width:1152px;"/></p>
+
+12. You can now select a configuration, but be sure to click the green triangle icon to run the current selected configuration.
+    <p align="center"><img src="images/run-config.png" style="width:387px;"/></p>
+
+---
 
 ## Submission (15 minutes)
 
