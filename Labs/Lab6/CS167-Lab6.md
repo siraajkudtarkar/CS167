@@ -330,7 +330,7 @@ A few commands in the next sections may require more than 2 arguments.
 1. This method is similar to the previous one except that it will calculate the summation of bytes for each code.
 2. To do that, you can first use the [`map`](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/RDD.html#map[U](f:T=>U)(implicitevidence$3:scala.reflect.ClassTag[U]):org.apache.spark.rdd.RDD[U]) function to produce only the `code` and the `bytes`.
     * Complete `TODO 6a` and `TODO 7a`
-3. Then, you can use the mehod [`reducyByKey`](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/PairRDDFunctions.html#reduceByKey(func:(V,V)=>V):org.apache.spark.rdd.RDD[(K,V)]) to compute the summation. The reduce method is Spark is different that the reduce method in Hadoop. Instead of taking all the values, it only takes two values at a time. To compute the summation, your reduce function should return the sum of the two values given to it.
+3. Then, you can use the mehod [`reducyByKey`](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/PairRDDFunctions.html#reduceByKey(func:(V,V)=>V):org.apache.spark.rdd.RDD[(K,V)]) to compute the summation. The reduce method is Spark is different that the reduce method in Hadoop. Instead of taking all the values, it only takes two values at a time. To compute the summation, your reduce function should return the sum of the two values given to it. You can find a helpful hint from this [stack overflow question](https://stackoverflow.com/questions/36965338/spark-scala-understanding-reducebykey).
     * Complete `TODO 6b` and `TODO 7b`
 
 4. Since reduceByKey is a transformation, you will need to use the [`collect`](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/RDD.html#collect():Array[T]) action to get the results back.
@@ -362,7 +362,7 @@ A few commands in the next sections may require more than 2 arguments.
 7. The easiest way to compute the average is to combine the output of the two commands `count-by-code` and `sum-bytes-by-code`. The average is simply the sum divided by count.
     * Complete `TODO 7b`, it is the same as `TODO 6b`
     * Complete `TODO 7c`, it is the same as `TODO 5b`
-8. Bonus (+3 points): The drawback of the above method is that it will need to scan the input twice to count each function, sum and count. It is possible to compute both functions in one scan over the input and without caching any intermediate RDDs. Complete this part to get three bonus points on this lab. Explain your method in the README file and add the code snippet that performs this task. Mark your answer with (B). Hint, check the [aggregateByKey](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/PairRDDFunctions.html#aggregateByKey[U](zeroValue:U)(seqOp:(U,V)=>U,combOp:(U,U)=>U)(implicitevidence$3:scala.reflect.ClassTag[U]):org.apache.spark.rdd.RDD[(K,U)]) function.
+8. Bonus (+3 points): The drawback of the above method is that it will need to scan the input twice to count each function, sum and count. It is possible to compute both functions in one scan over the input and without caching any intermediate RDDs. Complete this part to get three bonus points on this lab. Explain your method in the README file and add the code snippet that performs this task. Mark your answer with (B). Hint, check the [aggregateByKey](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/PairRDDFunctions.html#aggregateByKey[U](zeroValue:U)(seqOp:(U,V)=>U,combOp:(U,U)=>U)(implicitevidence$3:scala.reflect.ClassTag[U]):org.apache.spark.rdd.RDD[(K,U)]) function. This [stack overflow question](https://stackoverflow.com/questions/40087483/spark-average-of-values-instead-of-sum-in-reducebykey-using-scala) may also be helpful.
     * *Optional*: Complete `TODO 7d`
 
     The following template may be used
@@ -736,14 +736,6 @@ Note: For each of the following, you are free to use SQL queries directly or bui
 
     The output should be the same as in [V. `time-filter`](#v-time-filter-10-minutes).
 
-    ```text
-    Total count for file 'nasa_19950801.tsv' in time range [807274014, 807283738] is 6389
-    ```
-
-    ```text
-    Total count for file '19950630.23-19950801.00.tsv' in time range [804955673, 805590159] is 554919
-    ```
-
     You can also use the following SQL query.
 
     ```SQL
@@ -783,17 +775,23 @@ Note: For each of the following, you are free to use SQL queries directly or bui
     LIMIT 1;
     ```
 
-7. (Bonus +3 points) Add a new command, `comparison` that counts records by response code before and after a specific timestamp.
+7. (Bonus +3 points) Add a new command, `comparison` that counts records by response code before and after a specific timestamp. The timstamp is given as a command-line argument.
     * *Optional*: Complete `TODO 16a`, `TODO 16b`, and `TODO 16c` or `TODO 16d`
 
-    The timstamp is given as a command-line argument. You can do that by first creating two Dataframes by filtering the input twice. For each Dataframe, you can count the records by response code as done in the operation `count-by-code`. Finally, you can join the results of the two Dataframes by code to place them side-by-side in one Dataset. The join method may look like the following line:
+    * Option 1: Use a SQL query to join two views.
 
-    ```scala
-    countsBefore.join(countsAfter, "response")
-    ```
+    * OPtion 2: Create two Dataframes by filtering the input twice. For each Dataframe, you can count the records by response code as done in the operation `count-by-code`. Finally, you can join the results of the two Dataframes by code to place them side-by-side in one Dataset. The join method may look like the following line:
 
-    which joins two dataframes, namely, `countsBefore` and `countsAfter`, using the common key `response`.
+      ```scala
+      countsBefore.join(countsAfter, "response")
+      ```
 
+      which joins two dataframes, namely, `countsBefore` and `countsAfter`, using the common key `response`.
+
+      Hint: By default, the name of the column that results from the `count` function is named `count`. You can rename this column in each Datafame separately using the method `withColumnRenamed`, for example, for the count-before dataframe, the stament will be `withColumnRenamed("count", "count_before")`.
+
+    A sample output is given below.
+    
     ```text
     Comparison of the number of lines per code before and after 807295758 on file `nasa_19950801.tsv`
     Code,CountBefore,CountAfter
@@ -814,8 +812,6 @@ Note: For each of the following, you are free to use SQL queries directly or bui
     500,53,9
     501,2,12
     ```
-
-    Hint: By default, the name of the column that results from the `count` function is named `count`. You can rename this column in each Datafame separately using the method `withColumnRenamed`, for example, for the count-before dataframe, the stament will be `withColumnRenamed("count", "count_before")`.
 
     ***(Q4) If you do this bonus part, copy and paste your code in the README file as an aswer to this question.***
 
