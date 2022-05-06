@@ -104,7 +104,7 @@ In this part, you will initialize your project with Spark.
         if (!conf.contains("spark.master"))
           conf.setMaster("local[*]")
         println(s"Using Spark master '${conf.get("spark.master")}'")
-        conf.setAppName("CS167_Lab6")
+        conf.setAppName("CS167_Lab6_App")
         val sparkContext = new SparkContext(conf)
         try {
           val inputRDD: RDD[String] = sparkContext.textFile(inputfile)
@@ -205,7 +205,10 @@ A few commands in the next sections may require more than 2 arguments.
 
 ### IV. `count-all` and `code-filter` (10 minutes)
 
-1. The `count-all` command should use the method [`RDD#count`](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/RDD.html#count():Long) which is an action to count the total number of records in the input file. Below is the expected output for the two sample files.
+1. The `count-all` command should use the method [`RDD#count`](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/RDD.html#count():Long) which is an action to count the total number of records in the input file.
+    * Complete `TODO 2`
+
+    Below is the expected output for the two sample files.
 
     ```text
     Total count for file 'nasa_19950801.tsv' is 30969
@@ -228,13 +231,13 @@ A few commands in the next sections may require more than 2 arguments.
     Total count for file '19950630.23-19950801.00.tsv' with response code 302 is 46573
     ```
 
-    * Note: For all commands in this lab, make sure that you write the output to the standard output using the `println` command and that the output looks *exactly* the same to the expected output. We will use a script to automatically check your answer and it will use regular expressions to match the answer. Any minor change in this expected output might reduce your grade for this lab. For the command above, use the following print statement:
+    Note: For all commands in this lab, make sure that you write the output to the standard output using the `println` command and that the output looks *exactly* the same to the expected output. We will use a script to automatically check your answer and it will use regular expressions to match the answer. Any minor change in this expected output might reduce your grade for this lab. For the command above, use the following print statement:
 
       ```scala
       println(s"Total count for file '${inputfile}' with response code ${responseCode} is ${count}")
       ```
 
-    * Hint: To make your code more readable, you can add constants for each attribute to access them by name instead of number. See the following code snippet for an example.
+    Hint: To make your code more readable, you can add constants for each attribute to access them by name instead of number. See the following code snippet for an example.
 
       ```scala
       val ResponseCode: Int = 5
@@ -251,10 +254,11 @@ A few commands in the next sections may require more than 2 arguments.
     * Complete `TODO 4`
 2. The interval is given as two additional arguments as integers.
 3. Do not forget to use the method [`String#toLong`](https://www.scala-lang.org/api/2.13.6/scala/collection/StringOps.html#toLong:Long) in Scala to convert the String argument to a long integer to enable numeric comparison.
-4. Similar to `code-filter`, you will need a filter followed by count to complete this part. The filter will be:
+4. Similar to [`code-filter`](#iv-count-all-and-code-filter-10-minutes), you will need a filter followed by count to complete this part. The filter will be:
 
     ```scala
-    line(2).toLong >= from && line(2).toLong <= to
+    val time = line(2).toLong
+    time >= from && time <= to
     ```
 
 5. Two sample outputs are given below.
@@ -278,9 +282,9 @@ A few commands in the next sections may require more than 2 arguments.
 ### VI. `count-by-code` (10 minutess)
 
 1. This part requires grouping the records by response code first. In Scala, this is done using a map operation that returns a tuple `(key,value)`.
-    * Complete `TODO 5a` and `TODO 7c`
+    * Complete `TODO 5a`
 2. You can directly count each group using the function [`countByKey`](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/PairRDDFunctions.html#countByKey():scala.collection.Map[K,Long]).
-    * Complete `TODO 5b`
+    * Complete `TODO 5b` and `TODO 7c`
 3. To print the output on the resulting map, you can use the method `foreach` on that map. A sample output is given below.
 
     ```text
@@ -304,7 +308,7 @@ A few commands in the next sections may require more than 2 arguments.
     501,14
     ```
 
-    * Hint: Use the following set of commands to print the output shown above:
+    Hint: Use the following set of commands to print the output shown above:
 
       ```scala
       println(s"Number of lines per code for the file '$inputfile'")
@@ -312,7 +316,7 @@ A few commands in the next sections may require more than 2 arguments.
       counts.toSeq.sortBy(_._1).foreach(pair => println(s"${pair._1},${pair._2}"))
       ```
 
-    * Note: In Scala, the expression `(x,y)` creates a tuple with the two given values. You can similarly create tuples with more values, e.g., `(x,y,z)` for a triplet. Tuples in Scala are immutable, i.e., once created, you cannot modify them.
+    Note: In Scala, the expression `(x,y)` creates a tuple with the two given values. You can similarly create tuples with more values, e.g., `(x,y,z)` for a triplet. Tuples in Scala are immutable, i.e., once created, you cannot modify them.
     * In the Scala API, there is no explicit defintion for a PairRDD. Any RDD that has a value of type Tuple2, i.e., a tuple with two values, will be automatically treated as a pair RDD.
 
 ---
@@ -446,7 +450,7 @@ import org.apache.spark.SparkConf
 
 object AppSQL {
 
-  def main(args : Array[String]) {
+  def main(args: Array[String]) {
     val conf = new SparkConf
     if (!conf.contains("spark.master"))
       conf.setMaster("local[*]")
@@ -454,7 +458,7 @@ object AppSQL {
 
     val spark = SparkSession
       .builder()
-      .appName("CS167 Lab6")
+      .appName("CS167_Lab6_AppSQL")
       .config(conf)
       .getOrCreate()
 
@@ -467,17 +471,17 @@ object AppSQL {
 }
 ```
 
-* Note: To create a new Scala object, check the following instructions.
+Note: To create a new Scala object, check the following instructions.
 
-    1. Right click your package name in the project browser. Select `New`, then select `Scala Class`.
+  1. Right click your package name in the project browser. Select `New`, then select `Scala Class`.
 
-        <p align="center"><img src="images/new-scala-class.png" style="width:831px;"/></p>
+      <p align="center"><img src="images/new-scala-class.png" style="width:831px;"/></p>
 
-    2. In the popped up `Create New Scala Class` dialog, type `AppSQL`, then select `Object`.
+  2. In the popped up `Create New Scala Class` dialog, type `AppSQL`, then select `Object`.
 
-        <p align="center"><img src="images/new-scala-object.png" style="width:376px;"/></p>
+      <p align="center"><img src="images/new-scala-object.png" style="width:376px;"/></p>
 
-* Note: A Scala object is a Singleton class with one object instantiated automatically. All methods inside the object are treated as static methods.
+Note: A Scala object is a Singleton class with one object instantiated automatically. All methods inside the object are treated as static methods.
 
 ### III. Read and parse the input file (Part B) (10 minutes) (In home)
 
@@ -563,43 +567,113 @@ Spark SQL is equipped with a CSV parser that can read semi-structured CSV files.
 
 In this part, we will run some relational operators through the Dataframe/SparkSQL API. The logic of these queries is similar to what we did in part A. This will allow you to compare and contrast the two APIs.
 
-* Note: For each of the following, you are free to use SQL queries directly or build the query using the Dataframe API. Instructions for both are given for each command.
+Note: For each of the following, you are free to use SQL queries directly or build the query using the Dataframe API. Instructions for both are given for each command.
 
-1. Add the following code (similar to part A) to run a user-provided operation.
+1. Add the following code (similar to part A) to run a user-provided operation using SQL queries.
 
     ```scala
-    val command: String = args(0)
-    val inputfile: String = args(1)
+    import org.apache.spark.{SparkConf, sql}
+    import org.apache.spark.sql.{Row, SparkSession}
 
-    ...
+    object AppSQL {
 
-    val t1 = System.nanoTime
-    command match {
-      case "count-all" =>
-        // TODO count total number of records in the file
-      case "code-filter" =>
-        // TODO Filter the file by response code, args(2), and print the total number of matching lines
-      case "time-filter" =>
-        // TODO Filter by time range [from = args(2), to = args(3)], and print the total number of matching lines
-      case "count-by-code" =>
-        // TODO Group the lines by response code and count the number of records per group
-      case "sum-bytes-by-code" =>
-        // TODO Group the lines by response code and sum the total bytes per group
-      case "avg-bytes-by-code" =>
-        // TODO Group the liens by response code and calculate the average bytes per group
-      case "top-host" =>
-        // TODO print the host the largest number of lines and print the number of lines
+      def main(args: Array[String]) {
+        val conf = new SparkConf
+        if (!conf.contains("spark.master"))
+          conf.setMaster("local[*]")
+        println(s"Using Spark master '${conf.get("spark.master")}'")
+
+        val spark = SparkSession
+          .builder()
+          .appName("CS167_Lab6_AppSQL")
+          .config(conf)
+          .getOrCreate()
+
+        val command: String = args(0)
+        val inputfile: String = args(1)
+        try {
+          val input = spark.read.format("csv")
+            .option("sep", "\t")
+            .option("inferSchema", "true")
+            .option("header", "true")
+            .load(inputfile)
+          import spark.implicits._
+          input.createOrReplaceTempView("log_lines")
+          val t1 = System.nanoTime
+          var validCommand = true
+          command match {
+            case "count-all" =>
+              // Count total number of records in the file
+              val count: Long = input.count()  // TODO 9: count total number of records in the file on `input`
+              println(s"Total count for file '$inputfile' is $count")
+            case "code-filter" =>
+              // Filter the file by response code, args(2), and print the total number of matching lines
+              val responseCode: String = args(2)
+              val query: String = // TODO 10: write SQL query to filter view `log_lines` by `responseCode`
+              val count: Long = spark.sql(query).first().getAs[Long](0)
+              println(s"Total count for file '$inputfile' with response code $responseCode is $count")
+            case "time-filter" =>
+              // Filter by time range [from = args(2), to = args(3)], and print the total number of matching lines
+              val from: Long = args(2).toLong
+              val to: Long = args(3).toLong
+              val query: String = // TODO 11: write SQL query to filter view `log_lines` by `time` between `from` and `to`
+              val count: Long = spark.sql(query).first().getAs[Long](0)
+              println(s"Total count for file '$inputfile' in time range [$from, $to] is $count")
+            case "count-by-code" =>
+              // Group the lines by response code and count the number of records per group
+              println(s"Number of lines per code for the file '$inputfile'")
+              println("Code,Count")
+              val query: String = // TODO 12: write SQL query the get the count for each `response`, results must be ordered by `response` in ascending order
+              spark.sql(query).foreach(row => println(s"${row.get(0)},${row.get(1)}"))
+            case "sum-bytes-by-code" =>
+              // Group the lines by response code and sum the total bytes per group
+              println(s"Total bytes per code for the file '$inputfile'")
+              println("Code,Sum(bytes)")
+              val query: String = // TODO 13: write SQL query the get the sum of `bytes` for each `response`, results must be ordered by `response` in ascending order
+              spark.sql(query).foreach(row => println(s"${row.get(0)},${row.get(1)}"))
+            case "avg-bytes-by-code" =>
+              // Group the liens by response code and calculate the average bytes per group
+              println(s"Average bytes per code for the file '$inputfile'")
+              println("Code,Avg(bytes)")
+              val query: String = // TODO 14: write SQL query the get the average of `bytes` for each `response`, results must be ordered by `response` in ascending order
+              spark.sql(query).foreach(row => println(s"${row.get(0)},${row.get(1)}"))
+            case "top-host" =>
+              // print the host the largest number of lines and print the number of lines
+              println(s"Top host in the file '$inputfile' by number of entries")
+              val query: String = // TODO 15: write SQL query the get the `host` with the largest count
+              val topHost: Row = spark.sql(query).first()
+              println(s"Host: ${topHost.get(0)}")
+              println(s"Number of entries: ${topHost.get(1)}")
+            case "comparison" =>
+              // Given a specific time, calculate the number of lines per response code for the
+              // entries that happened before that time, and once more for the lines that happened at or after
+              // that time. Print them side-by-side in a tabular form.
+              // TODO 16a: comment the following line
+              println("Not implemented")
+              // TODO 16b: Uncomment the following lines and complete your function here
+              // println(s"Comparison of the number of lines per code before and after ${filterTimestamp} on file ${inputfile}")
+              // println("Code,CountBefore,CountAfter")
+              // val filterTimestamp: Long = args(2).toLong
+              // val query: String = // Write your query here. Results must be ordered by `response` in ascending order
+              // spark.sql(query).foreach(row => println(s"${row.get(0)},${row.get(1)},${row.get(2)}"))
+            case _ => validCommand = false
+          }
+          val t2 = System.nanoTime
+          if (validCommand)
+            println(s"Command '$command' on file '$inputfile' finished in ${(t2 - t1) * 1E-9} seconds")
+          else
+            Console.err.println(s"Invalid command '$command'")
+        } finally {
+          spark.stop
+        }
+      }
     }
-    val t2 = System.nanoTime
-    println(s"Command '${command}' on file '${inputfile}' finished in ${(t2-t1)*1E-9} seconds")
     ```
 
-2. The command `count-all` is implemented using the `count` function. The output should look similar to the following.
+2. The command `count-all` is implemented using the `count` function.
+    * Complete `TODO 9`
 
-    ```text
-    Total count for file 'nasa_19950801.tsv' is 30969
-    Total count for file '19950630.23-19950801.00.tsv' is 1891709
-    ```
+    The output should be the same as in [IV. `count-all` and `code-filter`](#iv-count-all-and-code-filter-10-minutes).
 
     You can also run this logic using the following SQL function:
 
@@ -629,12 +703,10 @@ In this part, we will run some relational operators through the Dataframe/SparkS
 
     You can use this alternative syntax wisely to make your code more readable without being too complex to follow.
 
-3. The command `code-filter` should count the records with a give response code. To do that, you will use the `filter` method. The easiest way is to provide the test as a string, e.g., `"response=200"`. Alternatively, you can use the expression `$"response" === 200`. For the latter, make use that you ipmort the implicit coversion using the statement `import spark.implicits._` in your program. The output should look similar to the following.
+3. The command `code-filter` should count the records with a give response code. To do that, you will use the `filter` method. The easiest way is to provide the test as a string, e.g., `"response=200"`. Alternatively, you can use the expression `$"response" === 200`. For the latter, make use that you ipmort the implicit coversion using the statement `import spark.implicits._` in your program.
+    * Complete `TODO 10`
 
-    ```text
-    Total count for file 'nasa_19950801.tsv' with response code 200 is 27972
-    Total count for file '19950630.23-19950801.00.tsv' with response code 302 is 46573
-    ```
+    The output should be the same as in [IV. `count-all` and `code-filter`](#iv-count-all-and-code-filter-10-minutes).
 
     The following SQL command will also return the same result.
 
@@ -644,7 +716,10 @@ In this part, we will run some relational operators through the Dataframe/SparkS
     WHERE response=200;
     ```
 
-4. The command `time-filter` should count all the records that happened in a time interval `[from, to]`. The two parameters are provided as the third and forth command line arguments. You will use the `filter` function but this time with the `between` expression. Again, you can just provide the filter predicate as a string, i.e., `"time BETWEEN 807274014 AND 807283738"`, or as a Scala expression, i.e., `$"time".between(807274014, 807283738)`. This will be followed by `count` to count the records. A sample output is given below.
+4. The command `time-filter` should count all the records that happened in a time interval `[from, to]`. The two parameters are provided as the third and forth command line arguments. You will use the `filter` function but this time with the `between` expression. Again, you can just provide the filter predicate as a string, i.e., `"time BETWEEN 807274014 AND 807283738"`, or as a Scala expression, i.e., `$"time".between(807274014, 807283738)`. This will be followed by `count` to count the records.
+    * Complete `TODO 11`
+
+    The output should be the same as in [V. `time-filter`](#v-time-filter-10-minutes).
 
     ```text
     Total count for file 'nasa_19950801.tsv' in time range [807274014, 807283738] is 6389
@@ -659,115 +734,29 @@ In this part, we will run some relational operators through the Dataframe/SparkS
     ```SQL
     SELECT count(*)
     FROM log_lines
-    WHERE time BETWEEN [from] AND [to];
+    WHERE time BETWEEN <from> AND <to>;
     ```
 
-    You should replace `[from]` and `[to]` with the correct parameters passed through command line. You can use the [string interpolation](https://docs.scala-lang.org/overviews/scala-book/two-notes-about-strings.html) feature in Scala to keep your code readable.
+    You should replace `<from>` and `<to>` with the correct parameters passed through command line. You can use the [string interpolation](https://docs.scala-lang.org/overviews/scala-book/two-notes-about-strings.html) feature in Scala to keep your code readable.
 
-5. The commands `count-by-code`, `sum-bytes-by-code`, and `avg-bytes-by-code` will all look very similar. You first need to group records by response code using the `groupBy` function, i.e., `groupBy("response")` or `groupBy($"response")`. On the result, you should call the correct aggregate function, i.e., `count`, `sum`, or `avg`. The last two functions take a parameter which is the column name to aggregate, e.g., `sum("bytes")`. You can finally print the result using the `show()` command. The output should look like the following.
+5. The commands `count-by-code`, `sum-bytes-by-code`, and `avg-bytes-by-code` will all look very similar. You first need to group records by response code using the `groupBy` function, i.e., `groupBy("response")` or `groupBy($"response")`. On the result, you should call the correct aggregate function, i.e., `count`, `sum`, or `avg`. The last two functions take a parameter which is the column name to aggregate, e.g., `sum("bytes")`. You can finally print the result using the `show()` command.
+    * Complete `TODO 12`, `TODO 13` and `TODO 14`
 
-    ```text
-    Number of lines per code for the file 'nasa_19950801.tsv'
-    +--------+-----+
-    |response|count|
-    +--------+-----+
-    |     404|  221|
-    |     200|27972|
-    |     304| 2421|
-    |     302|  355|
-    +--------+-----+
-    ```
-
-    ```text
-    Number of lines per code for the file '19950630.23-19950801.00.tsv'
-    +--------+-------+
-    |response|  count|
-    +--------+-------+
-    |     501|     14|
-    |     500|     62|
-    |     403|     54|
-    |     404|  10845|
-    |     200|1701534|
-    |     304| 132627|
-    |     302|  46573|
-    +--------+-------+
-    ```
-
-    ```text
-    Total bytes per code for the file nasa_19950801.tsv
-    +--------+----------+
-    |response|sum(bytes)|
-    +--------+----------+
-    |     404|         0|
-    |     200| 481974462|
-    |     304|         0|
-    |     302|     26005|
-    +--------+----------+
-    ```
-
-    ```text
-    Total bytes per code for the file 19950630.23-19950801.00.tsv
-    +--------+-----------+
-    |response| sum(bytes)|
-    +--------+-----------+
-    |     501|          0|
-    |     500|          0|
-    |     403|          0|
-    |     404|          0|
-    |     200|38692291442|
-    |     304|          0|
-    |     302|    3682049|
-    +--------+-----------+
-    ```
-
-    ```text
-    Average bytes per code for the file nasa_19950801.tsv
-    +--------+------------------+
-    |response|        avg(bytes)|
-    +--------+------------------+
-    |     404|               0.0|
-    |     200|17230.604247104246|
-    |     304|               0.0|
-    |     302| 73.25352112676056|
-    +--------+------------------+
-    ```
-
-    ```text
-    Average bytes per code for the file 19950630.23-19950801.00.tsv
-    +--------+------------------+
-    |response|        avg(bytes)|
-    +--------+------------------+
-    |     501|               0.0|
-    |     500|               0.0|
-    |     403|               0.0|
-    |     404|               0.0|
-    |     200|22739.652244386536|
-    |     304|               0.0|
-    |     302|  79.0597341807485|
-    +--------+------------------+
-    ```
+    The output should be the same as in [VI. `count-by-code`](#vi-count-by-code-10-minutess) and [VII. `sum-bytes-by-code` and `avg-bytes-by-code`](#vii-sum-bytes-by-code-and-avg-bytes-by-code-15-minutes).
 
     Here is one SQL query that you can further customize for the three commands.
 
     ```SQL
     SELECT response, SUM(bytes)
     FROM log_lines
-    GROUP BY response;
+    GROUP BY response
+    ORDER BY response;
     ```
 
-6. The command `top-host` should group records by host, `groupBy("host")`, then count records in each group `count()`. After that, you should sort the results in descending order by count, `orderBy($"count".desc)`. Finally, return the top result using the method `first()`. The final result will be of type `Row`. To access the host and number of records for the top result, you can use one of the methods `Row#getAs(String)` and `Row#getAs(Int)` which retrieve an attribute by its name and index, respectively. The final output should look similar to the following.
+6. The command `top-host` should group records by host, `groupBy("host")`, then count records in each group `count()`. After that, you should sort the results in descending order by count, `orderBy($"count".desc)`. Finally, return the top result using the method `first()`. The final result will be of type `Row`. To access the host and number of records for the top result, you can use one of the methods `Row#getAs(String)` and `Row#getAs(Int)` which retrieve an attribute by its name and index, respectively.
+    * Complete `TODO 15`
 
-    ```text
-    Top host in the file 'nasa_19950801.tsv' by number of entries
-    Host: edams.ksc.nasa.gov
-    Number of entries: 364
-    ```
-
-    ```text
-    Top host in the file '19950630.23-19950801.00.tsv' by number of entries
-    Host: piweba3y.p`rodigy.com
-    Number of entries: 17572
-    ```
+    The output should be the same as in [VIII. `top-host`](#viii-top-host-10-minutes).
 
     The following SQL query will help you with this part.
 
