@@ -157,7 +157,7 @@ In this part, you will initialize your project with Spark.
                 val count = counts(code)
                 println(s"$code,${sum.toDouble / count}")
               })
-              // TODO 6f: replace the above codes for bonus with `aggregateByKey`
+              // TODO 7d: replace the above codes for bonus with `aggregateByKey`
             case "top-host" =>
               // Print the host the largest number of lines and print the number of lines
               val loglinesByHost: RDD[(String, Long)] = // TODO 8a: `map` on `parsedLines` by host (column 0)
@@ -355,7 +355,17 @@ A few commands in the next sections may require more than 2 arguments.
     * Complete `TODO 7b`, it is the same as `TODO 6b`
     * Complete `TODO 7c`, it is the same as `TODO 5b`
 8. Bonus (+3 points): The drawback of the above method is that it will need to scan the input twice to count each function, sum and count. It is possible to compute both functions in one scan over the input and without caching any intermediate RDDs. Complete this part to get three bonus points on this lab. Explain your method in the README file and add the code snippet that performs this task. Mark your answer with (B). Hint, check the [aggregateByKey](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/rdd/PairRDDFunctions.html#aggregateByKey[U](zeroValue:U)(seqOp:(U,V)=>U,combOp:(U,U)=>U)(implicitevidence$3:scala.reflect.ClassTag[U]):org.apache.spark.rdd.RDD[(K,U)]) function.
-    * *Optional*: Complete `TODO 7f`
+    * *Optional*: Complete `TODO 7d`
+
+    The following template may be used
+
+    ```scala
+    val averages: RDD[(String, (Long, Long))] = //TODO 7d: `aggregateByKey` on `loglinesByCode`
+    println(s"Average bytes per code for the file '$inputfile'")
+    println("Code,Avg(bytes)")
+    averages.sortByKey().collect().foreach(pair => println(s"${pair._1},${pair._2._1.toDouble/pair._2._2}"))
+    ```
+
 9. A sample output is given below.
 
     ```text
