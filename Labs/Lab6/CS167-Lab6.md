@@ -898,7 +898,7 @@ The following reading material could help you with your lab.
 * [RDD Programming Guide](http://spark.apache.org/docs/latest/rdd-programming-guide.html)
 * [RDD API Docs](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.rdd.RDD)
 * [Spark SQL Programming Guide](http://spark.apache.org/docs/latest/sql-getting-started.html)
-* [Dataset API Docs](hhttp://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.sql.Dataset)
+* [Dataset API Docs](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.sql.Dataset)
 * [SQL Tutorial](https://www.w3schools.com/sql/)
 
 ---
