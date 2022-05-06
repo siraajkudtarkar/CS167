@@ -569,11 +569,11 @@ In this part, we will run some relational operators through the Dataframe/SparkS
 
 Note: For each of the following, you are free to use SQL queries directly or build the query using the Dataframe API. Instructions for both are given for each command.
 
-1. Add the following code (similar to part A) to run a user-provided operation using SQL queries.
+1. Replace your code with the following code template to run a user-provided operation using SQL queries.
 
     ```scala
     import org.apache.spark.{SparkConf, sql}
-    import org.apache.spark.sql.{Row, SparkSession}
+    import org.apache.spark.sql.{DataFrame, Row, SparkSession}
 
     object AppSQL {
 
@@ -604,7 +604,8 @@ Note: For each of the following, you are free to use SQL queries directly or bui
           command match {
             case "count-all" =>
               // Count total number of records in the file
-              val count: Long = // TODO 9: count total number of records in the file on `input`
+              val query: String = // TODO 9: write SQL query to count the total number of rows in `log_lines`
+              val count: Long = spark.sql(query).first().getAs[Long](0)
               println(s"Total count for file '$inputfile' is $count")
             case "code-filter" =>
               // Filter the file by response code, args(2), and print the total number of matching lines
@@ -648,14 +649,24 @@ Note: For each of the following, you are free to use SQL queries directly or bui
               // Given a specific time, calculate the number of lines per response code for the
               // entries that happened before that time, and once more for the lines that happened at or after
               // that time. Print them side-by-side in a tabular form.
+
               // TODO 16a: comment the following line
               println("Not implemented")
-              // TODO 16b: Uncomment the following lines and complete your function here
+
+              // TODO 16b: uncomment the following 3 lines
               // val filterTimestamp: Long = args(2).toLong
               // println(s"Comparison of the number of lines per code before and after $filterTimestamp on file '$inputfile'")
               // println("Code,CountBefore,CountAfter")
+
+              // TODO 16c: Uncomment the following lines and complete your function here if you prefer to use SQL queries
               // val query: String = // Write your query here. Results must be ordered by `response` in ascending order
               // spark.sql(query).foreach(row => println(s"${row.get(0)},${row.get(1)},${row.get(2)}"))
+
+              // TODO 16d: Uncomment the following lines and complete your function here if you prefer to use DataFrame
+              // val countsBefore: DataFrame = // on `input`
+              // val countsAfter: DataFrame = // on `input`
+              // val comparedResults: DataFrame = countsBefore.join(countsAfter, "response").orderBy("response")
+              // comparedResults.foreach(row => println(s"${row.get(0)},${row.get(1)},${row.get(2)}"))              
             case _ => validCommand = false
           }
           val t2 = System.nanoTime
@@ -769,7 +780,7 @@ Note: For each of the following, you are free to use SQL queries directly or bui
     ```
 
 7. (Bonus +3 points) Add a new command, `comparison` that counts records by response code before and after a specific timestamp.
-    * *Optional*: Complete `TODO 16a` and `TODO 16b`
+    * *Optional*: Complete `TODO 16a`, `TODO 16b`, and `TODO 16c` or `TODO 16d`
 
     The timstamp is given as a command-line argument. You can do that by first creating two Dataframes by filtering the input twice. For each Dataframe, you can count the records by response code as done in the operation `count-by-code`. Finally, you can join the results of the two Dataframes by code to place them side-by-side in one Dataset. The join method may look like the following line:
 
@@ -777,7 +788,7 @@ Note: For each of the following, you are free to use SQL queries directly or bui
     countsBefore.join(countsAfter, "response")
     ```
 
-    which joins two dataframes, namely, `countsBefore` and `countsAfter`, using the common key `response`. You can then print out the final result using the `show` command as follows.
+    which joins two dataframes, namely, `countsBefore` and `countsAfter`, using the common key `response`.
 
     ```text
     Comparison of the number of lines per code before and after 807295758 on file `nasa_19950801.tsv`
