@@ -864,11 +864,11 @@ Hint: Add `2>/dev/null` to the end of each command to hide logging information f
 6. Open every XML file, do a **replace** (shortcut is `Ctrl + R` on Linux and Windows, `Command + R` on MacOS). Type `<UCRNetID>` in the upper text field, and your actual UCR Net ID in the lower text field. Then click `Replace All`.
     <p align="center"><img src="images/config-xml-replace.png" style="width:979px;"/></p>
 
-    <center>&#8595;</center>
+    <p align="center">&#8595;</p>
 
     <p align="center"><img src="images/config-xml-after-replace.png" style="width:974px;"/></p>
 
-7. Repeat step for all the 15 XML files.
+7. Repeat step 6 for all the 15 XML files.
 
 8. Save all modified XML files. You can do this in a batch by right clicking the XML file's tab and select `Close All Tabs`.
 
