@@ -299,6 +299,8 @@ In the next part, we will extend the program to use more Spark functions. We wil
     spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.Filter target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar hdfs:///nasa_19950801.tsv 2>&1 | grep "HadoopRDD: Input split"
     ```
 
+    If the above command shows no result, it is because the actual logs were generated on the worker node and not printed in the main terminal. You can find those lines in the log file from the [web interface](http://localhost:8080).
+
 5. In addition to counting the lines, let us also write the matching lines to another file. Add the following part at the beginning of the `main` function.
 
     ```java
@@ -403,7 +405,7 @@ In this part, we will run an aggregation function to count number of records for
 ### VIII. Submission (15 minutes)
 
 1. Add a `README` file with all your answers. Use this [template](./CS167-Lab5-README.md).
-2. Add a `run` script that compiles and runs your filter operation on the input file `nasa_19950630.22-19950728.12.tsv` with response code 302. Then, it should run the aggregation method on the same input file. The output files should be named `filter_output` and `aggregation_output` accordingly. Assume that the input is in the current working directory so your `run` sccript should just use the input file name as a parameter and not an absolute path.
+2. Add a `run` script that compiles and runs your filter operation on the input file `nasa_19950630.22-19950728.12.tsv` with response code 302. Then, it should run the aggregation method on the same input file. Assume that the input is in the current working directory so your `run` script should just use the input file name as a parameter and not an absolute path.
 
 * Note 1: Don't forget to include your information in the README file.
 * Note 2: Don't forget to remove any unnecessary test or binary files.
