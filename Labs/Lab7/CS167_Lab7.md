@@ -6,6 +6,8 @@
 * Manipulate a set of documents in a database.
 * Understand how MongoDB deals with the flexibility of the document data model.
 
+---
+
 ## Prerequisites
 
 * Download the following sample file [contacts.json](./contacts.json).
@@ -32,23 +34,82 @@
 * If you use the virtual machine, it comes with MongoDB pre-installed.
 * For testing purposes, you can use the [online web-based MongoDB version](https://mws.mongodb.com/?version=5.0)
 
+---
+
 ## Lab Work
 
-### I. Setup MongoDB (20 minutes)
+### I. Setup MongoDB and Database Tools (20 minutes)
 
-Note: If you use the virtual machine, you will find that MongoDB is pre-installed.
+* Note: If you use the provided virtual machine, you will find that MongoDB is pre-installed.
 
-1. Make sure that you download appropriate distribution for your system, e.g., Windows, Linux, or Mac, and that you downloaded version 4.2.14. For Windows users, make sure to download the zip version not msi since the former ships with all command-line tools that we will need such as mongoimport.
-2. Extract the downloaded package somewhere in your home directory, e.g., under `$HOME/Applications`.
-3. Add `<mongodb>/bin` directory to your executable path as we did in Lab 1. This step depends on your system and where you extracted the downloaded binaries.
-4. Create a `<mongodb>/data` directory where your data will be stored.
-5. Start the MongoDB server by running the following command.
+1. Download the corresponding archive files (either *.zip* or *.tgz*) according to your system.
+2. Extract the downloaded MongoDB archive file to your course directory `cs167`.
+    * Linux (Ubuntu): `~/cs167/mongodb-linux-x86_64-ubuntu2004-5.0.8`
+    * MacOS: `~/cs167/mongodb-macos-x86_64-5.0.8`
+    * Windows: `C:\cs167\mongodb-win32-x86_64-windows-5.0`
+3. Extract the downloaded MongoDB database tools archive file, copy or move all the files inside the `bin` directory to the installed MongoDB's `bin` directory. Available files (on Windows, those should have `.exe` extension) are:
+    * bsondump
+    * mongoexport
+    * mongoimport
+    * mongostat
+    * mongodump
+    * mongofiles
+    * mongorestore
+    * mongotop
 
-```shell
-mongod --dbpath <mongodb>/data
-```
+4. Configure environment variables.
+    * Linux (Ubuntu):
+        1. Add `export MONGODB_HOME="/home/$LOGNAME/cs167/mongodb-linux-x86_64-ubuntu2004-5.0.8"`
+        2. Add `$MONGODB_HOME/bin` to `PATH`. Separator is `:`.
+        3. Reload the profile via `source` command or restart the terminal.
+    * MacOS:
+        1. Add `export MONGODB_HOME="/Users/$LOGNAME/cs167/mongodb-macos-x86_64-5.0.8"`
+        2. Add `$MONGODB_HOME/bin` to `PATH`. Separator is `:`.
+        3. Reload the profile via `source` command or restart the terminal.
+    * Windows:
+        1. Add a user variable with name `MONGODB_HOME` and value `C:\cs167\mongodb-win32-x86_64-windows-5.0`.
+        2. Add `%MONGODB_HOME%\bin` to `Path` variable.
 
-Do not forget to replace `<mongodb>` with your MongoDB installation directory.
+5. Create a `$MONGODB_HOME/data` directory where your data will be stored.
+    * Linux and MacOS: `mkdir $MONGODB_HOME/data`
+    * Windows: `mkdir "%MONGODB_HOME%\data"` for CMD or `mkdir "$Env:MONGODB_HOME\data"` for PowerShell and Windows terminal
+6. Start the MongoDB server by running the following command.
+    * Linux and MacOS
+
+        ```bash
+        mongod --dbpath $MONGODB_HOME/data
+        ```
+
+    * Windows CMD
+
+        ```powershell
+        mongod --dbpath "%MONGODB_HOME%\data"
+        ```
+
+    * Windows PowerShell or Windows Terminal
+
+        ```powershell
+        mongod --dbpath "$Env:MONGODB_HOME\data"
+        ```
+
+    On MacOS, if you see the following error, click `Cancel`.
+    <p align="center"><img src="images/unverified-developer-macos.png" style="width:372px;"/></p>
+
+    Run the following command (you must be system administrator).
+
+    ```bash
+    sudo spctl --master-disable
+    ```
+
+    Then rerun the `mongod` command above. Once it starts, you can run the following command to rever the changes.
+
+    ```bash
+    sudo spctl --master-enable
+    ```
+
+    See more details about MacOS [GateKeeper](https://www.makeuseof.com/how-to-disable-gatekeeper-mac/).
+
+---
 
 ### II. Data Manipulation (60 minutes)
 
@@ -76,6 +137,8 @@ Do not forget to replace `<mongodb>` with your MongoDB installation directory.
 10. Repeat Q3. (Q8) Where do you expect the new document to appear in the sort order. Verify your answer and explain after running the query.
 11. Repeat Q3 again with all the objects that you inserted, but this time sort the name in *ascending* order. (Q9) Where do you expect the last inserted record, `{Name: ["David", "Bark"]}` to appear this time? Does it appear in the same position relative to the other records? Explain why or why not.
 12. (Q10) Build an index on the Name field for the users collection. Is MongoDB able to build the index on that field with the different value types stored in the Name field?
+
+---
 
 ### II. Submission (15 minutes)
 
