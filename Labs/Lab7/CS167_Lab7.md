@@ -175,6 +175,8 @@
     * ***(Q8) What is your command?***
     * ***(Q9) What is the output of the above command?***
 
+    Hint: Use [`db.collection.insertOne()`](https://www.mongodb.com/docs/manual/reference/method/db.collection.insertOne/#db.collection.insertone--).
+
 7. Rerun step 3, which lists the records sorted by `Name`.
     * ***(Q10) Where do you expect the new record to be located in the sort?***
 
