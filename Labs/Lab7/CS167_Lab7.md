@@ -118,7 +118,7 @@
     * ***(Q1) What is your command?***
     * ***(Q2) What is the output of the above command?***
 
-2. Retrieve all the users sorted by name (default order).
+2. Retrieve all the users sorted by `Name` (default order).
     * ***(Q3) What is your command?***
 
     Copy the output to a file named `q3.txt`. Your `.txt` file should look like
@@ -145,7 +145,7 @@
 
     Hint: Use [`db.collection.find()`](https://www.mongodb.com/docs/manual/reference/method/db.collection.find/#mongodb-method-db.collection.find) and [`cursor.sort()`](https://www.mongodb.com/docs/manual/reference/method/cursor.sort/#mongodb-method-cursor.sort).
 
-3. List only the `_id` and `Name` sorted in **reverse alphabetical order** by `name` (Z-to-A).
+3. List only the `_id` and `Name` sorted in **reverse alphabetical order** by `Name` (Z-to-A).
     * ***(Q4) What is your command?***
 
     Copy the output to `q4.txt`. The file format should be the same as step 2. The output should not contain other attributes other than `_id` and `Name`.
@@ -192,7 +192,7 @@
 9. Rerun step 3.
     * ***(Q13) Where do you expect the new document to appear in the sort order. Verify your answer and explain after running the query.***
 
-10. Rerun step 3, but this time sort the name in **ascending** order.
+10. Rerun step 3, but this time sort the `Name` in **ascending** order.
     * ***(Q14) Where do you expect the last inserted record, `{Name: ["David", "Bark"]}` to appear this time? Does it appear in the same position relative to the other records? Explain why or why not.***
 
     Copy the output to `q14.txt`. The file format should be the same as step 2. The output should not contain other attributes other than `_id` and `Name`.
