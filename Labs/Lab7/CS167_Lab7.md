@@ -15,9 +15,11 @@
   * Linux (Ubuntu): Select `Ubuntu 20.04` in **Platform** and `tgz` in **Package**. Don't select other package types.
     * Direct link: [https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-5.0.8.tgz](https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-5.0.8.tgz)
     <p align="center"><img src="images/mongodb-ubuntu.png" style="width:324px;"/></p>
+    * You may use the MongoDB for Ubuntu 18.04 if your system is that version.
   * MacOS: Select `macOS` in **Platform**. The **Package** has only one option `tgz`.
     * Direct link: [https://fastdl.mongodb.org/osx/mongodb-macos-x86_64-5.0.8.tgz](https://fastdl.mongodb.org/osx/mongodb-macos-x86_64-5.0.8.tgz)
     <p align="center"><img src="images/mongodb-macos.png" style="width:323px;"/></p>
+    * You may use an older version of MongoDB (4.4 or 4.2) if your system is 10.13 or lower.
   * Windows: Select `Windows` in **Platform** and `zip` in **Package**. Don't select the `msi` package.
     * Direct link: [https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-5.0.8.zip](https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-5.0.8.zip)  
     <p align="center"><img src="images/mongodb-windows.png" style="width:323px;"/></p>
