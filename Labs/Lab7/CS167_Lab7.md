@@ -199,7 +199,7 @@
 
 ---
 
-### II. Submission (15 minutes)
+### III. Submission (2 minutes)
 
 1. Write your answers using the [template `README.md`](https://raw.githubusercontent.com/aseldawy/CS167/master/Labs/Lab7/CS167-Lab7-README.md) file.
 2. Make a `.tar.gz` or `.zip` file with `README.md`, `q3.txt`, `q4.txt`, `q5.txt` and `q14.txt`.
