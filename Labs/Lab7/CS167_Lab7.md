@@ -73,7 +73,7 @@
 5. Create a `$MONGODB_HOME/data` directory where your data will be stored.
     * Linux and MacOS: `mkdir $MONGODB_HOME/data`
     * Windows: `mkdir "%MONGODB_HOME%\data"` for CMD or `mkdir "$Env:MONGODB_HOME\data"` for PowerShell and Windows terminal
-6. Start the MongoDB server by running the following command.
+6. Start the MongoDB server by running the following command (you must keep the tab/window open while doing this lab).
     * Linux and MacOS
 
         ```bash
