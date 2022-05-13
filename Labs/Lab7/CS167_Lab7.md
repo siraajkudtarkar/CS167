@@ -69,6 +69,7 @@
     * Windows:
         1. Add a user variable with name `MONGODB_HOME` and value `C:\cs167\mongodb-win32-x86_64-windows-5.0.8`
         2. Add `%MONGODB_HOME%\bin` to `Path` variable.
+        3. Restart the terminal.
 
 5. Create a `$MONGODB_HOME/data` directory where your data will be stored.
     * Linux and MacOS: `mkdir $MONGODB_HOME/data`
@@ -82,7 +83,7 @@
 
     * Windows CMD
 
-        ```powershell
+        ```bat
         mongod --dbpath "%MONGODB_HOME%\data"
         ```
 
@@ -117,7 +118,7 @@
     * ***(Q1) What is your command?***
     * ***(Q2) What is the output of the above command?***
 
-2. Retrieve all the users sorted by name.
+2. Retrieve all the users sorted by name (default order).
     * ***(Q3) What is your command?***
 
     Copy the output to a file named `q3.txt`. Your `.txt` file should look like
@@ -149,18 +150,20 @@
 
     Copy the output to `q4.txt`. The file format should be the same as step 2. The output should not contain other attributes other than `_id` and `Name`.
 
+    Hint: You will need to use [`projection`](https://www.mongodb.com/docs/manual/reference/method/db.collection.find/#projection) and [Ascending/Descending Sort](https://www.mongodb.com/docs/manual/reference/method/cursor.sort/#ascending-descending-sort).
+
 4. ***(Q5) Is the comparison of the attribute `Name` case-sensitive?***
 
-    Show how you try this with the previous query and include your answer. Write your query in the README file and put the output in `q5.txt` using the same format.
+    Show how you try this with the previous query and include your answer.
 
-    Hint: You cannot tell if the comparison is case sensitive for the given data. However, you can figure it out by comparing a name with some lower case letter with a name with some upper case letters. For example, in a case sensitive comparison, "B" < "a". In a case insensitive comparison, "B" > "a".
+    Hint: To check if a comparison is case sensitive, there must be at least one string with upper case letter and one string with lower case letters. For example, given "**A**pple" and "**B**erry", "**A**pple" **&lt;** "**B**erry" in both case sensitive and insensitive comparisons. However, if you have "**a**pple" and "**B**erry", it will be "**a**pple" **&gt;** "**B**erry" in a case sensitive comparison and "**a**pple" **&lt;** "**B**erry" in a case insensitive comparison. Note that you cannot tell "**A**pple" and "**b**erry" because '**A**' **&lt;** '**b**' in both case sensitive and insensitive comparisons.
 
-    You may check [ASCII chart](https://theasciicode.com.ar/).
+    You may check [ASCII table](https://theasciicode.com.ar/).
 
 5. Repeat step 3 above but do not show the `_id` field.
     * ***(Q6) What is your command?***
 
-   Copy the output to `q6.json` using the same format. The output should only contain attribute `Name`.
+   Copy the output to `q6.txt` using the same format. The output should only contain attribute `Name`.
 
 6. Insert the following document to the collection.
 
@@ -175,7 +178,7 @@
 7. Rerun step 3, which lists the records sorted by `Name`.
     * ***(Q10) Where do you expect the new record to be located in the sort?***
 
-8. Insert the following document into the collection.
+8. Insert the following document into the `contacts` collection.
 
     ```text
     {Name: ["David", "Bark"]}
@@ -192,27 +195,31 @@
 
     Copy the output to `q14.txt`. The file format should be the same as step 2. The output should not contain other attributes other than `_id` and `Name`.
 
-11. Build an index on the `Name` field for the collection.
+    Hint: [Ascending/Descending Sort](https://www.mongodb.com/docs/manual/reference/method/cursor.sort/#ascending-descending-sort).
+
+11. Build an index on the `Name` field for the  `contacts` collection.
     * ***(Q15) Is MongoDB able to build the index on that field with the different value types stored in the `Name` field?***
     * ***(Q16) What is your command?***
     * ***(Q17) What is the output of the above command?***
+
+    Hint: Use [`db.collection.createIndex()`](https://www.mongodb.com/docs/manual/reference/method/db.collection.createIndex/#mongodb-method-db.collection.createIndex).
 
 ---
 
 ### III. Submission (2 minutes)
 
 1. Write your answers using the [template `README.md`](https://raw.githubusercontent.com/aseldawy/CS167/master/Labs/Lab7/CS167-Lab7-README.md) file.
-2. Make a `.tar.gz` or `.zip` file with `README.md`, `q3.txt`, `q4.txt`, `q5.txt` and `q14.txt`.
+2. Make a `.tar.gz` or `.zip` file with `README.md`, `q3.txt`, `q4.txt`, `q6.txt` and `q14.txt`.
 
     Your archive file should be:
 
     ```text
     <UCRNetID>_lab7.{tar.gz | zip}
-    - README.md
-    - q3.txt
-    - q4.txt
-    - q5.txt
-    - q14.txt
+      - README.md
+      - q3.txt
+      - q4.txt
+      - q6.txt
+      - q14.txt
     ```
 
 3. Do not forget to include your information as you do in other labs.
