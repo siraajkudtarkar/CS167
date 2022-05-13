@@ -31,7 +31,7 @@
   * Windows: Select `Windows x86_64` in **Platform** and `zip` in **Package**. Don't select the `msi` package.
     * Direct link: [https://fastdl.mongodb.org/tools/db/mongodb-database-tools-windows-x86_64-100.5.2.zip](https://fastdl.mongodb.org/tools/db/mongodb-database-tools-windows-x86_64-100.5.2.zip)
     <p align="center"><img src="images/mongodb-tools-windows.png" style="width:323px;"/></p>
-* If you use the virtual machine, it comes with MongoDB pre-installed.
+* If you use the provided virtual machine, it comes with MongoDB pre-installed.
 * For testing purposes, you can use the [online web-based MongoDB version](https://mws.mongodb.com/?version=5.0)
 
 ---
@@ -46,7 +46,7 @@
 2. Extract the downloaded MongoDB archive file to your course directory `cs167`.
     * Linux (Ubuntu): `~/cs167/mongodb-linux-x86_64-ubuntu2004-5.0.8`
     * MacOS: `~/cs167/mongodb-macos-x86_64-5.0.8`
-    * Windows: `C:\cs167\mongodb-win32-x86_64-windows-5.0`
+    * Windows: `C:\cs167\mongodb-win32-x86_64-windows-5.0.8`
 3. Extract the downloaded MongoDB database tools archive file, copy or move all the files inside the `bin` directory to the installed MongoDB's `bin` directory. Available files (on Windows, those should have `.exe` extension) are:
     * bsondump
     * mongoexport
@@ -67,7 +67,7 @@
         2. Add `$MONGODB_HOME/bin` to `PATH`. Separator is `:`
         3. Reload the profile via `source` command or restart the terminal
     * Windows:
-        1. Add a user variable with name `MONGODB_HOME` and value `C:\cs167\mongodb-win32-x86_64-windows-5.0`
+        1. Add a user variable with name `MONGODB_HOME` and value `C:\cs167\mongodb-win32-x86_64-windows-5.0.8`
         2. Add `%MONGODB_HOME%\bin` to `Path` variable.
 
 5. Create a `$MONGODB_HOME/data` directory where your data will be stored.
