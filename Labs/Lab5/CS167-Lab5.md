@@ -404,7 +404,7 @@ In this part, we will run an aggregation function to count number of records for
 
 ### VIII. Submission (15 minutes)
 
-1. Add a `README` file with all your answers. Use this [template](./CS167-Lab5-README.md).
+1. Add a `README` file with all your answers. Use this [template](https://raw.githubusercontent.com/aseldawy/CS167/master/Labs/Lab5/CS167-Lab5-README.md).
 2. Add a `run` script that compiles and runs your filter operation on the input file `nasa_19950630.22-19950728.12.tsv` with response code 302. Then, it should run the aggregation method on the same input file. Assume that the input is in the current working directory so your `run` script should just use the input file name as a parameter and not an absolute path.
 
 * Note 1: Don't forget to include your information in the README file.

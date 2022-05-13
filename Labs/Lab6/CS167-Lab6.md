@@ -888,7 +888,7 @@ Hint: Add `2>/dev/null` to the end of each command to hide logging information f
 
 ## Submission (15 minutes)
 
-1. Add a `README` file with all your answers. Use this [template](./CS167-Lab6-README.md).
+1. Add a `README` file with all your answers. Use this [template](https://raw.githubusercontent.com/aseldawy/CS167/master/Labs/Lab6/CS167-Lab6-README.md).
 2. If you implemented the bonus tasks, add your explanation and code snippet to the `README` file.
 3. Add a `run` script that compiles your code and then runs the following commands with the given parameters on the file `nasa_19950630.22-19950728.12.tsv`. Use only the file name with the assumption that the file is available in the working directory. The script should run all these command twice, once with `App` and once with `AppSQL`.
 

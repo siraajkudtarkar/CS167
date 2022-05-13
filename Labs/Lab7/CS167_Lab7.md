@@ -60,14 +60,14 @@
 4. Configure environment variables.
     * Linux (Ubuntu):
         1. Add `export MONGODB_HOME="/home/$LOGNAME/cs167/mongodb-linux-x86_64-ubuntu2004-5.0.8"`
-        2. Add `$MONGODB_HOME/bin` to `PATH`. Separator is `:`.
-        3. Reload the profile via `source` command or restart the terminal.
+        2. Add `$MONGODB_HOME/bin` to `PATH`. Separator is `:`
+        3. Reload the profile via `source` command or restart the terminal
     * MacOS:
         1. Add `export MONGODB_HOME="/Users/$LOGNAME/cs167/mongodb-macos-x86_64-5.0.8"`
-        2. Add `$MONGODB_HOME/bin` to `PATH`. Separator is `:`.
-        3. Reload the profile via `source` command or restart the terminal.
+        2. Add `$MONGODB_HOME/bin` to `PATH`. Separator is `:`
+        3. Reload the profile via `source` command or restart the terminal
     * Windows:
-        1. Add a user variable with name `MONGODB_HOME` and value `C:\cs167\mongodb-win32-x86_64-windows-5.0`.
+        1. Add a user variable with name `MONGODB_HOME` and value `C:\cs167\mongodb-win32-x86_64-windows-5.0`
         2. Add `%MONGODB_HOME%\bin` to `Path` variable.
 
 5. Create a `$MONGODB_HOME/data` directory where your data will be stored.
@@ -95,13 +95,13 @@
     On MacOS, if you see the following error, click `Cancel`.
     <p align="center"><img src="images/unverified-developer-macos.png" style="width:372px;"/></p>
 
-    Run the following command (you must be system administrator).
+    Run the following command (you must be a system administrator to use `sudo`).
 
     ```bash
     sudo spctl --master-disable
     ```
 
-    Then rerun the `mongod` command above. Once it starts, you can run the following command to rever the changes.
+    Then rerun the `mongod` command above. Once it starts, you can run the following command to revert the changes.
 
     ```bash
     sudo spctl --master-enable
@@ -113,35 +113,107 @@
 
 ### II. Data Manipulation (60 minutes)
 
-* Note: For all the questions below, write down your query and the answer to any questions. Include all the queries that you ran along with the answers in a README file.
+1. Import the sample file into a new collection named `contacts`. You will need to use [`mongoimport`](https://www.mongodb.com/docs/database-tools/mongoimport/) command from the database tool. You may use [`--collection`](https://www.mongodb.com/docs/database-tools/mongoimport/#std-option-mongoimport.--collection) and [`--jsonArray`](https://www.mongodb.com/docs/database-tools/mongoimport/#std-option-mongoimport.--jsonArray) two options.
+    * ***(Q1) What is your command?***
+    * ***(Q2) What is the output of the above command?***
 
-1. (Q1) Import the sample file into a new collection named `contacts`. Hint: Use the [`mongoimport`](https://docs.mongodb.com/database-tools/mongoimport/) command.
-3. (Q2) Retrieve all the users sorted by name.
-4. (Q3) List only the `id` and `name`s sorted in reverse alphabetical order by `name` (Z-to-A).
-5. (Q4) Is the comparison of the attribute `name` case-sensitive? Show how you try this with the previous query and include your answer.
-6. (Q5) Repeat Q3 above but do not show the _id field.
-7. (Q6) Insert the following document to the collection.
+2. Retrieve all the users sorted by name.
+    * ***(Q3) What is your command?***
+
+    Copy the output to a file named `q3.txt`. Your `.txt` file should look like
+
+    ```json
+    { ... }
+    { ... }
+    { ... }
+    ```
+
+    Or with [`cursor.pretty()`](https://www.mongodb.com/docs/manual/reference/method/cursor.pretty/)
+
+    ```json
+    {
+        ...
+    }
+    {
+        ...
+    }
+    { 
+        ...
+    }
+    ```
+
+    Hint: Use [`db.collection.find()`](https://www.mongodb.com/docs/manual/reference/method/db.collection.find/#mongodb-method-db.collection.find) and [`cursor.sort()`](https://www.mongodb.com/docs/manual/reference/method/cursor.sort/#mongodb-method-cursor.sort).
+
+3. List only the `_id` and `Name` sorted in **reverse alphabetical order** by `name` (Z-to-A).
+    * ***(Q4) What is your command?***
+
+    Copy the output to `q4.txt`. The file format should be the same as step 2. The output should not contain other attributes other than `_id` and `Name`.
+
+4. ***(Q5) Is the comparison of the attribute `Name` case-sensitive?***
+
+    Show how you try this with the previous query and include your answer. Write your query in the README file and put the output in `q5.txt` using the same format.
+
+    Hint: You cannot tell if the comparison is case sensitive for the given data. However, you can figure it out by comparing a name with some lower case letter with a name with some upper case letters. For example, in a case sensitive comparison, "B" < "a". In a case insensitive comparison, "B" > "a".
+
+    You may check [ASCII chart](https://theasciicode.com.ar/).
+
+5. Repeat step 3 above but do not show the `_id` field.
+    * ***(Q6) What is your command?***
+
+   Copy the output to `q6.json` using the same format. The output should only contain attribute `Name`.
+
+6. Insert the following document to the collection.
 
     ```text
     {Name: {First: "David", Last: "Bark"}}
     ```
 
-    Does MongoDB accept this document while the `name` field has a different type than other records?
-8. Rerun Q3, which lists the records sorted by `name`. (Q7) Where do you expect the new record to be located in the sort order? Verify the answer and explain.
-9. Insert the following document into the users collection.
+    * ***(Q7) Does MongoDB accept this document while the `Name` field has a different type than other records?***
+    * ***(Q8) What is your command?***
+    * ***(Q9) What is the output of the above command?***
+
+7. Rerun step 3, which lists the records sorted by `Name`.
+    * ***(Q10) Where do you expect the new record to be located in the sort?***
+
+8. Insert the following document into the collection.
 
     ```text
     {Name: ["David", "Bark"]}
     ```
 
-10. Repeat Q3. (Q8) Where do you expect the new document to appear in the sort order. Verify your answer and explain after running the query.
-11. Repeat Q3 again with all the objects that you inserted, but this time sort the name in *ascending* order. (Q9) Where do you expect the last inserted record, `{Name: ["David", "Bark"]}` to appear this time? Does it appear in the same position relative to the other records? Explain why or why not.
-12. (Q10) Build an index on the Name field for the users collection. Is MongoDB able to build the index on that field with the different value types stored in the Name field?
+    * ***(Q11) What is your command?***
+    * ***(Q12) What is the output of the above command?***
+
+9. Rerun step 3.
+    * ***(Q13) Where do you expect the new document to appear in the sort order. Verify your answer and explain after running the query.***
+
+10. Rerun step 3, but this time sort the name in **ascending** order.
+    * ***(Q14) Where do you expect the last inserted record, `{Name: ["David", "Bark"]}` to appear this time? Does it appear in the same position relative to the other records? Explain why or why not.***
+
+    Copy the output to `q14.txt`. The file format should be the same as step 2. The output should not contain other attributes other than `_id` and `Name`.
+
+11. Build an index on the `Name` field for the collection.
+    * ***(Q15) Is MongoDB able to build the index on that field with the different value types stored in the `Name` field?***
+    * ***(Q16) What is your command?***
+    * ***(Q17) What is the output of the above command?***
 
 ---
 
 ### II. Submission (15 minutes)
 
-1. Send only a README file that contains both the queries that you ran and the answers to the questions above.
-2. Do not forget to include your information as you do in other labs.
-3. No separate code is required for this lab.
+1. Write your answers using the [template `README.md`](https://raw.githubusercontent.com/aseldawy/CS167/master/Labs/Lab7/CS167-Lab7-README.md) file.
+2. Make a `.tar.gz` or `.zip` file with `README.md`, `q3.txt`, `q4.txt`, `q5.txt` and `q14.txt`.
+
+    Your archive file should be:
+
+    ```text
+    <UCRNetID>_lab7.{tar.gz | zip}
+    - README.md
+    - q3.txt
+    - q4.txt
+    - q5.txt
+    - q14.txt
+    ```
+
+3. Do not forget to include your information as you do in other labs.
+4. No separate code is required for this lab.
