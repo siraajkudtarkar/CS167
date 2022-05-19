@@ -2,7 +2,7 @@
 
 ## Objectives
 
-* Manage big data using AsterixDB.
+* Manage big data using [Apache AsterixDB](https://asterixdb.apache.org/).
 * Download real datasets and load them into AsterixDB.
 * Run SQL queries and visualize the results.
 
@@ -11,7 +11,8 @@
 ## Prerequisites
 
 * Download [AsterixDB-0.9.8](http://www.apache.org/dyn/closer.lua/asterixdb/asterixdb-0.9.8/asterix-server-0.9.8-binary-assembly.zip)
-* Download Oracle JRE 11 or later. JRE 8 will not work for this lab.
+  * Link to [Documentation](https://asterixdb.apache.org/docs/0.9.8/index.html) 
+* Download JDK 11 or later. JDK 8 will not work for this lab.
 * Download and decompress this [sample file](chicago_crimes_sample.csv.gz) for testing.
 * Download the [template spreadsheet](CS167_lab8-visualization-template.xlsx) for the visualizations requested later.
 
@@ -19,23 +20,64 @@
 
 ## Lab Work
 
-### I. Install AsterixDB - 10 minutes (in home)
+### I. Install JDK 11+ - 10 minutes (in home)
 
-1. Install JRE (or JDK) 11 or later. If you still have JDK 8 downloaded, make sure that your executable `PATH` environment variable points to Java 11. To confirm, run `java -version` from command line. You should see something like the following. (The actual version will vary but it should not be 1.8.)
+AsterixDB requires Java 11+ to run. It does not have strict requirement for which Java distribution (Oracle JDK or OpenJDK) to use, you can choose whatever JDK to use. Here we provide an instruction for Oracle JDK 11 below. You can use other method to install the JDK such as an installer (.deb, .exe or .pkg) or `apt` command, but make sure you can find where it is installed.
 
-    ```text
-    java version "17.0.1" 2021-10-19 LTS
-    Java(TM) SE Runtime Environment (build 17.0.1+12-LTS-39)
-    Java HotSpot(TM) 64-Bit Server VM (build 17.0.1+12-LTS-39, mixed mode, sharing)
-    ```
+1. Download Oracle JDK 11.
+   * Linux: Download **x64 Compressed Archive (jdk-11.0.15.1_linux-x64_bin.tar.gz)** from [here](https://www.oracle.com/java/technologies/downloads/#java11-linux).
+   * macOS: Download **x64 Compressed Archive (jdk-11.0.15.1_linux-x64_bin.tar.gz)** from [here](https://www.oracle.com/java/technologies/downloads/#java11-mac).
+   * Linux: Download **x64 Compressed Archive (jdk-11.0.15.1_windows-x64_bin.zip)** from [here](https://www.oracle.com/java/technologies/downloads/#java11-windows).
 
-2. Extract AsterixDB into your `cs167` under your home directory.
+2. Untar (Linux and macOS) or unzip (Windows) the downloaded archive file to your **cs167** folder.
 
-3. To start a local cluster of AsterixDB, open a command line window at the extracted AsterixDB directory and run the following command.
+3. Change your environment variable `JAVA_HOME`, which points to Oracle JDK 8, to the untar'ed or unzipped the folder.
+   * Linux: ~~`/home/$LOGNAME/cs167/jdk1.8.0_333.jdk/Contents/Home`~~ &#8594; `/home/$LOGNAME/cs167/jdk-11.0.15.1.jdk/Contents/Home`
+   * macOS: ~~`/Library/Java/JavaVirtualMachines/jdk1.8.0_333.jdk/Contents/Home`~~ &#8594; `/Users/$LOGNAME/cs167/jdk-11.0.15.1.jdk/Contents/Home`
+   * Windows: ~~`C:\cs167\jdk1.8.0_333.jdk\Contents\Home`~~ &#8594; `C:\cs167\jdk-11.0.15.1.jdk\Contents\Home`
 
-   ```shell
-   opt/local/bin/start-sample-cluster
+4. Reload your environment by running the `source` command (Linux and macOS) or restarting the terminal app.
+
+5. Test your new `JAVA_HOME`
+   * Linux and macOS: `echo $JAVA_HOME`
+   * Windows CMD: `echo %JAVA_HOME%`
+   * Windows PowerShell: `echo $Env:JAVA_HOME`
+
+   It should print the path which contains `jdk-11.0.15.1.jdk`.
+
+6. Test your `java` version.
+
+   ```bash
+   java -version
    ```
+
+   It should print
+
+   ```text
+   java version "11.0.15.1" 2022-04-22 LTS
+   Java(TM) SE Runtime Environment 18.9 (build 11.0.15.1+2-LTS-10)
+   Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.15.1+2-LTS-10, mixed mode)
+   ```
+
+### II. Install AsterixDB - 5 minutes (in home)
+
+1. Extract AsterixDB into your `cs167` under your home directory.
+
+2. To start a local cluster of AsterixDB, open a command line window at the extracted AsterixDB directory and run the following command.
+
+   You can also use the absolute path to the **start-sample-cluster.{sh | bat}** file.
+
+   * Linux and macOS
+
+     ```bash
+     ./opt/local/bin/start-sample-cluster.sh
+     ```
+
+   * Windows (you can also go to **opt\local\bin** folder in Windows Explorer and double click the bat file to run it)
+
+     ```powershell
+     opt\local\bin\start-sample-cluster.bat
+     ```
 
    You should see something like the following.
 
@@ -45,14 +87,14 @@
 
    <p align="center"><img src="./images/asterixdb-web-interface.png" style="width:792px;"/></p>
 
-   You can now close this window if you want.
+   You can now close this terminal window if you want.
 
 ---
 
-## II. Review the builtin function
+## III. Review the builtin function
 
 1. Go through the [builtin functions of AsterixDB](https://asterixdb.apache.org/docs/0.9.8/sqlpp/builtins.html). Focus on numeric, string, temporal, and aggregate functions.
-2. You can directly run the queries into the web interface of AsterixDB for testing.
+2. You can directly run the queries into the [web interface](http://127.0.0.1:19006) of AsterixDB for testing.
 3. Run the following query.
 
    ```sql
@@ -63,7 +105,7 @@
 
 ---
 
-## III. Load Chicago Crime dataset into AsterixDB (20 minutes)
+## IV. Load Chicago Crime dataset into AsterixDB (20 minutes)
 
 1. Create a dataverse for chicago crimes as below.
 
@@ -134,7 +176,7 @@
 
 ---
 
-## IV. Analyze crime data (45 minutes)
+## V. Analyze crime data (45 minutes)
 
 1. Count how many arrests involve an arrest, i.e., `arrest="true"`?
 
@@ -203,11 +245,11 @@
 
 4. ***(Q4) Which district has the most number of crimes? Include the query and the answer in the README file.***
 
-   Hint: Use `ORDER BY` and `LIMIT` to select the top record.
+   Hint: Use [`ORDER BY` and `LIMIT`](https://asterixdb.apache.org/docs/0.9.8/sqlpp/manual.html#Order_By_clauses) to select the top record.
 
 ---
 
-## IV. Visualize the result (30 minutes)
+## VI. Visualize the result (30 minutes)
 
 In this part, we will run the query in AsterixDB and visualize the result using a spreadsheet. Download this [template spreadsheet](./visualizations.xlsx) to help you with this part.
 
@@ -271,7 +313,25 @@ In this part, we will run the query in AsterixDB and visualize the result using 
 
 ---
 
-## V. Submission (15 minutes)
+## VII. Stop AsterixDB
+
+Run the following command
+
+* Linux and macOS
+
+  ```bash
+  ./opt/local/bin/stop-sample-cluster.sh
+  ```
+
+* Windows (you can also go to **opt\local\bin** folder in Windows Explorer and double click the bat file to run it)
+
+  ```powershell
+  opt\local\bin\start-sample-cluster.bat
+  ```
+
+---
+
+## VIII. Submission (15 minutes)
 
 1. Create a README file and add all your answers to it. Do not forget to add your information similar to previous labs. Use this [template `README.md`](https://raw.githubusercontent.com/aseldawy/CS167/master/Labs/Lab8/CS167-Lab8-README.md) file.
 2. Attach the spredsheet after filling it in with the query results.
@@ -310,4 +370,4 @@ Exception in thread "main" java.lang.UnsupportedClassVersionError: org/apache/as
 Starting sample cluster...
 ```
 
-A: This indicates that you are running Java 8. Update the PATH environment variable to point to Java 11 or later and rerun.
+A: This indicates that you are running Java 8. Update the `JAVA_HOME` environment variable to point to Java 11 or later and rerun.
