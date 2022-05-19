@@ -145,7 +145,12 @@ AsterixDB requires Java 11+ to run. It does not have strict requirement for whic
    };
    ```
 
-3. Create a dataset and load the downloaded data. We assume that the downloaded file has been decompressed and is available under `C:\Users\student\cs167\chicago_crimes_sample.csv`.
+3. Create a dataset and load the downloaded data. We assume that the downloaded file has been decompressed and is available under:
+
+   * Linux and macOS: `~/cs167/merlin_lab8/chicago_crimes_sample.csv`
+   * Windows: `C:\cs167\merlin_lab8\chicago_crimes_sample.csv`
+
+   Run the following query (Note the [file URI](https://en.wikipedia.org/wiki/File_URI_scheme) must be an absolute path)
 
    ```sql
    USE chicago_crimes_sample;
@@ -155,7 +160,7 @@ AsterixDB requires Java 11+ to run. It does not have strict requirement for whic
    CREATE DATASET ChicagoCrimes (ChicagoCrimeType) PRIMARY KEY id;
 
    LOAD DATASET ChicagoCrimes USING localfs (
-     ("path"="127.0.0.1:///Users/student/cs167/chicago_crimes_sample.csv"),
+     ("path"="127.0.0.1:///Users/merlin/cs167/merlin_lab8/chicago_crimes_sample.csv"),
      ("format"="delimited-text"),
      ("delimiter"=","),
      ("header"="true")
@@ -173,6 +178,13 @@ AsterixDB requires Java 11+ to run. It does not have strict requirement for whic
      }
    ]
    ```
+
+   If it does not work and report error like file not found, try to replace the value of `"path"` to
+
+   * Linux: `"127.0.0.1:///home/merlin/cs167/merlin_lab8/chicago_crimes_sample.csv"`
+   * macOS: `"127.0.0.1:///Users/merlin/cs167/merlin_lab8/chicago_crimes_sample.csv"`
+   * Windows 1: `"127.0.0.1:///Users/merlin/cs167/merlin_lab8/chicago_crimes_sample.csv"`
+   * Windows 2: `"127.0.0.1:///c:/Users/merlin/cs167/merlin_lab8/chicago_crimes_sample.csv"`
 
 ---
 
