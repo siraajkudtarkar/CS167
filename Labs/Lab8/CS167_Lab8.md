@@ -11,10 +11,10 @@
 ## Prerequisites
 
 * Download [AsterixDB-0.9.8](http://www.apache.org/dyn/closer.lua/asterixdb/asterixdb-0.9.8/asterix-server-0.9.8-binary-assembly.zip)
-  * Link to [Documentation](https://asterixdb.apache.org/docs/0.9.8/index.html) 
+  * Link to [Documentation](https://asterixdb.apache.org/docs/0.9.8/index.html)
 * Download JDK 11 or later. JDK 8 will not work for this lab.
 * Download and decompress this [sample file](chicago_crimes_sample.csv.gz) for testing.
-* Download the [template spreadsheet](CS167_lab8-visualization-template.xlsx) for the visualizations requested later.
+* Download the [template spreadsheet](./visualizations.xlsx) for the visualizations requested later.
 
 ---
 
@@ -59,7 +59,7 @@ AsterixDB requires Java 11+ to run. It does not have strict requirement for whic
    Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.15.1+2-LTS-10, mixed mode)
    ```
 
-### II. Install AsterixDB - 5 minutes (in home)
+### II. Install and Start AsterixDB - 5 minutes (in home)
 
 1. Extract AsterixDB into your `cs167` under your home directory.
 
