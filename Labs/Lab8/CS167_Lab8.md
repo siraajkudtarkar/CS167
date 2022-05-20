@@ -330,6 +330,8 @@ In this part, we will run the query in AsterixDB and visualize the result using 
 
    <p align="center"><img src="./images/visualization-by-year-month.png" style="width:433px;"/></p>
 
+   Note: You can make multiple copies on each page of the printed result and append them to the spreadsheet. To reduce the total number of copies, you can set the number of results per page to 200. Exporting to CSV functions seems to be buggy in AsterixDB at the moment.
+
 ---
 
 ## VII. Stop AsterixDB
