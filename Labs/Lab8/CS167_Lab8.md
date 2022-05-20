@@ -345,7 +345,7 @@ Run the following command
 * Windows (you can also go to **opt\local\bin** folder in Windows Explorer and double click the bat file to run it)
 
   ```powershell
-  opt\local\bin\start-sample-cluster.bat
+  opt\local\bin\stop-sample-cluster.bat
   ```
 
 If the above command does not work properly, you can add `-f` to the end of the command to force it shut down. Data may be lost with this argument.
@@ -359,7 +359,7 @@ If the above command does not work properly, you can add `-f` to the end of the 
 * Windows
 
   ```powershell
-  opt\local\bin\start-sample-cluster.bat -f
+  opt\local\bin\stop-sample-cluster.bat -f
   ```
 
 ---
