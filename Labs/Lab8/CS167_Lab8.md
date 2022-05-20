@@ -26,7 +26,7 @@ AsterixDB requires Java 11+ to run. It does not have strict requirement for whic
 
 1. Download Oracle JDK 11.
    * Linux: Download **x64 Compressed Archive (jdk-11.0.15.1_linux-x64_bin.tar.gz)** from [here](https://www.oracle.com/java/technologies/downloads/#java11-linux).
-   * macOS: Download **x64 Compressed Archive (jdk-11.0.15.1_linux-x64_bin.tar.gz)** from [here](https://www.oracle.com/java/technologies/downloads/#java11-mac).
+   * macOS: Download **x64 Compressed Archive (jdk-11.0.15.1_osx-x64_bin.tar.gz)** from [here](https://www.oracle.com/java/technologies/downloads/#java11-mac).
    * Linux: Download **x64 Compressed Archive (jdk-11.0.15.1_windows-x64_bin.zip)** from [here](https://www.oracle.com/java/technologies/downloads/#java11-windows).
 
 2. Untar (Linux and macOS) or unzip (Windows) the downloaded archive file to your **cs167** folder.

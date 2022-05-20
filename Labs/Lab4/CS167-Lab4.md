@@ -222,7 +222,7 @@ To run your MapReduce program in pseudo-distributed mode, we will need to config
 
 5. Generate a JAR file for your program and run it using the command `yarn jar <*.jar> <main class> <input> <output> <code>`.
 
-    * Linux and MacOS
+    * Linux and macOS
 
         ```bash
         yarn jar target/<UCRNetID>_lab4-1.0-SNAPSHOT.jar edu.ucr.cs.cs167.<UCRNetID>.Filter file://`pwd`/nasa_19950801.tsv file://`pwd`/filter_output.tsv 200

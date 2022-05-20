@@ -16,9 +16,9 @@
     * Direct link: [https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-5.0.8.tgz](https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-5.0.8.tgz)
     <p align="center"><img src="images/mongodb-ubuntu.png" style="width:324px;"/></p>
     * You may use the MongoDB for Ubuntu 18.04 if your system is that version.
-  * MacOS: Select `macOS` in **Platform**. The **Package** has only one option `tgz`.
-    * Direct link: [https://fastdl.mongodb.org/osx/mongodb-macos-x86_64-5.0.8.tgz](https://fastdl.mongodb.org/osx/mongodb-macos-x86_64-5.0.8.tgz)
-    <p align="center"><img src="images/mongodb-macos.png" style="width:323px;"/></p>
+  * macOS: Select `macOS` in **Platform**. The **Package** has only one option `tgz`.
+    * Direct link: [https://fastdl.mongodb.org/osx/mongodb-macOS-x86_64-5.0.8.tgz](https://fastdl.mongodb.org/osx/mongodb-macOS-x86_64-5.0.8.tgz)
+    <p align="center"><img src="images/mongodb-macOS.png" style="width:323px;"/></p>
     * You may use an older version of MongoDB (4.4 or 4.2) if your system is 10.13 or lower.
   * Windows: Select `Windows` in **Platform** and `zip` in **Package**. Don't select the `msi` package.
     * Direct link: [https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-5.0.8.zip](https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-5.0.8.zip)  
@@ -27,9 +27,9 @@
   * Linux (Ubuntu): Select `Ubuntu 20.04 x86 64` in **Platform** and `tgz` in **Package**. Don't select the `deb` package.
     * Direct link: [https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2004-x86_64-100.5.2.tgz](https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2004-x86_64-100.5.2.tgz)
     <p align="center"><img src="images/mongodb-tools-ubuntu.png" style="width:322px;"/></p>
-  * MacOS: Select `macOS x86_64` in **Platform**. The **Package** has only one option `zip`.
-    * Direct link: [https://fastdl.mongodb.org/tools/db/mongodb-database-tools-macos-x86_64-100.5.2.zip](https://fastdl.mongodb.org/tools/db/mongodb-database-tools-macos-x86_64-100.5.2.zip)
-    <p align="center"><img src="images/mongodb-tools-macos.png" style="width:323px;"/></p>
+  * macOS: Select `macOS x86_64` in **Platform**. The **Package** has only one option `zip`.
+    * Direct link: [https://fastdl.mongodb.org/tools/db/mongodb-database-tools-macOS-x86_64-100.5.2.zip](https://fastdl.mongodb.org/tools/db/mongodb-database-tools-macOS-x86_64-100.5.2.zip)
+    <p align="center"><img src="images/mongodb-tools-macOS.png" style="width:323px;"/></p>
   * Windows: Select `Windows x86_64` in **Platform** and `zip` in **Package**. Don't select the `msi` package.
     * Direct link: [https://fastdl.mongodb.org/tools/db/mongodb-database-tools-windows-x86_64-100.5.2.zip](https://fastdl.mongodb.org/tools/db/mongodb-database-tools-windows-x86_64-100.5.2.zip)
     <p align="center"><img src="images/mongodb-tools-windows.png" style="width:323px;"/></p>
@@ -47,7 +47,7 @@
 1. Download the corresponding archive files (either *.zip* or *.tgz*) according to your system.
 2. Extract the downloaded MongoDB archive file to your course directory `cs167`.
     * Linux (Ubuntu): `~/cs167/mongodb-linux-x86_64-ubuntu2004-5.0.8`
-    * MacOS: `~/cs167/mongodb-macos-x86_64-5.0.8`
+    * macOS: `~/cs167/mongodb-macOS-x86_64-5.0.8`
     * Windows: `C:\cs167\mongodb-win32-x86_64-windows-5.0.8`
 3. Extract the downloaded MongoDB database tools archive file, copy or move all the files inside the `bin` directory to the installed MongoDB's `bin` directory. Available files (on Windows, those should have `.exe` extension) are:
     * bsondump
@@ -64,8 +64,8 @@
         1. Add `export MONGODB_HOME="/home/$LOGNAME/cs167/mongodb-linux-x86_64-ubuntu2004-5.0.8"`
         2. Add `$MONGODB_HOME/bin` to `PATH`. Separator is `:`
         3. Reload the profile via `source` command or restart the terminal
-    * MacOS:
-        1. Add `export MONGODB_HOME="/Users/$LOGNAME/cs167/mongodb-macos-x86_64-5.0.8"`
+    * macOS:
+        1. Add `export MONGODB_HOME="/Users/$LOGNAME/cs167/mongodb-macOS-x86_64-5.0.8"`
         2. Add `$MONGODB_HOME/bin` to `PATH`. Separator is `:`
         3. Reload the profile via `source` command or restart the terminal
     * Windows:
@@ -74,10 +74,10 @@
         3. Restart the terminal.
 
 5. Create a `$MONGODB_HOME/data` directory where your data will be stored.
-    * Linux and MacOS: `mkdir $MONGODB_HOME/data`
+    * Linux and macOS: `mkdir $MONGODB_HOME/data`
     * Windows: `mkdir "%MONGODB_HOME%\data"` for CMD or `mkdir "$Env:MONGODB_HOME\data"` for PowerShell and Windows terminal
 6. Start the MongoDB server by running the following command (you must keep the tab/window open while doing this lab).
-    * Linux and MacOS
+    * Linux and macOS
 
         ```bash
         mongod --dbpath $MONGODB_HOME/data
@@ -95,8 +95,8 @@
         mongod --dbpath "$Env:MONGODB_HOME\data"
         ```
 
-    On MacOS, if you see the following error, click `Cancel`.
-    <p align="center"><img src="images/unverified-developer-macos.png" style="width:372px;"/></p>
+    On macOS, if you see the following error, click `Cancel`.
+    <p align="center"><img src="images/unverified-developer-macOS.png" style="width:372px;"/></p>
 
     Run the following command (you must be a system administrator to use `sudo`).
 
@@ -110,7 +110,7 @@
     sudo spctl --master-enable
     ```
 
-    See more details about MacOS [GateKeeper](https://www.makeuseof.com/how-to-disable-gatekeeper-mac/).
+    See more details about macOS [GateKeeper](https://www.makeuseof.com/how-to-disable-gatekeeper-mac/).
 
 ---
 

@@ -850,9 +850,9 @@ Hint: Add `2>/dev/null` to the end of each command to hide logging information f
 
 1. Download [runConfigurations.zip](./runConfigurations.zip) and unzip it.
 
-2. Copy the unzipped `runConfigurations` directory. Shortcut is `Ctrl + C` on Linux and Windows, `Command + C` on MacOS.
+2. Copy the unzipped `runConfigurations` directory. Shortcut is `Ctrl + C` on Linux and Windows, `Command + C` on macOS.
 
-3. In your project browser in IntelliJ, right click `.idea` directory, select `Paste`. Shortcut is `Ctrl + V` on Linux and Windows, `Command + V` on MacOS (Make sure you have `.idea` directory selected).
+3. In your project browser in IntelliJ, right click `.idea` directory, select `Paste`. Shortcut is `Ctrl + V` on Linux and Windows, `Command + V` on macOS (Make sure you have `.idea` directory selected).
     <p align="center"><img src="images/idea-paste-config.png" style="width:418px;"/></p>
 
 4. A `Copy` dialog will show, you don't need to change anything. Click `OK` to continue.
@@ -861,7 +861,7 @@ Hint: Add `2>/dev/null` to the end of each command to hide logging information f
 5. Expand `.idea` directory, then expand `runConfigurations` directory. You will find some XML files. You will need to make some simple changes to **ALL** these XML files, which replace `<UCRNetID>` to your actual UCR Net ID.
     <p align="center"><img src="images/config-xml-before-replace.png" style="width:1259px;"/></p>
 
-6. Open every XML file, do a **replace** (shortcut is `Ctrl + R` on Linux and Windows, `Command + R` on MacOS). Type `<UCRNetID>` in the upper text field, and your actual UCR Net ID in the lower text field. Then click `Replace All`.
+6. Open every XML file, do a **replace** (shortcut is `Ctrl + R` on Linux and Windows, `Command + R` on macOS). Type `<UCRNetID>` in the upper text field, and your actual UCR Net ID in the lower text field. Then click `Replace All`.
     <p align="center"><img src="images/config-xml-replace.png" style="width:979px;"/></p>
 
     <p align="center">&#8595;</p>

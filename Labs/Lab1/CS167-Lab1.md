@@ -17,9 +17,9 @@ Follow the instructions below to complete this lab. If you have any questions, p
 
 1. **Make sure your user name does not have any space. Otherwise, create an user without space.**
 2. **Create a writable folder with no space in the path, for example:**
-    - Linux and MacOS: "\~/cs167", where *\~* is your home directory
+    - Linux and macOS: "\~/cs167", where *\~* is your home directory
       - Linux: "/home/user/cs167", where your username is "user".
-      - MacOS: "/Users/user/cs167", where your username is "user".
+      - macOS: "/Users/user/cs167", where your username is "user".
     - Windows: "C:\cs167"
 
 <details>
@@ -58,11 +58,11 @@ Follow the instructions below to complete this lab. If you have any questions, p
 
 <details>
 
-  <summary>MacOS</summary>
+  <summary>macOS</summary>
 
 #### Oracle JDK 8 (OpenJDK or other versions may fail)
 
-  1. Download the installer **x64 DMG Installer (jdk-8u333-macosx-x64.dmg)** from [https://www.oracle.com/java/technologies/downloads/#java8-mac](https://www.oracle.com/java/technologies/downloads/#java8-mac).
+  1. Download the installer **x64 DMG Installer (jdk-8u333-macOSx-x64.dmg)** from [https://www.oracle.com/java/technologies/downloads/#java8-mac](https://www.oracle.com/java/technologies/downloads/#java8-mac).
   2. Mount the dmg file and install it.
 
 #### Apache Maven
@@ -113,7 +113,7 @@ Follow the instructions below to complete this lab. If you have any questions, p
   2. Unarchive it to the folder you created before, e.g, "C:\cs167". Your Hadoop path will be "C:\cs167\hadoop-3.2.2".
      - To unarchive it, open the "hadoop-3.2.2.tar.gz" via 7-zip, double click "hadoop-3.2.2.tar" to open it. This may take a few seconds.
      - Select "hadoop-3.2.2", click the "Extract" button (do not drag to unarchive), Set "Copy to:" to "C:\cs167\", and the click "OK".
-     - The decompression takes a few seconds to minutes, you will see 3 errors saying "Cannot create symbolic link: ...", just click "Close" to ignore the errors. Those files are only needed for Linux and MacOS.
+     - The decompression takes a few seconds to minutes, you will see 3 errors saying "Cannot create symbolic link: ...", just click "Close" to ignore the errors. Those files are only needed for Linux and macOS.
   3. Patch the binaries, otherwise many Hadoop related functions will fail:
       1. Download the patched binaries from [https://github.com/cdarlint/winutils](https://github.com/cdarlint/winutils)
       2. To download a folder only, paste `https://github.com/cdarlint/winutils/tree/master/hadoop-3.2.2/bin` into the text box in [https://download-directory.github.io/](https://download-directory.github.io/), and press Enter key. This will download a zip file "cdarlint winutils master hadoop-3.2.2-bin.zip" which contains the patched binaries for 3.2.2 only.
@@ -137,7 +137,7 @@ Follow the instructions below to complete this lab. If you have any questions, p
 
 <details>
 
-  <summary>Linux and MacOS</summary>
+  <summary>Linux and macOS</summary>
 
   1. To test if environment variables are set, run the following commands
 
@@ -174,7 +174,7 @@ Follow the instructions below to complete this lab. If you have any questions, p
         PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$HADOOP_HOME/bin:$PATH
         ```
 
-      - MacOS
+      - macOS
 
         ```bash
         export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_333.jdk/Contents/Home"
@@ -280,7 +280,7 @@ Run command
 hadoop version
 ```
 
-Example output on Linux and MacOS (contents may differ)
+Example output on Linux and macOS (contents may differ)
 
 ```text
 Hadoop 3.2.3
@@ -307,7 +307,7 @@ This command was run using /C:/cs167/hadoop-3.2.2/share/hadoop/common/hadoop-com
 - Create a new directory "~/cs167/workspace" or "C:\cs167\workspace" to place all your projects.
 
 - Open terminal, cd to workspace
-  - Linux and MacOS: `cd ~/cs167/workspace`
+  - Linux and macOS: `cd ~/cs167/workspace`
   - Windows: `cd C:\cs167\workspace`
   
 - Run the following command

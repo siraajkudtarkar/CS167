@@ -13,7 +13,7 @@
 * Download this [Sample File](https://drive.google.com/file/d/0B1jY75xGiy7eR3VpNC1XMzB5cWs/view)
  and decompress it. We will use it for testing.
   * Linux: Run `tar xfj AREAWATER.csv.bz2`
-  * MacOS: Use Archive Utility, or run `bzip2 -dk AREAWATER.csv.bz2`
+  * macOS: Use Archive Utility, or run `bzip2 -dk AREAWATER.csv.bz2`
   * Windows: You may use 7-zip.
 
 ## Overview
@@ -28,7 +28,7 @@ Follow the instructions below to complete this lab. If you have any questions, p
 
 1. Create a new Java project using Maven for lab 2 either from command line or from IntelliJ. The project name should be `<UCRNetID>_lab2` (Replace `<UCRNetID>` with your UCR Net ID).
 2. In `pom.xml` file, add dependencies for [`org.apache.hadoop:hadoop-common`](https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-common) and [`org.apache.hadoop:hadoop-hdfs`](https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-hdfs):
-   * Linux and MacOS: Version 3.2.3, [hadoop-common](https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-common/3.2.3) and [hadoop-hdfs](https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-hdfs/3.2.3)
+   * Linux and macOS: Version 3.2.3, [hadoop-common](https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-common/3.2.3) and [hadoop-hdfs](https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-hdfs/3.2.3)
    * Windows: Version 3.2.2, [hadoop-common](https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-common/3.2.2) and [hadoop-hdfs](https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-hdfs/3.2.2)
 
 ### II. Main Program (45 minutes) - In-home part
@@ -86,7 +86,7 @@ Now, it is time to use your program to benchmark the performance of the local fi
 2. Test your program on a small file, e.g., a `README` file to make sure that it works correctly.
 3. Now, test it on the sample file that you downloaded and unarchived, `AREAWATER.csv`.
     * ***(Q1) Verify the file size and record the running time.***
-4. Make a copy of the file using your file system command, e.g., [`cp`](https://www.unix.com/man-page/osx/1/cp/) command in Linux and MacOS, or [`copy`](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/copy) command in Windows, and record the time, e.g., using [`time`](https://www.unix.com/man-page/osx/1/time/) command on Linux and MacOS, or using [`Measure-Command`](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/measure-command) command on Windows PowerShell (or Windows Terminal, this command does not work in CMD).
+4. Make a copy of the file using your file system command, e.g., [`cp`](https://www.unix.com/man-page/osx/1/cp/) command in Linux and macOS, or [`copy`](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/copy) command in Windows, and record the time, e.g., using [`time`](https://www.unix.com/man-page/osx/1/time/) command on Linux and macOS, or using [`Measure-Command`](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/measure-command) command on Windows PowerShell (or Windows Terminal, this command does not work in CMD).
     * ***(Q2) Record the running time of the copy command.***
 5. ***(Q3) How do the two numbers compare? (The running times of copying the file through your program and the operating system.) Explain IN YOUR OWN WORDS why you see these results.***
 
@@ -130,7 +130,7 @@ To run HDFS, you need at least one name node and one data node.
 Note: to explicitly specify the HDFS file system, use the scheme `hdfs://` followed by the absolute path. For example:
 
 ```bash
-# Linux and MacOS local file
+# Linux and macOS local file
 file:///Users/your_user/cs167/netid_lab2/AREAWATER.csv
 
 # Windows local file

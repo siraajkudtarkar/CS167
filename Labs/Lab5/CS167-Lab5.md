@@ -31,7 +31,7 @@ Note: We recommend that you use the standard Apache Spark 3.2.1 in this lab. Oth
 1. Expand the downloaded Apache Spark to your home directory.
 2. Set the environment variable `SPARK_HOME` to the expanded Spark directory. Add `$SPARK_HOME/bin` to the `PATH` environment variable. See [Lab 1](../Lab1/CS167-Lab1.md) for details on how to do it.
 
-    * Linux and MacOS
+    * Linux and macOS
         In your profile file (*.bashrc*, *.bash_profile*, *.zshrc* or *.zprofile*):
 
         1. Add
@@ -40,7 +40,7 @@ Note: We recommend that you use the standard Apache Spark 3.2.1 in this lab. Oth
             # Linux
             export SPARK_HOME="/home/$LOGNAME/cs167/spark-3.2.1-bin-without-hadoop"
 
-            # MacOS
+            # macOS
             export SPARK_HOME="/Users/$LOGNAME/cs167/spark-3.2.1-bin-without-hadoop"
             ```
 
@@ -80,7 +80,7 @@ Note: We recommend that you use the standard Apache Spark 3.2.1 in this lab. Oth
     Pi is roughly 3.144355721778609
     ```
 
-    Hint: You may use the following command to only print the needed line (Linux and MacOS only).
+    Hint: You may use the following command to only print the needed line (Linux and macOS only).
 
     ```bash
     spark-submit run-example org.apache.spark.examples.SparkPi 2>/dev/null
@@ -147,7 +147,7 @@ Note: We recommend that you use the standard Apache Spark 3.2.1 in this lab. Oth
     spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.App target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar hdfs:///nasa_19950801.tsv
     ```
 
-    Hint: You may use the following command to only print the needed line (Linux and MacOS only).
+    Hint: You may use the following command to only print the needed line (Linux and macOS only).
 
     ```bash
     spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.App target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar hdfs:///nasa_19950801.tsv 2>/dev/null
@@ -285,7 +285,7 @@ In the next part, we will extend the program to use more Spark functions. We wil
     The file 'nasa_19950801.tsv' contains 27972 lines with response code 200
     ```
 
-    Hint: You may use the following command to only print the needed line (Linux and MacOS only).
+    Hint: You may use the following command to only print the needed line (Linux and macOS only).
 
     ```bash
     spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.Filter target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar hdfs:///nasa_19950801.tsv 2>/dev/null
@@ -293,7 +293,7 @@ In the next part, we will extend the program to use more Spark functions. We wil
 
     ***(Q5) For the previous command that prints the number of matching lines, list all the processed input splits.***
 
-    Hint: Search for the patterm `HadoopRDD: Input split` in the output on the console. The input splits is printed as `path:start+length`. On Linux or MacOS, you may try the following command
+    Hint: Search for the patterm `HadoopRDD: Input split` in the output on the console. The input splits is printed as `path:start+length`. On Linux or macOS, you may try the following command
 
     ```bash
     spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.Filter target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar hdfs:///nasa_19950801.tsv 2>&1 | grep "HadoopRDD: Input split"
