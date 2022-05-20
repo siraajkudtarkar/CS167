@@ -63,7 +63,7 @@ AsterixDB requires Java 11+ to run. It does not have strict requirement for whic
 
 1. Extract AsterixDB into your `cs167` under your home directory.
 
-2. To start a local cluster of AsterixDB, open a command line window at the extracted AsterixDB directory and run the following command.
+2. To start a local cluster of AsterixDB, open a command line window at the extracted AsterixDB directory (**apache-asterixdb-0.9.8**) and run the following command.
 
    You can also use the absolute path to the **start-sample-cluster.{sh | bat}** file.
 
@@ -83,11 +83,15 @@ AsterixDB requires Java 11+ to run. It does not have strict requirement for whic
 
    <p align="center"><img src="./images/start-sample-cluster.png" style="width:678px;"/></p>
 
+   Make sure you see `INFO: Cluster started and is ACTIVE.` in the output.
+
    To confirm that AsterixDB is running, point your web browser to the link [http://127.0.0.1:19006](http://127.0.0.1:19006). You should see AsterixDB interface as shown below.
 
    <p align="center"><img src="./images/asterixdb-web-interface.png" style="width:792px;"/></p>
 
    You can now close this terminal window if you want.
+
+   Note: if you see errors starting/restarting AsterixDB, you can try shuting down AsterixDB first. See [VII. Stop AsterixDB](#vii-stop-asterixdb) for the command.
 
 ---
 
@@ -95,6 +99,7 @@ AsterixDB requires Java 11+ to run. It does not have strict requirement for whic
 
 1. Go through the [builtin functions of AsterixDB](https://asterixdb.apache.org/docs/0.9.8/sqlpp/builtins.html). Focus on numeric, string, temporal, and aggregate functions.
 2. You can directly run the queries into the [web interface](http://127.0.0.1:19006) of AsterixDB for testing.
+   <p align="center"><img src="./images/asterixdb-query.png" style="width:792px;"/></p>
 3. Run the following query.
 
    ```sql
@@ -179,7 +184,7 @@ AsterixDB requires Java 11+ to run. It does not have strict requirement for whic
    ]
    ```
 
-   If it does not work and report error like file not found, try to replace the value of `"path"` to
+   If it does not work and report error `ERROR: Code: 1 "ASX3077: .../chicago_crimes_sample.csv: path not found"`, try to replace the value of `"path"` in the query to the following format
 
    * Linux: `"127.0.0.1:///home/merlin/cs167/merlin_lab8/chicago_crimes_sample.csv"`
    * macOS: `"127.0.0.1:///Users/merlin/cs167/merlin_lab8/chicago_crimes_sample.csv"`
@@ -200,13 +205,15 @@ AsterixDB requires Java 11+ to run. It does not have strict requirement for whic
    WHERE arrest="true";
    ```
 
-2. Which unique types of crimes have been recorded at `GAS STATION` locations?
+2. Which **unique** types of crimes have been recorded at `GAS STATION` locations?
    * ***(Q2) Which query did you use and what is the answer?***
 
-3. Find the number of crimes by year and order the results by the number of crimes in descending order.
+   Hint: function `DISTINCT()`, columns `primary_type` and `location_description`.
+
+3. Find the number of crimes by year and order the results by the number of crimes in **descending** order.
    * ***(Q3) Include the query in your README file***
 
-   Hint: Use the function `parse_datetime` with format `MM/DD/YYYY hh:mm:ss a` to parse the date. Then, use the function `get_year` to get the year.
+   Hint: Use the function `parse_datetime()` with format `"MM/DD/YYYY hh:mm:ss a"` to parse the `date_value`. Then, use the function `get_year()` to get the year. You may also use the `year` column.
 
    Hint: The results will look like the following.
 
@@ -255,7 +262,7 @@ AsterixDB requires Java 11+ to run. It does not have strict requirement for whic
    ]
    ```
 
-4. ***(Q4) Which district has the most number of crimes? Include the query and the answer in the README file.***
+4. ***(Q4) Which `district` has the most number of crimes? Include the query and the answer in the README file.***
 
    Hint: Use [`ORDER BY` and `LIMIT`](https://asterixdb.apache.org/docs/0.9.8/sqlpp/manual.html#Order_By_clauses) to select the top record.
 
@@ -279,7 +286,7 @@ In this part, we will run the query in AsterixDB and visualize the result using 
    ORDER BY month_number;
    ```
 
-   The answer will look similar to the following.
+   The answer will look similar to the following using `TABLE` output format.
 
    month_number  | month_name    | count
    ------------- | ------------- | -----
@@ -339,6 +346,20 @@ Run the following command
 
   ```powershell
   opt\local\bin\start-sample-cluster.bat
+  ```
+
+If the above command does not work properly, you can add `-f` to the end of the command to force it shut down. Data may be lost with this argument.
+
+* Linux and macOS
+
+  ```bash
+  ./opt/local/bin/stop-sample-cluster.sh -f
+  ```
+
+* Windows
+
+  ```powershell
+  opt\local\bin\start-sample-cluster.bat -f
   ```
 
 ---

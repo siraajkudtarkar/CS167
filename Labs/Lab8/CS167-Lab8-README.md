@@ -31,7 +31,7 @@
   /* Replace here with your query */
   ```
 
-* (Q4) Which district has the most number of crimes? Include the query and the answer in the README file.
+* (Q4) Which `district` has the most number of crimes? Include the query and the answer in the README file.
 
   ```sql
   /* Replace here with your query */
