@@ -31,7 +31,7 @@ The results will be visualized on a map and using a bar chart.
 ## Datasets
 This project will work with [Chicago Crime](https://star.cs.ucr.edu/?Chicago%20Crimes#center=41.8756,-87.6227&zoom=11) dataset by Chicago City and the [ZIP Codes](https://star.cs.ucr.edu/?TIGER2018/ZCTA5#center=41.8756,-87.6227&zoom=11) dataset by the US Census Bureau.
 
-## Task A: Data preparation
+## Task 1: Data preparation
 This task prepares the data for analysis by doing the following:
 
 - Parse the dataset from its CSV format.
@@ -39,12 +39,12 @@ This task prepares the data for analysis by doing the following:
 - Introduce a ZIP Code column that associates each crime with a ZIP code based on its location.
 - Write te output in Parquet format to make it more efficient for analysis.
 
-## Task B: Spatial analysis
+## Task 2: Spatial analysis
 In this task, you need to count the total number of crimes for each ZIP code and plot the results as a choropleth map (see below).
 
 ![Choropleth Map](images/CrimesChoroplethMap.png)
 
-## Task C: Temporal analysis
+## Task 3: Temporal analysis
 Given start and end dates, count the number of crimes for each crime type and plot as a bar chart (see below).
 
 ![Chicago Crime Bar Chart](images/ChicagoCrimesBarChart.png)
