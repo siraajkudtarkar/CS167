@@ -1,7 +1,32 @@
-This describes the potential projects for CS167. More details will be added soon for each of them.
+This page describes the potential projects for CS167. More details will be added soon for each of them.
+
+# Instructions 
+The project will be done in groups of three.
+The three students are expected to work together to get the project done but each student will have a separate task
+so that it is clear who did what in the project.
+Each student will choose what projects they want to work on but the assignment will be done by the instructor 
+to ensure there is a balance between the different topics.
+Students are expected to work together and use all the technologies available, 
+e.g., Zoom and Google Drive, to collaborate and organize their work.
+
+The final deliverable includes the following:
+
+1. A README file with the project title, student information, and the task of everyone.
+2. The source code of the project. Similar to the labs, you should not include any binary or intermediate files.
+3. A script that compiles and runs the project code. There should be one script to compile and run all the three tasks in order.
+4. A report. Include a written report that describes what you did. The required visualizations, if mentioned, should be included in the report.
+5. A two-minute video describing what you did.
+6. A single multiple choice question with exactly one correct answer. The answer should be there in the video.
+
+In all projects, feel free to make any reasonable assumptions and document them in your report.
+You can use any of the systems we learned about this quarter.
+Write an introductory paragraph that explains why you chose those systems specifically.
 
 # Project A: Chicago Crimes
-In this project, you are asked to analyze Chicago Crime dataset by location. You will use Parquet file format to prepare the data for analysis. You will use a mix of SparkSQL and Beast to perform the analysis. The results will be visualized on a map and using a bar chart.
+In this project, you are asked to analyze Chicago Crime dataset by location.
+You will use Parquet file format to prepare the data for analysis.
+You will use a mix of SparkSQL and Beast to perform the analysis.
+The results will be visualized on a map and using a bar chart.
 
 ## Datasets
 This project will work with [Chicago Crime](https://star.cs.ucr.edu/?Chicago%20Crimes#center=41.8756,-87.6227&zoom=11) dataset by Chicago City and the [ZIP Codes](https://star.cs.ucr.edu/?TIGER2018/ZCTA5#center=41.8756,-87.6227&zoom=11) dataset by the US Census Bureau.
@@ -26,6 +51,9 @@ Given start and end dates, count the number of crimes for each crime type and pl
 
 ## Project B: Bird Analysis
 In this project, you will perform some analytical tasks on a dataset that represents bird observations.
+We will combine this dataset with a ZIP code dataset to determine the ZIP code for each point.
+Then, we will perform two analytical tasks, one based on ZIP codes, and one based on time.
+The results will be visualized using existing tools.
 
 ### Task 1: Data preparation
 To prepare the data for analysis, we will do the following.
@@ -44,6 +72,8 @@ Given a date range `[start, end]`, find the number of observations of each speci
 
 ## Project C: Wildfire analysis
 In this project, we will perform some analytic tasks on the wildfire dataset in California.
+Each point in this dataset represents an occurrence of a wildfire along with relevant information
+such as the location at which it happened, the date of the first, and the fire intensity.
 
 ### Task 1: Preparation
 To prepare the dataset for analysis, we will do the following.
