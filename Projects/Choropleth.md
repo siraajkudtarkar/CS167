@@ -34,9 +34,9 @@ This page explains how to generate a choropleth map using QGIS.
 
 7. To explore a different way of creating classes, go back to the `Layer Properties` dialog and change the mode to `Natural Breaks (Jenks)` and increase the number of classes to 7.
 
-![Change mode to natural breaks (Jenks)](QGIS-Mode-Natural-Breaks.png)
+![Change mode to natural breaks (Jenks)](images/QGIS-Mode-Natural-Breaks.png)
 
-![Increase number of classes to 7](QGIS-Number-of-classes.png)
+![Increase number of classes to 7](images/QGIS-Number-of-classes.png)
 
 8. The output will now look as follows. Notice the different ranges on the left.
 ![QGIS choropleth of countries with natural breaks](images/QGIS-Countries-Natural-Breaks.png)

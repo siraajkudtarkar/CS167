@@ -9,12 +9,12 @@ to ensure there is a balance between the different topics.
 Students are expected to work together and use all the technologies available, 
 e.g., Zoom and Google Drive, to collaborate and organize their work.
 
-The final deliverable includes the following:
+The final deliverable include the following:
 
 1. A README file with the project title, student information, and the task of everyone.
 2. The source code of the project. Similar to the labs, you should not include any binary or intermediate files.
 3. A script that compiles and runs the project code. There should be one script to compile and run all the three tasks in order.
-4. A report. Include a written report that describes what you did. The required visualizations, if mentioned, should be included in the report.
+4. A report. Include a written report that describes your project and includes the results you are asked to include in the report.
 5. A two-minute video describing what you did.
 6. A single multiple choice question with exactly one correct answer. The answer should be there in the video.
 
@@ -42,12 +42,12 @@ This task prepares the data for analysis by doing the following:
 ## Task 2: Spatial analysis
 In this task, you need to count the total number of crimes for each ZIP code and plot the results as a choropleth map (see below).
 
-![Choropleth Map](images/CrimesChoroplethMap.png)
+![Choropleth Map](images/ProjectA-Task2-Result.png)
 
 ## Task 3: Temporal analysis
 Given start and end dates, count the number of crimes for each crime type and plot as a bar chart (see below).
 
-![Chicago Crime Bar Chart](images/ChicagoCrimesBarChart.png)
+![Chicago Crime Bar Chart](images/ProjectA-Task3-Result.png)
 
 ## Project B: Bird Analysis
 In this project, you will perform some analytical tasks on a dataset that represents bird observations.
@@ -107,3 +107,41 @@ If a tweet contains more than one top hashtags, any of the can be used.
 Build a machine learning model that assigns a topic for each tweet based on the classified tweets.
 The model should learn the relationship between all features and the topic.
 Then, it applies this model to all data to predict one topic for each tweet.
+
+
+# Rubric
+- 3% for the code part.
+  - Make sure that your code is indented and use proper variable names. Include comments as-needed to understand your code.
+  - Include a README file with your information.
+  - Include all source files and no binary or data files.
+  - Include a script that compiles and runs the three tasks in order.
+    If you use AsterixDB or MongoDB, include the query in a comment and do not run it.
+- 3% for the report that includes:
+  - A title for your project.
+  - Student information and who did which part.
+  - A short introduction in your own words for the project and which big-data system you used and why you chose it.
+  - A section for each task that includes what you were asked for, e.g., visualizations or other comparisons.
+- 3% for the video and the question.
+  - The video can be up-to two minutes. If it goes any longer, it will be trimmed and you will lose points.
+  - In the first 10-15 seconds, indicate which project you worked on, your group number, and the group members.
+    Make sure that all this information is written during that time.
+  - In 10-15 seconds, give a very brief introduction to the project in your own words.
+  - Include 30 seconds for each task where you very briefly describe what you did and how you did it. For example,
+    mention which functions you used and how they helped you. Show the result that you included in the report as you talk.
+- 2% for the question.
+  - The question must be a multiple choice question.
+  - There should be exactly three choices.
+  - Only one choice can be correct.
+  - The answer should be in the presentation. It can be about any of the three tasks.
+  - The answer should be clear but not too blunt. For example, do not say in the presentation "The answer is ...". 
+    However, your question could be "Which function is used to drop a column from a dataframe?" and during the presentation
+    you could say "We used the function `drop` to drop a column from a dataframe.
+    And now, you cannot use this specific question because I mentioned it.
+- 4% for the answers.
+  - After I receive all the videos, they will be concatenated into a single video.
+  - As you watch the videos, you will answer the questions.
+  - Your final grade in this part will be calculated using the equation `max(4%, correct answers/number of questions / 0.8 * 4%)`.
+    This means that if you get 80% correct, you get full score.
+
+If you did the math in your head, you will find that the scores above add to 15% while the project is supposed to be out of 10%.
+The extra points will be added to your total score to improve your grade.
