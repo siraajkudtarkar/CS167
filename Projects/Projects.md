@@ -101,7 +101,7 @@ Extract the top 20 hashtags in all tweets and store them in an array.
 ### Task 2: Data preparation 2
 Add a new column for each tweet that indicates its topic.
 The topic is any of the hashtags that appear in the most frequent list.
-If a tweet contains more than one top hashtags, any of the can be used.
+If a tweet contains more than one top hashtags, any of them can be used.
 
 ### Task 3: Topic prediction
 Build a machine learning model that assigns a topic for each tweet based on the classified tweets.
