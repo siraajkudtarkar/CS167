@@ -87,7 +87,7 @@ To prepare the dataset for analysis, we will do the following.
 Given a date range, start and end, compute the total fire intensity for each county over that time. Draw the result as a choropleth map.
 
 ### Task 3: Temporal analysis
-Given a specific county, compute the total fire intensity each month over all time and plot the result as a line chart.
+Given a specific county by name, compute the total fire intensity each month over all time and plot the result as a line chart.
 
 ## Project D: Twitter data analysis
 In this project, we will analyze twitter data. Our goal is to build a machine-learning classifier that assigns
