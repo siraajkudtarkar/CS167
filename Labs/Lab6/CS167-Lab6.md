@@ -1001,6 +1001,11 @@ The following reading material could help you with your lab.
           <version>${spark.version}</version>
           <scope>compile</scope>
         </dependency>
+       <dependency>
+          <groupId>org.apache.spark</groupId>
+          <artifactId>spark-sql_${scala.compat.version}</artifactId>
+          <version>${spark.version}</version>
+       </dependency>
 
         <!-- Test -->
         <dependency>

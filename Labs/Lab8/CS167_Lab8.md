@@ -27,14 +27,16 @@ AsterixDB requires Java 11+ to run. It does not have strict requirement for whic
 1. Download Oracle JDK 11.
    * Linux: Download **x64 Compressed Archive (jdk-11.0.15.1_linux-x64_bin.tar.gz)** from [here](https://www.oracle.com/java/technologies/downloads/#java11-linux).
    * macOS: Download **x64 Compressed Archive (jdk-11.0.15.1_osx-x64_bin.tar.gz)** from [here](https://www.oracle.com/java/technologies/downloads/#java11-mac).
-   * Linux: Download **x64 Compressed Archive (jdk-11.0.15.1_windows-x64_bin.zip)** from [here](https://www.oracle.com/java/technologies/downloads/#java11-windows).
+   * Windows: Download **x64 Compressed Archive (jdk-11.0.15.1_windows-x64_bin.zip)** from [here](https://www.oracle.com/java/technologies/downloads/#java11-windows).
+
+   <p align="center"><img src="./images/oracle-jdk11.png" style="width:800px;"/></p>
 
 2. Untar (Linux and macOS) or unzip (Windows) the downloaded archive file to your **cs167** folder.
 
 3. Change your environment variable `JAVA_HOME`, which points to Oracle JDK 8, to the untar'ed or unzipped the folder.
-   * Linux: ~~`/home/$LOGNAME/cs167/jdk1.8.0_333.jdk/Contents/Home`~~ &#8594; `/home/$LOGNAME/cs167/jdk-11.0.15.1.jdk/Contents/Home`
+   * Linux: ~~`/home/$LOGNAME/cs167/jdk1.8.0_333`~~ &#8594; `/home/$LOGNAME/cs167/jdk-11.0.15.1`
    * macOS: ~~`/Library/Java/JavaVirtualMachines/jdk1.8.0_333.jdk/Contents/Home`~~ &#8594; `/Users/$LOGNAME/cs167/jdk-11.0.15.1.jdk/Contents/Home`
-   * Windows: ~~`C:\cs167\jdk1.8.0_333.jdk\Contents\Home`~~ &#8594; `C:\cs167\jdk-11.0.15.1.jdk\Contents\Home`
+   * Windows: ~~`C:\cs167\jdk1.8.0_333`~~ &#8594; `C:\cs167\jdk-11.0.15.1`
 
 4. Reload your environment by running the `source` command (Linux and macOS) or restarting the terminal app.
 
@@ -43,7 +45,7 @@ AsterixDB requires Java 11+ to run. It does not have strict requirement for whic
    * Windows CMD: `echo %JAVA_HOME%`
    * Windows PowerShell: `echo $Env:JAVA_HOME`
 
-   It should print the path which contains `jdk-11.0.15.1.jdk`.
+   It should print the path which contains `jdk-11.0.15.1` (Linux and Windows) or `jdk-11.0.15.1.jdk` (macOS).
 
 6. Test your `java` version.
 

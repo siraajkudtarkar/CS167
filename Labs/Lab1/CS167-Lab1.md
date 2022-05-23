@@ -21,94 +21,60 @@ Follow the instructions below to complete this lab. If you have any questions, p
       - Linux: "/home/user/cs167", where your username is "user".
       - macOS: "/Users/user/cs167", where your username is "user".
     - Windows: "C:\cs167"
+3. Windows only: Download and install 7-zip from [https://www.7-zip.org/](https://www.7-zip.org/). You will need it to unarchive .tar.gz files later. Other tools like WinZip and WinRAR should also work.
 
-<details>
+#### Oracle JDK 8 (OpenJDK or other versions may fail in this course)
 
-  <summary>Linux</summary>
+- Linux
+  1. Download **x64 Compressed Archive (jdk-8u333-linux-x64.tar.gz)** from [https://www.oracle.com/java/technologies/downloads/#java8-linux](https://www.oracle.com/java/technologies/downloads/#java8-linux)
+  2. Unarchive it to the folder you created before, e.g, "\~/cs167". Your JDK path will be "\~/cs167/jdk1.8.0_333"
+- macOS
+  1. Download the installer **x64 DMG Installer (jdk-8u333-macOSx-x64.dmg)** from [https://www.oracle.com/java/technologies/downloads/#java8-mac](https://www.oracle.com/java/technologies/downloads/#java8-mac)
+  2. Mount the dmg file and install the app
+- Windows
+  1. Download the installer **x64 Installer (jdk-8u333-windows-x64.exe)** from [https://www.oracle.com/java/technologies/downloads/#java8-windows](https://www.oracle.com/java/technologies/downloads/#java8-windows)
+  2. Do **NOT** install it to the default location "C:\Program Files\Java". The path contains space, making Hadoop unable to work properly.
+  3. During installation, change the install location to some path with no space, like "C:\cs167\jdk1.8.0_333".
+  4. You should skip installation of "Source Code" and "Public JRE" during the installation. To do so, click on the drive icon, select "This feature will not be available".
 
-#### Oracle JDK 8 (OpenJDK or other versions may fail)
-
-  1. Download **x64 Compressed Archive (jdk-8u333-linux-x64.tar.gz)** from [https://www.oracle.com/java/technologies/downloads/#java8-linux](https://www.oracle.com/java/technologies/downloads/#java8-linux).
-  2. Unarchive it to the folder you created before, e.g, "\~/cs167". Your JDK path will be "\~/cs167/jdk1.8.0_333".
-
-#### Apache Maven
-
-  1. Download the archive (3.8.5) from [https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz](https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz).
-  2. Unarchive it to the folder you created before, e.g, "\~/cs167". Your Maven path will be "\~/cs167/apache-maven-3.8.5".
-
-#### IntelliJ Community Edition
-
-- Ubuntu
-  - Find **IDEA Community** in **Software Center** and install it.
-  - Or run the following command:
-
-    ```bash
-    sudo snap install intellij-idea-community --classic
-    ```
-
-- CentOS/Fedora/Redhat
-  - Follow the instructions at [https://www.javatpoint.com/how-to-install-intelij-idea-on-centos](https://www.javatpoint.com/how-to-install-intelij-idea-on-centos) or [https://snapcraft.io/install/intellij-idea-community/centos](https://snapcraft.io/install/intellij-idea-community/centos).
-
-#### Apache Hadoop
-
-  1. Download the archive (3.2.3) from [https://www.apache.org/dyn/closer.cgi/hadoop/common/hadoop-3.2.3/hadoop-3.2.3.tar.gz](https://www.apache.org/dyn/closer.cgi/hadoop/common/hadoop-3.2.3/hadoop-3.2.3.tar.gz).
-  2. Unarchive it to the folder you created before, e.g, "\~/cs167". Your Hadoop path will be "\~/cs167/hadoop-3.2.3".
-
-</details>
-
-<details>
-
-  <summary>macOS</summary>
-
-#### Oracle JDK 8 (OpenJDK or other versions may fail)
-
-  1. Download the installer **x64 DMG Installer (jdk-8u333-macOSx-x64.dmg)** from [https://www.oracle.com/java/technologies/downloads/#java8-mac](https://www.oracle.com/java/technologies/downloads/#java8-mac).
-  2. Mount the dmg file and install it.
+   <p align="center"><img src="./lab1_images/oracle-jdk8.png" style="width:800px;"/></p>
 
 #### Apache Maven
 
-  1. Download the archive (3.8.5) from [https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz](https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz).
-  2. Unarchive it to the folder you created before, e.g, "\~/cs167". Your Maven path will be "\~/cs167/apache-maven-3.8.5".
+  1. Download the archive (3.8.5) from
+     - Linux and macOS: [https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz](https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz)
+     - Windows: [https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.zip](https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.zip)
+  2. Unarchive it to the folder you created before, e.g, "\~/cs167" or "C:\cs167". Your Maven path will be "\~/cs167/apache-maven-3.8.5" or "C:\cs167\apache-maven-3.8.5".
 
 #### IntelliJ Community Edition
 
+- Linux
+  - Ubuntu
+    - Find **IDEA Community** in **Software Center** and install it.
+    - Or run the following command:
+
+      ```bash
+      sudo snap install intellij-idea-community --classic
+      ```
+
+  - CentOS/Fedora/Redhat
+    - Follow the instructions at [https://www.javatpoint.com/how-to-install-intelij-idea-on-centos](https://www.javatpoint.com/how-to-install-intelij-idea-on-centos) or [https://snapcraft.io/install/intellij-idea-community/centos](https://snapcraft.io/install/intellij-idea-community/centos).
+
+- macOS
   1. Download the **Community** version from [https://www.jetbrains.com/idea/download/#section=mac](https://www.jetbrains.com/idea/download/#section=mac). Select ".dmg (Intel)" or ".dmg (Apple Silicon)" according to your hardware.
   2. Mount the dmg file and install the app.
 
-#### Apache Hadoop
-
-  1. Download the archive (3.2.3) from [https://www.apache.org/dyn/closer.cgi/hadoop/common/hadoop-3.2.3/hadoop-3.2.3.tar.gz](https://www.apache.org/dyn/closer.cgi/hadoop/common/hadoop-3.2.3/hadoop-3.2.3.tar.gz).
-  2. Unarchive it to the folder you created before, e.g, "\~/cs167". Your Hadoop path will be "\~/cs167/hadoop-3.2.3".
-
-</details>
-
-<details>
-
-  <summary>Windows</summary>
-
-#### 7-Zip
-
-  1. Download and install it from [https://www.7-zip.org/](https://www.7-zip.org/). You will need it to unarchive .tar.gz files later.
-
-#### Oracle JDK 8 (OpenJDK or other versions may fail)
-
-  1. Download the installer **x64 Installer (jdk-8u333-windows-x64.exe)** from [https://www.oracle.com/java/technologies/downloads/#java8-windows](https://www.oracle.com/java/technologies/downloads/#java8-windows).
-  2. Do **NOT** install it to the default location "C:\Program Files\Java". The path contains space, making Hadoop unable to work properly.
-  3. During installation, change the install location to some path with no space, like "C:\cs167\jdk1.8.0_333".
-  4. You may skip installation of "Source Code" and "Public JRE" during the installation. To do so, click on the drive icon, select "This feature will not be available".
-
-#### Apache Maven
-
-  1. Download the archive (3.8.5) from [https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz](https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz).
-  2. Unarchive it to the folder you created before, e.g, "C:\cs167". Your Maven path will be "C:\cs167\apache-maven-3.8.5".
-
-#### IntelliJ (IDEA) Community Edition
-
+- Windows
   1. Download the **Community** version from [https://www.jetbrains.com/idea/download/#section=windows](https://www.jetbrains.com/idea/download/#section=windows). Select "Windows (.exe)".
   2. Install it. It is OK to install IDEA to the default location.
 
 #### Apache Hadoop
 
+- Linux and macOS
+  1. Download the archive (3.2.3) from [https://www.apache.org/dyn/closer.cgi/hadoop/common/hadoop-3.2.3/hadoop-3.2.3.tar.gz](https://www.apache.org/dyn/closer.cgi/hadoop/common/hadoop-3.2.3/hadoop-3.2.3.tar.gz).
+  2. Unarchive it to the folder you created before, e.g, "\~/cs167". Your Hadoop path will be "\~/cs167/hadoop-3.2.3".
+
+- Windows
   1. Download the archive (3.2.2) from [https://archive.apache.org/dist/hadoop/common/hadoop-3.2.2/hadoop-3.2.2.tar.gz](https://archive.apache.org/dist/hadoop/common/hadoop-3.2.2/hadoop-3.2.2.tar.gz).
   2. Unarchive it to the folder you created before, e.g, "C:\cs167". Your Hadoop path will be "C:\cs167\hadoop-3.2.2".
      - To unarchive it, open the "hadoop-3.2.2.tar.gz" via 7-zip, double click "hadoop-3.2.2.tar" to open it. This may take a few seconds.
@@ -123,118 +89,108 @@ Follow the instructions below to complete this lab. If you have any questions, p
 
 - You may install Windows Terminal [https://www.microsoft.com/en-us/p/windows-terminal/9n0dx20hk701](https://www.microsoft.com/en-us/p/windows-terminal/9n0dx20hk701) for better command line experience.
 
-#### Alternative Solution
+#### Alternative Solution for Windows
 
 1. Download and install Oracle VirtualBox [https://www.virtualbox.org/wiki/Downloads](https://www.virtualbox.org/wiki/Downloads).
 2. Install a guest operating system Ubuntu 20.04 from [https://ubuntu.com/download/desktop/thank-you?version=20.04.4&architecture=amd64](https://ubuntu.com/download/desktop/thank-you?version=20.04.4&architecture=amd64)
 3. Use the instructions for Linux (Ubuntu) above to configure the course environment in the guest OS.
 
-</details>
-
 ---
 
 ### 2. Set Environment Variables
 
-<details>
+#### Linux and macOS
 
-  <summary>Linux and macOS</summary>
+1. To test if environment variables are set, run the following commands
 
-  1. To test if environment variables are set, run the following commands
+    ```bash
+    echo $JAVA_HOME
+    echo $MAVEN_HOME
+    echo $HADOOP_HOME
+    ```
 
-      ```bash
-      echo $JAVA_HOME
-      echo $MAVEN_HOME
-      echo $HADOOP_HOME
-      ```
+    They should output nothing or 3 empty lines.
+2. Find which shell you are using, run the following command
 
-      They should output nothing or 3 empty lines.
-  2. Find which shell you are using, run the following command
+    ```bash
+    echo $SHELL
+    ```
 
-      ```bash
-      echo $SHELL
-      ```
+    - If it prints **/usr/bash**, you are using **bash**, the profile file name should be `.bashrc` or `.bash_profile` (note the leading dot).
+    - If it prints **/usr/zsh**, you are using **zsh**, the profile file name should be `.zshrc` or `.zprofile` (note the leading dot).
+3. Assume you are using **bash**, and profile file `.bashrc`
+4. Edit or create the profile, run the following command
 
-      - If it prints **/usr/bash**, you are using **bash**, the profile file name should be `.bashrc` or `.bash_profile` (note the leading dot).
-      - If it prints **/usr/zsh**, you are using **zsh**, the profile file name should be `.zshrc` or `.zprofile` (note the leading dot).
-  3. Assume you are using **bash**, and profile file `.bashrc`
-  4. Edit or create the profile, run the following command
+    ```bash
+    vi ~/.bashrc # Change the file name accodingly
+    ```
 
-      ```bash
-      vi ~/.bashrc # Change the file name accodingly
-      ```
-
-  5. Add the following lines into the profile, and save.
-      - Linux
-
-        ```bash
-        export JAVA_HOME="/home/$LOGNAME/cs167/jdk1.8.0_333"
-        export MAVEN_HOME="/home/$LOGNAME/cs167/apache-maven-3.8.5"
-        export HADOOP_HOME="/home/$LOGNAME/cs167/hadoop-3.2.3"
-        
-        PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$HADOOP_HOME/bin:$PATH
-        ```
-
-      - macOS
-
-        ```bash
-        export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_333.jdk/Contents/Home"
-        export MAVEN_HOME="/Users/$LOGNAME/cs167/apache-maven-3.8.5"
-        export HADOOP_HOME="/Users/$LOGNAME/cs167/hadoop-3.2.3"
-        
-        PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$HADOOP_HOME/bin:$PATH
-        ```
-
-  6. Reload the current environment
-      - Run command `source ~/.bashrc` or `. ~/.bashrc` (Change the file name accodingly).
-      - Or, quit the terminal app and restart it.
-  7. Verify the environment variables again
+5. Add the following lines into the profile, and save.
+    - Linux
 
       ```bash
-      echo $JAVA_HOME
-      echo $MAVEN_HOME
-      echo $HADOOP_HOME
+      export JAVA_HOME="/home/$LOGNAME/cs167/jdk1.8.0_333"
+      export MAVEN_HOME="/home/$LOGNAME/cs167/apache-maven-3.8.5"
+      export HADOOP_HOME="/home/$LOGNAME/cs167/hadoop-3.2.3"
+      
+      PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$HADOOP_HOME/bin:$PATH
       ```
 
-      They should print 3 non-empty lines with the values you just set.
+    - macOS
 
-</details>
+      ```bash
+      export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_333.jdk/Contents/Home"
+      export MAVEN_HOME="/Users/$LOGNAME/cs167/apache-maven-3.8.5"
+      export HADOOP_HOME="/Users/$LOGNAME/cs167/hadoop-3.2.3"
+      
+      PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$HADOOP_HOME/bin:$PATH
+      ```
 
-<details>
+6. Reload the current environment
+    - Run command `source ~/.bashrc` or `. ~/.bashrc` (Change the file name accodingly).
+    - Or, quit the terminal app and restart it.
+7. Verify the environment variables again
 
-  <summary>Windows</summary>
+    ```bash
+    echo $JAVA_HOME
+    echo $MAVEN_HOME
+    echo $HADOOP_HOME
+    ```
 
-  1. To test if environment variables are set, run the following commands
-      - Command line promot
+    They should print 3 non-empty lines with the values you just set.
 
-        ```console
-        echo %JAVA_HOME%
-        echo %MAVEN_HOME%
-        echo %HADOOP_HOME%
-        ```
+#### Windows
 
-      - PowerShell or Windows Terminal
+1. To test if environment variables are set, run the following commands
+    - Command line promot
 
-        ```console
-        echo $Env:JAVA_HOME
-        echo $Env:MAVEN_HOME
-        echo $Env:HADOOP_HOME
-        ```
+      ```console
+      echo %JAVA_HOME%
+      echo %MAVEN_HOME%
+      echo %HADOOP_HOME%
+      ```
 
-      They should output nothing or 3 empty lines.
-  2. Press `Win + R` to open the **Run** window.
-  3. Type `rundll32.exe sysdm.cpl,EditEnvironmentVariables` and press Enter.
-  4. In **User variables for xxx**, click **New** to add a new environment variable for each of the following 3 pairs:
-      - Variable name: `JAVA_HOME`, Variable value: `C:\cs167\jdk1.8.0_333`
-      - Variable name: `MAVEN_HOME`, Variable value: `C:\cs167\apache-maven-3.8.5`
-      - Variable name: `HADOOP_HOME`, Variable value: `C:\cs167\hadoop-3.2.2`
-  5. Double click variable **Path**, add the following 3 values via "New" button:
-      - `%JAVA_HOME%\bin`
-      - `%MAVEN_HOME%\bin`
-      - `%HADOOP_HOME%\bin`
-  6. Don't forget to click "Ok" to close and save the changes in environment variables.
-  7. Close and restart the current terminal, and rerun the commands in step 1, they should print 3 non-empty lines with the values you just set.
+    - PowerShell or Windows Terminal
 
-</details>
+      ```console
+      echo $Env:JAVA_HOME
+      echo $Env:MAVEN_HOME
+      echo $Env:HADOOP_HOME
+      ```
+
+    They should output nothing or 3 empty lines.
+2. Press `Win + R` to open the **Run** window.
+3. Type `rundll32.exe sysdm.cpl,EditEnvironmentVariables` and press Enter.
+4. In **User variables for xxx**, click **New** to add a new environment variable for each of the following 3 pairs:
+    - Variable name: `JAVA_HOME`, Variable value: `C:\cs167\jdk1.8.0_333`
+    - Variable name: `MAVEN_HOME`, Variable value: `C:\cs167\apache-maven-3.8.5`
+    - Variable name: `HADOOP_HOME`, Variable value: `C:\cs167\hadoop-3.2.2`
+5. Double click variable **Path**, add the following 3 values via "New" button:
+    - `%JAVA_HOME%\bin`
+    - `%MAVEN_HOME%\bin`
+    - `%HADOOP_HOME%\bin`
+6. Don't forget to click "Ok" to close and save the changes in environment variables.
+7. Close and restart the current terminal, and rerun the commands in step 1, they should print 3 non-empty lines with the values you just set.
 
 ---
 
@@ -317,8 +273,8 @@ This command was run using /C:/cs167/hadoop-3.2.2/share/hadoop/common/hadoop-com
   mvn archetype:generate -DgroupId=edu.ucr.cs.cs167.<UCRNetID> -DartifactId=<UCRNetID>_lab1 -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
   ```
 
-  If the above command fails on Windows, you may try Windows Command Prompt (cmd). This command may have some issues with PowerShell and Windows Terminal.
-  Alternatively, you can use the alternative method later in this section to create a project via IntelliJ.
+  If the above command fails on Windows, you can try Windows Command Prompt (cmd). This command may have some issues with PowerShell and Windows Terminal. You may also try enclose every argument with double quotes `"`.
+  Alternatively, you can use the [alternative method](#alternative-method) later in this section to create a project via IntelliJ.
 
 - ***(Q1) What is the name of the created directory?***
 
