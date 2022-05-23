@@ -128,7 +128,7 @@ Here is an overview of what you are expected to do.
 - Run an SQL query that does the following:                                                  
   - Parse the `Date` attribute into a proper timestamp attribute. 
     For that use the SQL function `to_timestamp` with the format `MM/dd/yyyy hh:mm:ss a`.
-  - Parse the user-provided start and end dates using the function `to_date` with the format `yyyy/MM/dd`
+  - Parse the user-provided start and end dates using the function `to_date` with the format `MM/dd/yyyy`
   - Include a `WHERE` clause that tests if the crime date is `BETWEEN` start `AND` end dates.
   - Include a grouped aggregate statement to count the number of crimes for each `PrimaryType`.
 - Write the output as a CSV file named `CrimeTypeCount`. You might want to first `coalesce(1)` the Dataframe to produce a single file.
