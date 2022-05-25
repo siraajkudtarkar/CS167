@@ -40,14 +40,10 @@ This task prepares the data for analysis by doing the following:
 - Write te output in Parquet format to make it more efficient for analysis.
 
 ## Task 2: Spatial analysis
-In this task, you need to count the total number of crimes for each ZIP code and plot the results as a choropleth map (see below).
-
-![Choropleth Map](images/ProjectA-Task2-Result.png)
+In this task, you need to count the total number of crimes for each ZIP code and plot the results as a choropleth map.
 
 ## Task 3: Temporal analysis
-Given start and end dates, count the number of crimes for each crime type and plot as a bar chart (see below).
-
-![Chicago Crime Bar Chart](images/ProjectA-Task3-Result.png)
+Given start and end dates, count the number of crimes for each crime type and plot as a bar chart.
 
 ## [Project B: Bird Analysis](ProjectB.md)
 In this project, you will perform some analytical tasks on a dataset that represents bird observations.
