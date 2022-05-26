@@ -315,6 +315,6 @@ Exception in thread "main" java.lang.IllegalAccessError: class org.apache.spark.
 	at org.apache.spark.storage.StorageUtils$.<init>(StorageUtils.scala:213)
 ```
 
-A: Change your SDK to 1.8 as shown below. 
+A: Change your project JDK to 1.8 as shown below. 
 
 ![IntelliJ Choose JDK 8](IntelliJ-Choose-JDK8.png)
