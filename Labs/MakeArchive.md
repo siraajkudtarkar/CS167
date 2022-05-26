@@ -44,22 +44,13 @@ zip abcd012_lab1.zip -ur src pom.xml run.sh README.md
 ```
 
 ## Windows
-
-You may use [7-Zip](https://www.7-zip.org/) to create the archive file.
-
-To create `.tar.gz` file:
-
+### Graphical Interface
 1. In Windows Explorer, select the `src` folder, `pom.xml` file, `run.sh` file and `README.md` file.
-2. Right click to show the context menu, select **7-Zip**, then select **Add to archive...**.
-3. Change **Archive format** to `tar`. Also, change the archive name to `abcd012_lab1.tar`, then click **OK** to create a `.tar` file.
-    * Make sure the archive format is `tar`, not the other options.
-4. In Windows Explorer, select `abcd012_lab1.tar` you just created, right click it to show the context menu, select **7-Zip**, then select **Add to archive...**.
-5. Change **Archive format** to `gzip`. The archive name should be automatically changed to `abcd012_lab1.tar.gz`. If not, manually change the archive name. Then click **OK** to create a `.tar.gz` file.
-    * Make sure the archive format is `gzip`, not the other options.
+2. Right-click, and choose "Send-To" -> "Compressed (Zipped) folder".
+3. Rename the compressed file name after it is created to `abcd012_lab1.zip`.
 
-To create `.zip` file:
-
-1. In Windows Explorer, select the `src` folder, `pom.xml` file, `run.sh` file and `README.md` file.
-2. Right click to show the context menu, select **7-Zip**, then select **Add to archive...**.
-3. Change **Archive format** to `zip`. Also, change the archive name to `abcd012_lab1.zip`, then click **OK** to create a `.zip` file.
-    * Make sure the archive format is `zip`, not the other options.
+### From command line or PowerShell
+1. Run the following command
+```shell
+tar -a -c -f abcd012_lab1.zip src pom.xml run.sh README.md
+```
