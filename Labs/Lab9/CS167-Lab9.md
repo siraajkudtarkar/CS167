@@ -8,14 +8,12 @@
 * Visualize big spatial data.
 
 ## Prerequisites
-* We need to switch back JAVA_HOME environment to JDK1.8 for the BEAST library. Refer the development environment as explained in [Lab 1](../Lab1/CS167-Lab1.md).
-* Download the dataset from this [Google Drive](https://drive.google.com/open?id=1PtEygIb0BGKe_jzJkraQ7dqefrjhBHd8) shared folder. This includes the following two datasets.
+* We need to switch back JAVA_HOME environment to JDK1.8 to use Spark and Beast. Refer the development environment as explained in [Lab 1](../Lab1/CS167-Lab1.md).
+* Download the datasets from this [Google Drive](https://drive.google.com/open?id=1PtEygIb0BGKe_jzJkraQ7dqefrjhBHd8) shared folder. You need to be logged in with a UCR Google account. The folder includes the following two datasets.
   - Tweets: Each tweet has a geographic location, a timestamp, and text. You will find samples of 10K and 100K records to be able to test on small data before trying the bigger ones. You can explore this dataset on [UCR Star](https://star.cs.ucr.edu/?Tweets#center=33.9574,-117.1997&zoom=11). Click on a few points to see samples of the tweets.
   - Counties: The boundaries of all counties in the US with information about each county. You can also explore the [county dataset on UCR-Star](https://star.cs.ucr.edu/?TIGER2018/COUNTY#center=37.16,-117.48&zoom=7). Can you find Riverside county on the map?
 * Download and install [QGIS](https://www.qgis.org/en/site/forusers/download.html) for free. Make sure to choose the version suitable for your system. QGIS is available for Windows, Ubuntu, and MacOS.
 * (Optional but highly recommended :wink: ) Like and follow UCR-Star social media pages on [Facebook](https://www.facebook.com/ucrstar), [Twitter](https://twitter.com/ucrstar/), and [Instagram](https://www.instagram.com/theucrstar), to encourage the team to continue working on this project.
-
-Note: If you had troubles downloading the files, you can download a cached version of these files from this [Google Drive](https://drive.google.com/open?id=1PtEygIb0BGKe_jzJkraQ7dqefrjhBHd8) shared folder.
 
 ## Lab Work
 
