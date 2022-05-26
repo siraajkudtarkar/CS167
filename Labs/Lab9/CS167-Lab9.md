@@ -9,7 +9,7 @@
 
 ## Prerequisites
 * We need to switch back JAVA_HOME environment to JDK1.8 to use Spark and Beast. Refer the development environment as explained in [Lab 1](../Lab1/CS167-Lab1.md).
-* Download the datasets from this [Google Drive](https://drive.google.com/open?id=1PtEygIb0BGKe_jzJkraQ7dqefrjhBHd8) shared folder. You need to be logged in with a UCR Google account. The folder includes the following two datasets.
+* Download the datasets from this [Google Drive](https://drive.google.com/drive/folders/1PtEygIb0BGKe_jzJkraQ7dqefrjhBHd8?usp=sharing) shared folder. You need to be logged in with a UCR Google account. The folder includes the following two datasets.
   - Tweets: Each tweet has a geographic location, a timestamp, and text. You will find samples of 10K and 100K records to be able to test on small data before trying the bigger ones. You can explore this dataset on [UCR Star](https://star.cs.ucr.edu/?Tweets#center=33.9574,-117.1997&zoom=11). Click on a few points to see samples of the tweets.
   - Counties: The boundaries of all counties in the US with information about each county. You can also explore the [county dataset on UCR-Star](https://star.cs.ucr.edu/?TIGER2018/COUNTY#center=37.16,-117.48&zoom=7). Can you find Riverside county on the map?
 * Download and install [QGIS](https://www.qgis.org/en/site/forusers/download.html) for free. Make sure to choose the version suitable for your system. QGIS is available for Windows, Ubuntu, and MacOS.
@@ -265,7 +265,7 @@ The output should look something like the following. This specific figure is for
 
 ![Choropleth Map on the keyword "love" for the 100k dataset](Choropleth-map-100k-love.png)
 
-### VII. Normalized by number of tweets (Bonus +3 points)
+### VII. Normalize by number of tweets (Bonus +3 points)
 The visualization made in the previous part might not be very informative. It shows the largest number of tweets coming from `Los Angeles` and `New York` but this is because the largest number of tweets come from these two locations. It has nothing to do with the keyword `love`. In other words, if you choose the keyword `hate` you will probably get a similar map.
 
 To resolve this issue, we can normalize the counts by the total number of tweets in each county. In other words, instead of counting the *number* of tweets that contain a given keyword, we will compute the *ratio* of tweets that contain a given keyword among all tweets in that location.
