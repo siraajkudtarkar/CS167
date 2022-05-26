@@ -49,7 +49,7 @@ Note: You can directly create the project from IntelliJ to avoid using command l
 ![Choose archetype](IntelliJ-Choose.png)
 5. Enter the GroupId and ArtifactId after replacing `<UCRNetID>` with yours.
 ![Project Info](IntelliJ-ProjectInfo.png)
-6. You will need to use Scala plugin for this lab. Refer the instructions in [lab6](https://github.com/aseldawy/CS167/blob/master/Labs/Lab6/CS167-Lab6.md)
+6. You will need to use [Scala Plugin](https://plugins.jetbrains.com/plugin/1347-scala) for this lab. Refer the instructions in [lab6](https://github.com/aseldawy/CS167/blob/master/Labs/Lab6/CS167-Lab6.md)
 7. Finish creating the project
 
 ### II. Main Class Preparation (10 minutes) (In-home)
