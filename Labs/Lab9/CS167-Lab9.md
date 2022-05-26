@@ -277,16 +277,8 @@ To resolve this issue, we can normalize the counts by the total number of tweets
 
 1. Add a `README` file with all your answers. Use this [template](CS167-Lab9-README.md).
 2. If you implemented the bonus tasks, add your explanation and code snippet to the `README` file.
-3. Add a `run` script that compiles your code and then runs the following commands with the given parameters. Use only the file name with the assumption that the file is available in the working directory.
-
-| Command           | Parameters                                       |
-| ----------------- | ------------------------------------------------ |
-| count-by-county   | tweets_100k.tsv                                  |
-| convert           | tweets_100k.tsv  tweets_100k.parquet             |
-| count-by-keyword  | tweets_100k.parquet                              |
-| choropleth-map    | tweets_100k.parquet california tweets_100k_calif |
-
-5. Similar to all labs, do not include any additional files such as the compiled code, input, or output files.
+3. No need to add a run script this time. However, make sure that your code compiles with `mvn clean package` prior to submission.
+4. Similar to all labs, do not include any additional files such as the compiled code, input, or output files.
 
 Submission file format:
 
@@ -295,15 +287,14 @@ Submission file format:
   - src/
   - pom.xml
   - README.md
-  - run.sh
 ```
 
 Requirements:
 
 * The archive file must be either `.tar.gz` or `.zip` format.
 * The archive file name must be all lower case letters. It must be underscore '\_', not hyphen '-'.
-* The folder `src` and three files `pom.xml`, `README.md` and `run.sh` must be the exact names.
-* The folder `src` and three files `pom.xml`, `README.md` and `run.sh` must be directly in the root of the archive, do not put them inside any folder.
+* The folder `src` and two files, `pom.xml` and `README.md`, must be the exact names.
+* The folder `src` and two filesm `pom.xml` and `README.md`, must be directly in the root of the archive, do not put them inside any folder.
 * Do not include any other files/folders, otherwise points will be deducted.
 
 See how to create the archive file for submission at [here](../MakeArchive.md).
