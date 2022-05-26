@@ -8,6 +8,7 @@
 * Visualize big spatial data.
 
 ## Prerequisites
+* We need to switch back JAVA_HOME environment to JDK1.8 for the BEAST library. Refer the development environment as explained in [Lab 1](../Lab1/CS167-Lab1.md).
 * Download the dataset from this [Google Drive](https://drive.google.com/open?id=1PtEygIb0BGKe_jzJkraQ7dqefrjhBHd8) shared folder. This includes the following two datasets.
   - Tweets: Each tweet has a geographic location, a timestamp, and text. You will find samples of 10K and 100K records to be able to test on small data before trying the bigger ones. You can explore this dataset on [UCR Star](https://star.cs.ucr.edu/?Tweets#center=33.9574,-117.1997&zoom=11). Click on a few points to see samples of the tweets.
   - Counties: The boundaries of all counties in the US with information about each county. You can also explore the [county dataset on UCR-Star](https://star.cs.ucr.edu/?TIGER2018/COUNTY#center=37.16,-117.48&zoom=7). Can you find Riverside county on the map?
@@ -25,15 +26,17 @@ The instructions below are all given using Scala. However, you are allowed to us
 mvn archetype:generate "-DgroupId=edu.ucr.cs.cs167.<UCRNetID>" "-DartifactId=<UCRNetID>-lab9" "-DarchetypeGroupId=edu.ucr.cs.bdlab" "-DarchetypeArtifactId=beast-spark" "-DarchetypeVersion=0.9.5-RC1" -B
 ```
 Note: If you are running this command from Windows PowerShell, you need to wrap arguments in double quotes as shown above.
-2. Import the project into IntelliJ as a Maven project.
-3. To make sure that it works correctly, run `mvn package` from command line to make sure that it compiles correctly.
-4. Take a look into the main function in class `BeastScala` that comes with the template to see an example of how it works.
-5. Remove the code inside the try-catch block except for the import line at the beginning.
+
+2. Import the project into IntelliJ as a Maven project. 
+3. To make sure that it works correctly, run `mvn package` from command line to make sure that it compiles correctly. 
+4. Take a look into the main function in class `BeastScala` that comes with the template to see an example of how it works. 
+5. Remove the code inside the try-catch block except for the import line at the beginning. 
 
 Note: You can directly create the project from IntelliJ to avoid using command line by following these alternative instructions.
 1. In IntelliJ welcome screen, choose New Project.
 ![IntelliJ New Project](IntelliJ-NewProject.png)
-2. The first time you do this, you need to choose "Create from archetype" and press "Add Archetype...".
+2. The first time you do this, choose the maven and select "Create from archetype" and press "Add Archetype...".
+![IntelliJ Maven Tab](IntelliJ-1-MavenTab.png)
 ![IntelliJ Add Archetype](IntelliJ-AddArchetype.png)
 3. Enter the following archetype information and press "OK".
 
@@ -323,5 +326,6 @@ Exception in thread "main" java.lang.IllegalAccessError: class org.apache.spark.
 	at org.apache.spark.storage.StorageUtils$.<init>(StorageUtils.scala:213)
 ```
 
-A: Change your SDK to 1.8 as shown below.
-![IntelliJ Choose JDK 8](Intellij-Choose-JDK8.png)
+A: Change your SDK to 1.8 as shown below. 
+
+![IntelliJ Choose JDK 8](IntelliJ-Choose-JDK8.png)
