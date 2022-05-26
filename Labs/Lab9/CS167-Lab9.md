@@ -30,12 +30,8 @@ Note: If you are running this command from Windows PowerShell, you need to wrap 
 4. Take a look into the main function in class `BeastScala` that comes with the template to see an example of how it works. 
 5. Remove the code inside the try-catch block except for the import line at the beginning. 
 
-Note: You can directly create the project from IntelliJ to avoid using command line by following these alternative instructions.
-1. In IntelliJ welcome screen, choose New Project.
-![IntelliJ New Project](IntelliJ-NewProject.png)
-2. The first time you do this, choose the Maven tab and select "Create from archetype" and press "Add Archetype...".
-![IntelliJ Add Archetype](IntelliJ-AddArchetype.png)
-3. Enter the following archetype information and press "OK".
+Note: You can directly create the project from IntelliJ to avoid using command line by following the [instructions on Lab6](../Lab6/CS167-Lab6.md#create-lab-6-project-from-intellij).
+Use the following archetype information when needed.
 
 | Info       | Value             |
 | ---------- | ----------------- |
@@ -44,13 +40,6 @@ Note: You can directly create the project from IntelliJ to avoid using command l
 | Version    | 0.9.5-RC1         |
 
 ![Archetype Information](IntelliJ-3-NewArchetype.png)
-
-4. Choose the newly added archetype and press "Next".
-![Choose archetype](IntelliJ-Choose.png)
-5. Enter the GroupId and ArtifactId after replacing `<UCRNetID>` with yours.
-![Project Info](IntelliJ-ProjectInfo.png)
-6. You will need to use [Scala Plugin](https://plugins.jetbrains.com/plugin/1347-scala) for this lab. Refer the instructions in [lab6](https://github.com/aseldawy/CS167/blob/master/Labs/Lab6/CS167-Lab6.md)
-7. Finish creating the project
 
 ### II. Main Class Preparation (10 minutes) (In-home)
 Copy and paste the following code in your main class. Make sure that you keep the package as-is in your code as it is not included in the code stub below.
