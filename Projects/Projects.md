@@ -11,7 +11,7 @@ e.g., Zoom and Google Drive, to collaborate and organize their work.
 
 The final deliverable include the following:
 
-1. A README file with the project title, student information, and the task of everyone.
+1. A README file with the group number, project title, student information, and the task of everyone.
 2. The source code of the project. Similar to the labs, you should not include any binary or intermediate files.
 3. A script that compiles and runs the project code. There should be one script to compile and run all the three tasks in order.
 4. A report. Include a written report that describes your project and includes the results you are asked to include in the report.
