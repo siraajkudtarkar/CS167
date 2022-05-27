@@ -290,7 +290,7 @@ convert Tweets_1k.tsv convert_output
 
 ---
 
-### V. County by keyword
+### V. Count by keyword
 
 In this part, we will take a keyword from the user and count the number of tweets containing this keyword in each county. Also, for this and the following task, we will work on the converted dataset not the original dataset.
 
