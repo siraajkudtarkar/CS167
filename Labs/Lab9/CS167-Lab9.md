@@ -60,12 +60,21 @@ Use the following archetype information when needed.
 
 ### II. Main Class Preparation (10 minutes) (In-home)
 
+Unarchive **Tweets_1k.tsv.bz2**, **Tweets_10k.tsv.bz2**, **Tweets_100k.tsv.bz2** and **Tweets.tsv.bz2**, copy the following files to your project directory:
+
+* tl_2018_us_county.zip (Don't unzip it)
+* Tweets_1k.tsv
+* Tweets_10k.tsv
+* Tweets_100k.tsv
+* Tweets.tsv
+
 Copy and paste the following code in your main class. Make sure that you keep the package as-is in your code as it is not included in the code stub below.
 
 ```scala
-import edu.ucr.cs.bdlab.beast.geolite.Feature
+import edu.ucr.cs.bdlab.beast.geolite.{Feature, IFeature}
 import org.apache.spark.SparkConf
 import org.apache.spark.beast.SparkSQLRegistration
+import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.{SaveMode, SparkSession}
 
 /**
@@ -87,14 +96,14 @@ object BeastScala {
     SparkSQLRegistration.registerUDT
     SparkSQLRegistration.registerUDF(sparkSession)
 
-    val operation = args(0)
+    val command = args(0)
     val inputFile = args(1)
     try {
       // Import Beast features
       import edu.ucr.cs.bdlab.beast._
       val t1 = System.nanoTime()
 
-      operation match {
+      command match {
         case "count-by-county" =>
           // TODO count the total number of tweets for each county and display on the screen          
         case "convert" =>
@@ -135,9 +144,9 @@ Clayton 250
 ...
 ```
 
-1. Navigate to the first TODO item under the operation `county-by-county`.
+1. Navigate to the first TODO item under the operation `count-by-county`.
 2. Load the tweets as a Dataframe and name it `tweetsDF`. The tweets file is tab-separated and contains a header. We would like to infer the schema of the file.
-    If you load the file correctly, the first few lines should look as follows. Use `.show()` to see how your Dataframe is loaded.
+    If you load the file correctly, the first few lines should look as follows. Use `tweetsDF.show()` to see how your Dataframe is loaded.
 
     |           Timestamp |                 Text |    Latitude |     Longitude |
     | ------------------- | -------------------- | ----------- | ------------- |
@@ -146,33 +155,39 @@ Clayton 250
     | 2012-10-07 01:32:06 | nun,stranger,spea... | 40.68520613 |  -89.60430686 |
     | 2012-08-24 05:40:12 | RETWEET,Check,vlo... |  32.9973956 |   -96.8666182 |
 
+    Hint: this part is similar to [Lab 6](../Lab6/CS167-Lab6.md#iv-query-the-dataframe-using-dataframe-operators-45-minutes).
+
 3. ***(Q1) What is the schema of the file after loading it as a Dataframe***
 
-4. To be able to run spatial operations on this dataset, we want to combine the columns `Longitude` and `Latitude` into a single column of type `geometry`. To do that, use the following code.
+    Hint: Use `tweetsDF.printSchema()`
+
+4. If you use `tweetsDF.show()` and `tweetsDF.printSchema()`, remove or comment them. Do not print the file content or schema in your final code. These two are just for validating your function and answer Q1.
+
+5. To be able to run spatial operations on this dataset, we want to combine the columns `Longitude` and `Latitude` into a single column of type `geometry`. To do that, use the following code.
 
     ```scala
     tweetsDF.selectExpr("*", "ST_CreatePoint(Longitude, Latitude) AS geometry")
     ```
 
-5. Now, we will convert this new Dataframe to an RDD to use with Beast.
+6. Now, we will convert this new Dataframe to an RDD to use with Beast.
 
     ```scala
     val tweetsRDD = tweetsDF.selectExpr("*", "ST_CreatePoint(Longitude, Latitude) AS geometry").toSpatialRDD
     ```
 
-6. Next, we want to combine, i.e., join, this dataset with counties based on the location. Let us first load the counties dataset as follows.
+7. Next, we want to combine, i.e., join, this dataset with counties based on the location. Let us first load the counties dataset as follows.
 
     ```scala
     val countiesRDD = sparkContext.shapefile("tl_2018_us_county.zip")
     ```
 
-7. After that, we use the spatial join operation to combine both RDDs together based on their geospatial location.
+8. After that, we use the spatial join operation to combine both RDDs together based on their geospatial location.
 
     ```scala
     val countyTweet: RDD[(IFeature, IFeature)] = countiesRDD.spatialJoin(tweetsRDD)
     ```
 
-8. Then, we will select the county name and count by name.
+9. Then, we will select the county name and count by name.
 
     ```scala
     val tweetsByCounty: collection.Map[String, Long] = countyTweet
@@ -180,7 +195,7 @@ Clayton 250
       .countByKey()
     ```
 
-9. Finally, let us print the output using the following code.
+10. Finally, let us print the output using the following code.
 
     ```scala
     println("County\tCount")
@@ -199,6 +214,7 @@ Clayton 250
     Calumet 5
     Clayton 250
     ...
+    Command 'count-by-county' on file '...' took ... seconds
     ```
 
 ---
