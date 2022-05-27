@@ -75,7 +75,9 @@ import edu.ucr.cs.bdlab.beast.geolite.{Feature, IFeature}
 import org.apache.spark.SparkConf
 import org.apache.spark.beast.SparkSQLRegistration
 import org.apache.spark.rdd.RDD
-import org.apache.spark.sql.{SaveMode, SparkSession}
+import org.apache.spark.sql.{DataFrame, SaveMode, SparkSession}
+
+import scala.collection.Map
 
 /**
  * Scala examples for Beast
@@ -91,35 +93,39 @@ object BeastScala {
 
     val spark: SparkSession.Builder = SparkSession.builder().config(conf)
 
-    val sparkSession = spark.getOrCreate()
+    val sparkSession: SparkSession = spark.getOrCreate()
     val sparkContext = sparkSession.sparkContext
     SparkSQLRegistration.registerUDT
     SparkSQLRegistration.registerUDF(sparkSession)
 
-    val command = args(0)
-    val inputFile = args(1)
+    val operation: String = args(0)
+    val inputFile: String = args(1)
     try {
       // Import Beast features
       import edu.ucr.cs.bdlab.beast._
       val t1 = System.nanoTime()
+      var validOperation = true
 
-      command match {
+      operation match {
         case "count-by-county" =>
-          // TODO count the total number of tweets for each county and display on the screen          
+          // TODO count the total number of tweets for each county and display on the screen
         case "convert" =>
           val outputFile = args(2)
           // TODO add a CountyID column to the tweets, parse the text into keywords, and write back as a Parquet file
         case "count-by-keyword" =>
-          val keyword = args(2)
+          val keyword: String = args(2)
           // TODO count the number of occurrences of each keyword per county and display on the screen
-          
         case "choropleth-map" =>
-          val keyword = args(2)
-          val outputFile = args(3)
+          val keyword: String = args(2)
+          val outputFile: String = args(3)
           // TODO write a Shapefile that contains the count of the given keyword by county
+        case _ => validOperation = false
       }
       val t2 = System.nanoTime()
-      println(s"Command '$command' on file '$inputFile' took ${(t2-t1)*1E-9} seconds")
+      if (validOperation)
+        println(s"Operation '$operation' on file '$inputFile' took ${(t2 - t1) * 1E-9} seconds")
+      else
+        Console.err.println(s"Invalid operation '$operation'")
     } finally {
       sparkSession.stop()
     }
@@ -133,15 +139,21 @@ object BeastScala {
 
 In this part, we would like to calculate the total number of tweets for each county and display this on the screen as shown below.
 
-```TSV
-County Count
-Butts 5
-Whitman 31
-Andrews 1
-Putnam 94
-Calumet 5
-Clayton 250
+```text
+County    Count
+Butts     5
+Whitman   31
+Andrews   1
+Putnam    94
+Calumet   5
+Clayton   250
 ...
+```
+
+You may use the following command line arguments for testing:
+
+```text
+count-by-county Tweets_1k.tsv
 ```
 
 1. Navigate to the first TODO item under the operation `count-by-county`.
@@ -172,13 +184,13 @@ Clayton 250
 6. Now, we will convert this new Dataframe to an RDD to use with Beast.
 
     ```scala
-    val tweetsRDD = tweetsDF.selectExpr("*", "ST_CreatePoint(Longitude, Latitude) AS geometry").toSpatialRDD
+    val tweetsRDD: SpatialRDD = tweetsDF.selectExpr("*", "ST_CreatePoint(Longitude, Latitude) AS geometry").toSpatialRDD
     ```
 
 7. Next, we want to combine, i.e., join, this dataset with counties based on the location. Let us first load the counties dataset as follows.
 
     ```scala
-    val countiesRDD = sparkContext.shapefile("tl_2018_us_county.zip")
+    val countiesRDD: SpatialRDD = sparkContext.shapefile("tl_2018_us_county.zip")
     ```
 
 8. After that, we use the spatial join operation to combine both RDDs together based on their geospatial location.
@@ -190,7 +202,7 @@ Clayton 250
 9. Then, we will select the county name and count by name.
 
     ```scala
-    val tweetsByCounty: collection.Map[String, Long] = countyTweet
+    val tweetsByCounty: Map[String, Long] = countyTweet
       .map({ case (county, tweet) => (county.getAs[String]("NAME"), 1) })
       .countByKey()
     ```
@@ -205,16 +217,16 @@ Clayton 250
 
     If your code works fine, you should get something similar to the following.
 
-    ```TSV
-    County Count
-    Butts 5
-    Whitman 31
-    Andrews 1
-    Putnam 94
-    Calumet 5
-    Clayton 250
+    ```text
+    County    Count
+    Butts     5
+    Whitman   31
+    Andrews   1
+    Putnam    94
+    Calumet   5
+    Clayton   250
     ...
-    Command 'count-by-county' on file '...' took ... seconds
+    Operation 'count-by-county' on file '...' took ... seconds
     ```
 
 ---
@@ -226,6 +238,12 @@ Instead of loading two datasets and running the costly spatial join operation fo
 * Add a new column `CountyID` to each tweet.
 * Parse the text into an array of keywords.
 * Write back the output in Parquet format.
+
+You may use the following command line arguments for testing:
+
+```text
+convert Tweets_1k.tsv convert_output
+```
 
 1. Navigate to the second operation `convert` in the code.
 2. Load the Tweets dataset as a CSV as done in the previous part.
@@ -240,23 +258,27 @@ Instead of loading two datasets and running the costly spatial join operation fo
 6. Next, we will add a new column named `CountyID` to each tweet that is equal to the `GEOID` column in the corresponding county. The following code will do that.
 
     ```scala
-    val tweetCounty = tweetCountyRDD.map({ case (tweet, county) => Feature.append(tweet, county.getAs[String]("GEOID"), "CountyID") })
+    val tweetCounty: DataFrame = tweetCountyRDD.map({ case (tweet, county) => Feature.append(tweet, county.getAs[String]("GEOID"), "CountyID") })
       .toDataFrame(sparkSession)
     ```
 
-    * ***(Q2) Why in the second operation, convert, the order of the objects in the  tweetCounty RDD is (tweet, county) while in the first operation, county-by-county, the order of the objects in the spatial join result was (county, tweet)?***
+    * ***(Q2) Why in the second operation, convert, the order of the objects in the  tweetCounty RDD is (tweet, county) while in the first operation, count-by-county, the order of the objects in the spatial join result was (county, tweet)?***
 
     * ***(Q3) What is the schema of the tweetCounty Dataframe?***
+  
+      Hint: Use `tweetCounty.printSchema()`. Make sure you remove this function in the final submission.
 
 7. Now that we added the CountyID attribute, we would like to parse the tweet `Text` into an array of `keywords` to make it easier to do analyze the dataset. The following code will do that.
 
     ```scala
-    val convertedDF = tweetCounty.selectExpr("CountyID", "Longitude", "Latitude", "split(lower(text), ',') AS keywords", "Timestamp")
+    val convertedDF: DataFrame = tweetCounty.selectExpr("CountyID", "Longitude", "Latitude", "split(lower(text), ',') AS keywords", "Timestamp")
     ```
 
     Notice that we also dropped the `geometry` column since it is not needed anymore.
 
     * ***(Q4) What is the schema of the convertedDF Dataframe?***
+
+      Hint: Use `convertedDF.printSchema()`. Make sure you remove this function in the final submission.
 
 8. Finally, we write the converted Dataframe in Parquet format.
 
@@ -264,13 +286,19 @@ Instead of loading two datasets and running the costly spatial join operation fo
     convertedDF.write.mode(SaveMode.Overwrite).parquet(outputFile)
     ```
 
-    * ***(Q5) For the tweets_10k dataset, what is the size of the decompressed ZIP file as compared to the converted Parquet file?***
+* ***(Q5) For the tweets_10k dataset, what is the size of the decompressed ZIP file as compared to the converted Parquet file?***
 
 ---
 
 ### V. County by keyword
 
 In this part, we will take a keyword from the user and count the number of tweets containing this keyword in each county. Also, for this and the following task, we will work on the converted dataset not the original dataset.
+
+You may use the following command line arguments for testing:
+
+```text
+count-by-keyword convert_output love
+```
 
 1. Load the converted dataset in Parquet format and create a view with that name to be able to run SQL queries.
 
@@ -288,7 +316,30 @@ In this part, we will take a keyword from the user and count the number of tweet
     GROUP BY CountyID
     ```
 
-3. Write the result to the console using the `show()` operation.
+3. Write the result to the console using the following template.
+
+    ```scala
+    println("CountyID\tCount")
+    sparkSession.sql(
+      s"""
+          SELECT CountyID, count(*) AS count
+          FROM tweets
+          WHERE array_contains(keywords, "$keyword")
+          GROUP BY CountyID
+        """).foreach(row => println(s"${row.get(0)}\t${row.get(1)}"))
+    ```
+
+    Example output
+
+    ```text
+    CountyID    Count
+    32003       1
+    37025       1
+    41051       1
+    13215       1
+    ...
+    Operation 'count-by-keyword' on file 'convert_output' took ... seconds
+    ```
 
     Notice that the CountyID is not very informative. The next part will show how to get a nice visualization out of this query result.
 
@@ -297,6 +348,12 @@ In this part, we will take a keyword from the user and count the number of tweet
 ### VI. Choropleth map
 
 In this last part, we will create a Choropleth map that visualizes the number of tweets for each county for a given keyword.
+
+You may use the following command line arguments for testing:
+
+```text
+choropleth-map convert_output love choropleth-map_output
+```
 
 1. Navigate to the `choropleth-map` operation in the code.
 2. Load the converted dataset as shown in the previous part.
@@ -348,10 +405,11 @@ To resolve this issue, we can normalize the counts by the total number of tweets
 
 ### VII. Submission
 
-1. Create a README file and add all your answers to it. Do not forget to add your information similar to previous labs. Use this [template `README.md`](https://raw.githubusercontent.com/aseldawy/CS167/master/Labs/Lab9/CS167-Lab9-README.md) file.
-2. If you implemented the bonus tasks, add your explanation and code snippet to the `README` file.
-3. **No need to add a run script this time. However, make sure that your code compiles with `mvn clean package` prior to submission.**
-4. Similar to all labs, do not include any additional files such as the compiled code, input, or output files.
+1. ***Remove any `.show()` or `.printSchema()` functions in your code.***
+2. Create a README file and add all your answers to it. Do not forget to add your information similar to previous labs. Use this [template `README.md`](https://raw.githubusercontent.com/aseldawy/CS167/master/Labs/Lab9/CS167-Lab9-README.md) file.
+3. If you implemented the bonus tasks, add your explanation and code snippet to the `README` file.
+4. **No need to add a run script this time. However, make sure that your code compiles with `mvn clean package` prior to submission.**
+5. Similar to all labs, do not include any additional files such as the compiled code, input, or output files.
 
 Submission file format:
 
