@@ -115,9 +115,8 @@ You can also find [this sample result file](https://drive.google.com/open?id=1EC
 
 The contents of this data should look similar to the following. The actual values depend on the selected species.
 
-+-----+-------------+--------------------+------------------+
 |GEOID|         NAME|                   g|    fire_intensity|
-+-----+-------------+--------------------+------------------+
+|-----|-------------|--------------------|------------------|
 |32001|    Churchill|POLYGON ((-119.08...|             112.0|
 |32003|        Clark|POLYGON ((-115.89...|               9.9|
 |41035|      Klamath|POLYGON ((-121.31...|             246.0|
