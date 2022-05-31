@@ -453,3 +453,15 @@ See how to create the archive file for submission at [here](../MakeArchive.md).
     A: Change your project JDK to 1.8 as shown below.
 
     ![IntelliJ Choose JDK 8](./images/IntelliJ-Choose-JDK8.png)
+
+* Q: When I run `mvn package`, i get the following error:
+
+    ```text
+    [ERROR] Failed to execute goal net.alchim31.maven:scala-maven-plugin:4.4.0:compile (scala-compile-first) on project xxxx_lab9: Execution scala-compile-first of goal net.alchim31.maven:scala-maven-plugin:4.4.0:compile failed: An API incompatibility was encountered while executing net.alchim31.maven:scala-maven-plugin:4.4.0:compile: java.lang.NoSuchMethodError: org.fusesource.jansi.AnsiConsole.wrapOutputStream(Ljava/io/OutputStream;)Ljava/io/OutputStream;
+    ```
+
+    A: Try changing `scala.maven.plugin.version` in **pom.xml** from `4.4.0` to `4.6.1`.
+
+    ```xml
+    <scala.maven.plugin.version>4.6.1</scala.maven.plugin.version>
+    ```
