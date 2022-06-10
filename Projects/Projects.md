@@ -123,6 +123,7 @@ Then, it applies this model to all data to predict one topic for each tweet.
   - In 10-15 seconds, give a very brief introduction to the project in your own words.
   - Include 30 seconds for each task where you very briefly describe what you did and how you did it. For example,
     mention which functions you used and how they helped you. Show the result that you included in the report as you talk.
+  - Each student must present their own part. If only one student makes the whole presentation, other members will get zero in this part.
 - 2% for the question.
   - The question must be a multiple choice question.
   - There should be exactly three choices.
