@@ -31,7 +31,6 @@ Follow the instructions below to complete this lab. If you have any questions, p
       - Linux: "/home/user/cs167", where your username is "user".
       - macOS: "/Users/user/cs167", where your username is "user".
     - Windows: "C:\cs167"
-3. Windows only: Download and install 7-zip from [https://www.7-zip.org/](https://www.7-zip.org/). You will need it to unarchive .tar.gz files later. Other tools like WinZip and WinRAR should also work.
 
 #### Oracle JDK 8 (OpenJDK or other versions may fail in this course)
 
@@ -137,9 +136,9 @@ Follow the instructions below to complete this lab. If you have any questions, p
     - Linux
 
       ```bash
-      export JAVA_HOME="/home/$LOGNAME/cs167/jdk1.8.0_333"
-      export MAVEN_HOME="/home/$LOGNAME/cs167/apache-maven-3.8.5"
-      export HADOOP_HOME="/home/$LOGNAME/cs167/hadoop-3.2.3"
+      export JAVA_HOME="$HOME/cs167/jdk1.8.0_333"
+      export MAVEN_HOME="$HOME/cs167/apache-maven-3.8.5"
+      export HADOOP_HOME="$HOME/cs167/hadoop-3.2.3"
       
       PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$HADOOP_HOME/bin:$PATH
       ```
@@ -148,8 +147,8 @@ Follow the instructions below to complete this lab. If you have any questions, p
 
       ```bash
       export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_333.jdk/Contents/Home"
-      export MAVEN_HOME="/Users/$LOGNAME/cs167/apache-maven-3.8.5"
-      export HADOOP_HOME="/Users/$LOGNAME/cs167/hadoop-3.2.3"
+      export MAVEN_HOME="$HOME/cs167/apache-maven-3.8.5"
+      export HADOOP_HOME="$HOME/cs167/hadoop-3.2.3"
       
       PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$HADOOP_HOME/bin:$PATH
       ```
@@ -299,7 +298,7 @@ This command was run using /C:/cs167/hadoop-3.2.2/share/hadoop/common/hadoop-com
   java -cp target/<UCRNetID>_lab1-1.0-SNAPSHOT.jar edu.ucr.cs.cs167.<UCRNetID>.App
   ```
 
-  Replace <UCRNetID> with your UCR Net ID, not student ID.
+  Replace `<UCRNetID>` with your UCR Net ID, not student ID.
 
 - ***(Q2) What do you see at the console output?***
 
@@ -322,7 +321,7 @@ Try the following method if you see red errors (likely on Windows).
 5. Expand "Artifact Coordinates"
 6. Change "GroupId" to `edu.ucr.cs.cs167.<UCRNetID>` (Replace `<UCRNetID>` with your UCR Net ID, not student ID).
 7. Change "ArticifactId" to `<UCRNetID>_lab1` (Replace `<UCRNetID>` with your UCR Net ID, not student ID), the project "Name" will be automatically changed.
-8. Modify "Location" to "~/cs167/workspace/\<UCRNetID\>_lab1" or "C:\cs167\workspace\\<UCRNetID\>_lab1" (Replace `<UCRNetID>` with your UCR Net ID, not student ID).
+8. Modify "Location" to `"~/cs167/workspace/\<UCRNetID\>_lab1"` or `"C:\cs167\workspace\\<UCRNetID\>_lab1"` (Replace `<UCRNetID>` with your UCR Net ID, not student ID).
 9. Click "Next" and then "Finish".
 
 #### Configure for Hadoop
