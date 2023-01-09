@@ -25,7 +25,7 @@ Follow the instructions below to complete this lab. If you have any questions, p
 
 ### 1. Install Required Software
 
-1. **Make sure your user name does not have any space. Otherwise, create an user without space.**
+1. **Make sure your user name does not have any space. Otherwise, create a user without space.**
 2. **Create a writable folder with no space in the path, for example:**
     - Linux and macOS: "\~/cs167", where *\~* is your home directory
       - Linux: "/home/user/cs167", where your username is "user".
