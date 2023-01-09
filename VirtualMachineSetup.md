@@ -140,7 +140,7 @@ esac
 ![image](https://user-images.githubusercontent.com/7341082/114067512-bfa58200-9851-11eb-9bec-67fe7912195d.png)
 
 5. Run 
-```
+```shell
 cd ~
 chmod +x setup.sh
 ./setup.sh Downloads/<JDK_Path> 
@@ -163,3 +163,21 @@ source .bash_profile
 2. Kernel Driver not found (MacOS)
 <img width="639" alt="image" src="https://user-images.githubusercontent.com/7341082/114073012-ae5f7400-9857-11eb-8e9c-160e68a0253b.png">
 **Solution** Follow the instructions here: https://www.howtogeek.com/658047/how-to-fix-virtualboxs-“kernel-driver-not-installed-rc-1908-error/
+
+2. When downloading JDK, I get the following error.
+```
+Bad Oracle Access Manager Request
+Unable to process the request due to unexpected error.
+```
+
+**Solution**
+You can try the following workaround
+
+1. Go back to the download page https://www.oracle.com/java/technologies/downloads/ Links to an external site.
+2. Find the correct version you want to download, jdk-8u321-macosx-x64.dmg for example (for MacOS).
+3. Click the download link (jdk-8u321-macosx-x64.dmg).
+4. Check "I reviewed and accept the Oracle Technology Network License Agreement for Oracle Java SE".
+5. *Right click* "Download jdk-8u321-macosx-x64.dmg", select "Copy link address".
+6. You can paste the copied link in your browser's URL bar, the copied link is something like `https://www.oracle.com/webapps/redirect/signon?nexturl=https://download.oracle.com/otn/java/jdk/8u321-b07/df5ad55fdd604472a86a45a217032c7d/jdk-8u321-macosx-x64.dmg`
+7. Remove the first part before =, and only keep `https://download.oracle.com/otn/java/jdk/8u321-b07/df5ad55fdd604472a86a45a217032c7d/jdk-8u321-macosx-x64.dmg`
+8. Then press Enter to download the file.
