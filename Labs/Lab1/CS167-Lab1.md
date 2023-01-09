@@ -7,9 +7,19 @@
 - Package the source code of your project in a compressed form.
 - Write a script that compiles, tests, and runs your project.
 
+## Pre-lab
+Before the lab, complete the following steps to be ready for the lab.
+1. If you want to use the virtual machine (recommended), download the virutal machine image at [this link](https://coursefiles.cs.ucr.edu/cs167-S22.ova).
+2. If you want to use the virtual machine (recommended), download and setup VirtualBox at [this link](https://www.virtualbox.org/wiki/Downloads).
+3. (Recommended) Follow the instructions on [this page](../../VirtualMachineSetup.md) to setup the virutal machine.
+4. Create an Oracle account and download JDK 8 for your OS at [this link](https://www.oracle.com/java/technologies/javase-jdk8-downloads.html).
+
+If you have troubles with setting up the virtual machine, bring your questions to the lab.
+
+
 ## Lab Work
 
-Follow the instructions below to complete this lab. If you have any questions, please contact the TA in your lab. Make sure to answer any questions marked by the ***(Q)*** sign and submit the deliverables marked by the ***(S)*** sign.
+Follow the instructions below to complete this lab. If you have any questions, please contact the TA in your lab. Make sure to answer any questions marked by the ***(Q)*** sign and submit the deliverables marked by the ***(S)*** sign. You must answer the questions at the right step to get the correct output. Do *not* wait until you finish all the steps and then answer the questions.
 
 ---
 
@@ -36,8 +46,6 @@ Follow the instructions below to complete this lab. If you have any questions, p
   2. Do **NOT** install it to the default location "C:\Program Files\Java". The path contains space, making Hadoop unable to work properly.
   3. During installation, change the install location to some path with no space, like "C:\cs167\jdk1.8.0_333".
   4. You should skip installation of "Source Code" and "Public JRE" during the installation. To do so, click on the drive icon, select "This feature will not be available".
-
-   <p align="center"><img src="./lab1_images/oracle-jdk8.png" style="width:800px;"/></p>
 
 #### Apache Maven
 
@@ -660,3 +668,24 @@ log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more in
 ```
 
 **Resolution**: This is just a warning. You can ignore it for now.
+
+
+**Problem**
+
+When downloading JDK, I get the following error.
+```
+Bad Oracle Access Manager Request
+Unable to process the request due to unexpected error.
+```
+
+**Resolution**
+You can try the following workaround
+
+1. Go back to the download page https://www.oracle.com/java/technologies/downloads/ Links to an external site.
+2. Find the correct version you want to download, jdk-8u321-macosx-x64.dmg for example (for MacOS).
+3. Click the download link (jdk-8u321-macosx-x64.dmg).
+4. Check "I reviewed and accept the Oracle Technology Network License Agreement for Oracle Java SE".
+5. *Right click* "Download jdk-8u321-macosx-x64.dmg", select "Copy link address".
+6. You can paste the copied link in your browser's URL bar, the copied link is something like `https://www.oracle.com/webapps/redirect/signon?nexturl=https://download.oracle.com/otn/java/jdk/8u321-b07/df5ad55fdd604472a86a45a217032c7d/jdk-8u321-macosx-x64.dmg`
+7. Remove the first part before =, and only keep `https://download.oracle.com/otn/java/jdk/8u321-b07/df5ad55fdd604472a86a45a217032c7d/jdk-8u321-macosx-x64.dmg`
+8. Then press Enter to download the file.
