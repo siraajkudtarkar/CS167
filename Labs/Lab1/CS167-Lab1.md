@@ -35,23 +35,23 @@ Follow the instructions below to complete this lab. If you have any questions, p
 #### Oracle JDK 8 (OpenJDK or other versions may fail in this course)
 
 - Linux
-  1. Download **x64 Compressed Archive (jdk-8u333-linux-x64.tar.gz)** from [https://www.oracle.com/java/technologies/downloads/#java8-linux](https://www.oracle.com/java/technologies/downloads/#java8-linux)
-  2. Unarchive it to the folder you created before, e.g, "\~/cs167". Your JDK path will be "\~/cs167/jdk1.8.0_333"
+  1. Download **x64 Compressed Archive (jdk-8u351-linux-x64.tar.gz)** from [https://www.oracle.com/java/technologies/downloads/#java8-linux](https://www.oracle.com/java/technologies/downloads/#java8-linux)
+  2. Unarchive it to the folder you created before, e.g, "\~/cs167". Your JDK path will be "\~/cs167/jdk1.8.0_351"
 - macOS
-  1. Download the installer **x64 DMG Installer (jdk-8u333-macOSx-x64.dmg)** from [https://www.oracle.com/java/technologies/downloads/#java8-mac](https://www.oracle.com/java/technologies/downloads/#java8-mac)
+  1. Download the installer **x64 DMG Installer (jdk-8u351-macOSx-x64.dmg)** from [https://www.oracle.com/java/technologies/downloads/#java8-mac](https://www.oracle.com/java/technologies/downloads/#java8-mac)
   2. Mount the dmg file and install the app
 - Windows
-  1. Download the installer **x64 Installer (jdk-8u333-windows-x64.exe)** from [https://www.oracle.com/java/technologies/downloads/#java8-windows](https://www.oracle.com/java/technologies/downloads/#java8-windows)
+  1. Download the installer **x64 Installer (jdk-8u351-windows-x64.exe)** from [https://www.oracle.com/java/technologies/downloads/#java8-windows](https://www.oracle.com/java/technologies/downloads/#java8-windows)
   2. Do **NOT** install it to the default location "C:\Program Files\Java". The path contains space, making Hadoop unable to work properly.
-  3. During installation, change the install location to some path with no space, like "C:\cs167\jdk1.8.0_333".
+  3. During installation, change the install location to some path with no space, like "C:\cs167\jdk1.8.0_351".
   4. You should skip installation of "Source Code" and "Public JRE" during the installation. To do so, click on the drive icon, select "This feature will not be available".
 
 #### Apache Maven
 
-  1. Download the archive (3.8.5) from
-     - Linux and macOS: [https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz](https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz)
-     - Windows: [https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.zip](https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.zip)
-  2. Unarchive it to the folder you created before, e.g, "\~/cs167" or "C:\cs167". Your Maven path will be "\~/cs167/apache-maven-3.8.5" or "C:\cs167\apache-maven-3.8.5".
+  1. Download the archive (3.8.7) from
+     - Linux and macOS: [https://dlcdn.apache.org/maven/maven-3/3.8.7/binaries/apache-maven-3.8.7-bin.tar.gz](https://dlcdn.apache.org/maven/maven-3/3.8.7/binaries/apache-maven-3.8.7-bin.tar.gz)
+     - Windows: [https://dlcdn.apache.org/maven/maven-3/3.8.7/binaries/apache-maven-3.8.7-bin.zip](https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.7-bin.zip)
+  2. Unarchive it to the folder you created before, e.g, "\~/cs167" or "C:\cs167". Your Maven path will be "\~/cs167/apache-maven-3.8.7" or "C:\cs167\apache-maven-3.8.7".
 
 #### IntelliJ Community Edition
 
@@ -136,8 +136,8 @@ Follow the instructions below to complete this lab. If you have any questions, p
     - Linux
 
       ```bash
-      export JAVA_HOME="$HOME/cs167/jdk1.8.0_333"
-      export MAVEN_HOME="$HOME/cs167/apache-maven-3.8.5"
+      export JAVA_HOME="$HOME/cs167/jdk1.8.0_351"
+      export MAVEN_HOME="$HOME/cs167/apache-maven-3.8.7"
       export HADOOP_HOME="$HOME/cs167/hadoop-3.2.3"
       
       PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$HADOOP_HOME/bin:$PATH
@@ -146,8 +146,8 @@ Follow the instructions below to complete this lab. If you have any questions, p
     - macOS
 
       ```bash
-      export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_333.jdk/Contents/Home"
-      export MAVEN_HOME="$HOME/cs167/apache-maven-3.8.5"
+      export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_351.jdk/Contents/Home"
+      export MAVEN_HOME="$HOME/cs167/apache-maven-3.8.7"
       export HADOOP_HOME="$HOME/cs167/hadoop-3.2.3"
       
       PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$HADOOP_HOME/bin:$PATH
@@ -189,8 +189,8 @@ Follow the instructions below to complete this lab. If you have any questions, p
 2. Press `Win + R` to open the **Run** window.
 3. Type `rundll32.exe sysdm.cpl,EditEnvironmentVariables` and press Enter.
 4. In **User variables for xxx**, click **New** to add a new environment variable for each of the following 3 pairs:
-    - Variable name: `JAVA_HOME`, Variable value: `C:\cs167\jdk1.8.0_333`
-    - Variable name: `MAVEN_HOME`, Variable value: `C:\cs167\apache-maven-3.8.5`
+    - Variable name: `JAVA_HOME`, Variable value: `C:\cs167\jdk1.8.0_351`
+    - Variable name: `MAVEN_HOME`, Variable value: `C:\cs167\apache-maven-3.8.7`
     - Variable name: `HADOOP_HOME`, Variable value: `C:\cs167\hadoop-3.2.2`
 5. Double click variable **Path**, add the following 3 values via "New" button:
     - `%JAVA_HOME%\bin`
@@ -228,9 +228,9 @@ mvn -version
 Example output (contents may differ)
 
 ```text
-Apache Maven 3.8.5 (3599d3414f046de2324203b78ddcf9b5e4388aa0)
-Maven home: /Users/user/cs167/apache-maven-3.8.5
-Java version: 1.8.0_333, vendor: Oracle Corporation, runtime: /Library/Java/JavaVirtualMachines/jdk1.8.0_333.jdk/Contents/Home/jre
+Apache Maven 3.8.7 (3599d3414f046de2324203b78ddcf9b5e4388aa0)
+Maven home: /Users/user/cs167/apache-maven-3.8.7
+Java version: 1.8.0_351, vendor: Oracle Corporation, runtime: /Library/Java/JavaVirtualMachines/jdk1.8.0_351.jdk/Contents/Home/jre
 Default locale: en_US, platform encoding: UTF-8
 OS name: "mac os x", version: "12.3", arch: "x86_64", family: "mac"
 ```
