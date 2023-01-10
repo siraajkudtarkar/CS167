@@ -28,8 +28,8 @@
 # Change to the home dir and setup the required vars
 BIG_DATA_DIR=$HOME/BigData
  
-JAVA_HOME=$BIG_DATA_DIR/jdk1.8.0_291
-MAVEN_HOME=$BIG_DATA_DIR/apache-maven-3.8.5
+JAVA_HOME=$BIG_DATA_DIR/jdk1.8.0_351
+MAVEN_HOME=$BIG_DATA_DIR/apache-maven-3.8.7
 HADOOP_HOME=$BIG_DATA_DIR/hadoop-3.2.3
 INTELLIJ_HOME=$BIG_DATA_DIR/idea-IC-213.7172.25
  
@@ -42,7 +42,7 @@ download_dependencies() {
 	wget "https://dlcdn.apache.org/hadoop/common/hadoop-3.2.3/hadoop-3.2.3.tar.gz"	
  
 	echo "Downloading Maven..."
-	wget "https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz"
+	wget "https://dlcdn.apache.org/maven/maven-3/3.8.7/binaries/apache-maven-3.8.7-bin.tar.gz"
 	
  
 	echo "Downloading IntelliJ IDEA..."
