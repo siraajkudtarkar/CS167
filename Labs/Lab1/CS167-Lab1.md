@@ -50,7 +50,7 @@ Follow the instructions below to complete this lab. If you have any questions, p
 
   1. Download the archive (3.8.7) from
      - Linux and macOS: [https://dlcdn.apache.org/maven/maven-3/3.8.7/binaries/apache-maven-3.8.7-bin.tar.gz](https://dlcdn.apache.org/maven/maven-3/3.8.7/binaries/apache-maven-3.8.7-bin.tar.gz)
-     - Windows: [https://dlcdn.apache.org/maven/maven-3/3.8.7/binaries/apache-maven-3.8.7-bin.zip](https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.7-bin.zip)
+     - Windows: [https://dlcdn.apache.org/maven/maven-3/3.8.7/binaries/apache-maven-3.8.7-bin.zip](https://dlcdn.apache.org/maven/maven-3/3.8.7/binaries/apache-maven-3.8.7-bin.zip)
   2. Unarchive it to the folder you created before, e.g, "\~/cs167" or "C:\cs167". Your Maven path will be "\~/cs167/apache-maven-3.8.7" or "C:\cs167\apache-maven-3.8.7".
 
 #### IntelliJ Community Edition
