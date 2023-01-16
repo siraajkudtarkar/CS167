@@ -12,7 +12,7 @@
 * If you prefer to use a virtual machine, you can follow the instructions on [this page](../../VirtualMachineSetup.md)
 * Download this [Sample File](https://drive.google.com/file/d/0B1jY75xGiy7eR3VpNC1XMzB5cWs/view)
  and decompress it. We will use it for testing.
-  * Linux: Run `tar xfj AREAWATER.csv.bz2`
+  * Linux: Run `tar xfj AREAWATER.csv.bz2` or `bzip2 -dk AREAWATER.csv.bz2` if previous one not work
   * macOS: Use Archive Utility, or run `bzip2 -dk AREAWATER.csv.bz2`
   * Windows: You may use 7-zip.
 
