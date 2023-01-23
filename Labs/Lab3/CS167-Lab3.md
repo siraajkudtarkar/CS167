@@ -59,19 +59,19 @@ Follow the instructions below to complete this lab. If you have any questions, p
 
 4. The function should read these three parameters and call either the function `printEvenNumbers` or `printNumbersDivisibleByThree` depending on the third parameter.
 5. To test your program, try the following parameters.
-    `10 25 1`
+    `10 25 2`
     The output should look like the following:
 
     ```text
     Printing numbers in the range [10,25]
-    11
-    13
-    15
-    17
-    19
-    21
-    23
-    25
+    10
+    12
+    14
+    16
+    18
+    20
+    22
+    24
     ```
 
     At this stage, your program runs correctly but it does not use any of the functional programming features of Java. In the following part, we will see how to convert this simple program to use some functional programming features.
