@@ -20,7 +20,7 @@
 
 ## Overview
 
-In this lab, you will write a program that simply prints numbers in a range that satisfy some conditions, e.g., print even number or odd numbers. You will do that using some basic functional programming features in Java.
+In this lab, you will write a program that simply prints numbers in a range that satisfy some conditions, e.g., print even number or numbers divisible by three. You will do that using some basic functional programming features in Java.
 
 ---
 
