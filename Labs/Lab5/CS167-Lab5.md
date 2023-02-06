@@ -11,8 +11,8 @@
 ## Prerequisites
 
 * Setup the development environment as explained in [Lab 1](../Lab1/CS167-Lab1.md).
-* Download [Apache Spark 3.2.1](https://spark.apache.org/downloads.html). Choose the package type **Pre-built with user-provided Apache Hadoop**.
-  * Direct link: [spark-3.2.1-bin-without-hadoop.tgz](https://www.apache.org/dyn/closer.lua/spark/spark-3.2.1/spark-3.2.1-bin-without-hadoop.tgz)
+* Download [Apache Spark 3.3.1](https://spark.apache.org/downloads.html). Choose the package type **Pre-built with user-provided Apache Hadoop**.
+  * Direct link: [spark-3.3.1-bin-hadoop3.tgz](https://www.apache.org/dyn/closer.lua/spark/spark-3.3.1/spark-3.3.1-bin-hadoop3.tgz)
 * Download these two sample files [sample file 1](../Lab4/nasa_19950801.tsv), [sample file 2](https://drive.google.com/open?id=1pDNwfsx5jrAqaSy8AKEZyfubCE358L2p). Decompress the second file after download. These are the same files we used in [Lab 4](../Lab4/CS167-Lab4.md).
 * For Windows users, install the [Ubuntu app](https://ubuntu.com/wsl) from Microsoft Store and set it up to use Windows Subsystem for Linux. Part of this lab cannot run natively on Windows.
    1. Refer to [Lab 1](../Lab1/CS167-Lab1.md) to download and install for Oracle JDK 8. Note, you must use **x64 Compressed Archive** rather than installing OpenJDK from `apt` command.
@@ -38,10 +38,10 @@ Note: We recommend that you use the standard Apache Spark 3.2.1 in this lab. Oth
 
             ```bash
             # Linux
-            export SPARK_HOME="/home/$LOGNAME/cs167/spark-3.2.1-bin-without-hadoop"
+            export SPARK_HOME="/home/$LOGNAME/cs167/spark-3.3.1-bin-hadoop3"
 
             # macOS
-            export SPARK_HOME="/Users/$LOGNAME/cs167/spark-3.2.1-bin-without-hadoop"
+            export SPARK_HOME="/Users/$LOGNAME/cs167/spark-3.3.1-bin-hadoop3"
             ```
 
         2. Add `$SPARK_HOME/bin:` to `PATH` variable like
@@ -54,7 +54,7 @@ Note: We recommend that you use the standard Apache Spark 3.2.1 in this lab. Oth
     * Windows
         1. Add a new variable under **User variables for xxx**:
             * Variable name: `SPARK_HOME`
-            * Variable value: `C:\cs167\spark-3.2.1-bin-without-hadoop`
+            * Variable value: `C:\cs167\spark-3.3.1-bin-hadoop3`
         2. Add `%SPARK_HOME%\bin` to `Path` variable
 
 3. Configure Spark to use your previsouly installed Hadoop. Reference: [Using Spark's "Hadoop Free" Build
@@ -141,7 +141,7 @@ Note: We recommend that you use the standard Apache Spark 3.2.1 in this lab. Oth
     ```
 
 3. Switch to the command line. Compile your code using the command `mvn package`.
-4. Run your program from command line using the following command. Do not forget to replace `<UCRNetID>` with the correct one. Also, make sure hdfs namenode and datanode are running.
+4. Run your program from command line using the following command. Do not forget to replace `<UCRNetID>` with the correct one. Also, make sure hdfs namenode and datanode are running. If you have error shows as no such hdfs host, then using file path start with `hdfs://localhost:9000/`
 
     ```bash
     spark-submit --class edu.ucr.cs.cs167.<UCRNetID>.App target/<UCRNetID>_lab5-1.0-SNAPSHOT.jar hdfs:///nasa_19950801.tsv
