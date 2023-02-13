@@ -371,7 +371,7 @@ A few commands in the next sections may require more than 2 arguments.
     val averages: RDD[(String, (Long, Long))] = //TODO 7d: `aggregateByKey` on `loglinesByCode`
     println(s"Average bytes per code for the file '$inputfile'")
     println("Code,Avg(bytes)")
-    averages.sortByKey().collect().foreach(pair => println(s"${pair._1},${pair._2._1.toDouble/pair._2._2}"))
+    averages.collect().sorted.foreach(pair => println(s"${pair._1},${pair._2._1.toDouble/pair._2._2}"))
     ```
 
 9. A sample output is given below.
