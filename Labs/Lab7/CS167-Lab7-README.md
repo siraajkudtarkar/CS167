@@ -9,86 +9,84 @@
 
 ## Answers
 
-* (Q1) What is your command?
+* (Q1) What is your command to import the `contact.json` file?
 
     ```shell
     # Replace here
     ```
 
-* (Q2) What is the output of the above command?
+* (Q2) What is the output of the import command?
 
     ```text
     # Replace here
     ```
 
-* (Q3) What is your command?
+* (Q3) What is your command to retrieve all users sorted by Name in ascending order?
 
-    ```shell
-    # Replace here
+    ```javascript
+    // Replace here
     ```
 
-* (Q4) What is your command?
+* (Q4) What is your command to retrieve only the `_id` and `Name` sorted in reverse order by `Name`?
 
-    ```shell
-    # Replace here
+    ```javascript
+    // Replace here
     ```
 
 * (Q5) Is the comparison of the attribute `Name` case-sensitive?
 
 
-* (Q6) What is your command?
+* (Q6) Explain how you answered (Q5). Show the commands that you ran and how would the output tell you if MongoDB applied case-sensitive or case-insensitive.
 
-    ```shell
-    # Replace here
+
+* (Q7) What is the command that retrieves the results in sorted order but without the `_id` field?
+
+    ```javascript
     ```
 
-* (Q7) Does MongoDB accept this document while the `Name` field has a different type than other records?
 
+* (Q8) What is the command to insert the sample document? What is the result of running the command?
 
-* (Q8) What is your command?
-
-    ```shell
-    # Replace here
+    Command:
+    ```javascript
+    // Replace here
     ```
 
-* (Q9) What is the output of the above command?
+    Result:
+    ```json
+    ```
+
+* (Q9) Does MongoDB accept this document while the `Name` field has a different type than other records?
+
+
+
+* (Q10) What is your command to insert the record `{Name: ["Yuan", "Zhang"]}`?
+
+    ```javascript
+    // Replace here
+    ```
+
+
+* (Q11) Where did the two new records appear in the sort order?
+
+
+* (Q12) Why did they appear at these specific locations?
+
+
+* (Q13) Where did the two records appear in the ascending sort order? Explain your observation.
+
+
+* (Q14) Is MongoDB able to build the index on that field with the different value types stored in the `Name` field?
+
+
+* (Q15) What is your command for building the index?
+
+    ```javascript
+    // Replace here
+    ```
+
+
+* (Q16) What is the output of the create index command?
 
     ```text
-    # Replace here
-    ```
-
-* (Q10) Where do you expect the new record to be located in the sort?
-
-
-* (Q11) What is your command?
-
-    ```shell
-    # Replace here
-    ```
-
-* (Q12) What is the output of the above command?
-
-    ```text
-    # Replace here
-    ```
-
-* (Q13) Where do you expect the new document to appear in the sort order. Verify your answer and explain after running the query.
-
-
-* (Q14) Where do you expect the last inserted record, `{Name: ["David", "Bark"]}` to appear this time? Does it appear in the same position relative to the other records? Explain why or why not.
-
-
-* (Q15) Is MongoDB able to build the index on that field with the different value types stored in the `Name` field?
-
-
-* (Q16) What is your command?
-
-    ```shell
-    # Replace here
-    ```
-
-* (Q17) What is the output of the above command?
-
-    ```text
-    # Replace here
     ```
