@@ -22,7 +22,7 @@ In all projects, feel free to make any reasonable assumptions and document them 
 You can use any of the systems we learned about this quarter.
 Write an introductory paragraph that explains why you chose those systems specifically.
 
-# [Project A: Chicago Crimes]
+# [Project A: Chicago Crimes](ProjectA.md)
 In this project, you are asked to analyze Chicago Crime dataset by location.
 You will use Parquet file format to prepare the data for analysis.
 You will use a mix of SparkSQL and Beast to perform the analysis.
@@ -45,7 +45,7 @@ In this task, you need to count the total number of crimes for each ZIP code and
 ## Task 3: Temporal analysis
 Given start and end dates, count the number of crimes for each crime type and plot as a bar chart.
 
-## [Project B: Bird Analysis]
+## [Project B: Bird Analysis](ProjectB.md)
 In this project, you will perform some analytical tasks on a dataset that represents bird observations.
 We will combine this dataset with a ZIP code dataset to determine the ZIP code for each point.
 Then, we will perform two analytical tasks, one based on ZIP codes, and one based on time.
@@ -66,7 +66,7 @@ all observations per ZIP Code and visualize the result as a choropleth map.
 ## Task 3: Temporal analysis
 Given a date range `[start, end]`, find the number of observations of each species and plot the result as a pie chart.
 
-## [Project C: Wildfire analysis]
+## [Project C: Wildfire analysis](ProjectC.md)
 In this project, we will perform some analytic tasks on the wildfire dataset in California.
 Each point in this dataset represents an occurrence of a wildfire along with relevant information
 such as the location at which it happened, the date of the first, and the fire intensity.
@@ -85,7 +85,7 @@ Given a date range, start and end, compute the total fire intensity for each cou
 ### Task 3: Temporal analysis
 Given a specific county by name, compute the total fire intensity each month over all time and plot the result as a line chart.
 
-## [Project D: Twitter data analysis]
+## [Project D: Twitter data analysis](ProjectD.md)
 In this project, we will analyze twitter data. Our goal is to build a machine-learning classifier that assigns
 a topic to each tweet. The topics are automatically extracted from all tweets based on most frequent hashtags.
 
