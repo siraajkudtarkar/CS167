@@ -170,3 +170,4 @@ Here is an overview of what you are expected to do.
 
 - Open the file in a spreadsheet program and plot the result as a line chart.
   The output should look similar to the figure above.
+- In the report, include your own line chart visualization for the 10k dataset for a county of your choice. Include the name of the county you used in the report.
