@@ -113,7 +113,7 @@ The output should look like the image shown above. That specific example was for
 
 You can also find [this sample result file](https://drive.google.com/open?id=1EC5oYQijky6Bjfs3ChiI-klM6-i09_V2) to get an idea of what is expected.
 
-The contents of this data should look similar to the following. The actual values depend on the selected species.
+The contents of this data should look similar to the following. The actual values depend on the selected date range.
 
 |GEOID|         NAME|                   g|    fire_intensity|
 |-----|-------------|--------------------|------------------|
@@ -134,14 +134,14 @@ root
 |-- fire_intensity: double (nullable = true)
 ```
 
-In the report, include your own visualization of the result for the 10k file that you get from Task A with any species of your choice.
-Include which species you selected.
+In the report, include your own visualization of the result for the 10k file that you get from Task A with any date range of your choice.
+Include which date range you selected.
 
 ## Task 3: Temporal analysis
 Given a specific county by name, compute the total fire intensity each month over all time
 and plot the result as a line chart.
 
-![Pie chart of species](images/ProjectC-Task3-Result.png)
+![Chart of Task 3](images/ProjectC-Task3-Result.png)
 
 Here is an overview of what you are expected to do.
 - Load the dataset in the Parquet format.
