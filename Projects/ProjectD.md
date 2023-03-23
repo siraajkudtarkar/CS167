@@ -88,11 +88,11 @@ root
 And here are a few sample records.
 
 ```json
-{"id":921633446644080641,"text":"#negramaroofficial #love #smile #pic #follow4follow #followme #finoallimbrunire #amorecheritorni… https://t.co/o3LPaMxBrj","hashtag":"love","user_description":"Negramanteinside_romanainside\nSe non sei Giuliano Sangiorgi lasciami stare.","retweet_count":0,"reply_count":0}
-{"id":921633445045866497,"text":"#CNIextravaganza2017 Testimoni dari Bpk. Agung Handaya sebagai Double Diamond mengenai CNI I-Plan 2017 #bisnisCNI https://t.co/6fEs7eQPWh","hashtag":"CNIextravaganza2017","user_description":"Hebat Produknya Hebat Bisnisnya","retweet_count":0,"reply_count":0}
-{"id":921633449882128384,"text":"#DoktorlarDenklikistiyor #Benimisteğim https://t.co/decAepZqMN","hashtag":"DoktorlarDenklikistiyor","user_description":"emin ben","retweet_count":0,"reply_count":0}
-{"id":921633451773648896,"text":"Na miss ko mag tweet na may ALDUB hashtag  #ALDUBxEBLoveis","hashtag":"ALDUBxEBLoveis","user_description":"Resilient. Objective. Rational.\nLove is a grave mental disease. - Plato","retweet_count":0,"reply_count":0}
-{"id":921633452289642497,"text":"#FurkanPalalı Değil güzel bir mutluluk kaynağı olun #LalOn #no309 084","hashtag":"no309","retweet_count":0,"reply_count":0}
+{"id":921633446644080641,"text":"#negramaroofficial #love #smile #pic #follow4follow #followme #finoallimbrunire #amorecheritorni… https://t.co/o3LPaMxBrj","topic":"love","user_description":"Negramanteinside_romanainside\nSe non sei Giuliano Sangiorgi lasciami stare.","retweet_count":0,"reply_count":0}
+{"id":921633445045866497,"text":"#CNIextravaganza2017 Testimoni dari Bpk. Agung Handaya sebagai Double Diamond mengenai CNI I-Plan 2017 #bisnisCNI https://t.co/6fEs7eQPWh","topic":"CNIextravaganza2017","user_description":"Hebat Produknya Hebat Bisnisnya","retweet_count":0,"reply_count":0}
+{"id":921633449882128384,"text":"#DoktorlarDenklikistiyor #Benimisteğim https://t.co/decAepZqMN","topic":"DoktorlarDenklikistiyor","user_description":"emin ben","retweet_count":0,"reply_count":0}
+{"id":921633451773648896,"text":"Na miss ko mag tweet na may ALDUB hashtag  #ALDUBxEBLoveis","topic":"ALDUBxEBLoveis","user_description":"Resilient. Objective. Rational.\nLove is a grave mental disease. - Plato","retweet_count":0,"reply_count":0}
+{"id":921633452289642497,"text":"#FurkanPalalı Değil güzel bir mutluluk kaynağı olun #LalOn #no309 084","topic":"no309","retweet_count":0,"reply_count":0}
 ```
 
 Finally, you can download
