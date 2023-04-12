@@ -1,0 +1,6 @@
+edu/ucr/cs/cs167/skudt001/Filter.class
+edu/ucr/cs/cs167/skudt001/Aggregation$IntSumReducer.class
+edu/ucr/cs/cs167/skudt001/Aggregation$TokenizerMapper.class
+edu/ucr/cs/cs167/skudt001/App.class
+edu/ucr/cs/cs167/skudt001/Aggregation.class
+edu/ucr/cs/cs167/skudt001/Filter$TokenizerMapper.class
