@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="A3. time-filter" type="Application" factoryName="Application" folderName="App">
+    <option name="MAIN_CLASS_NAME" value="edu.ucr.cs.cs167.<UCRNetID>.App" />
+    <module name="<UCRNetID>_lab6" />
+    <option name="PROGRAM_PARAMETERS" value="time-filter nasa_19950801.tsv 807274014 807283738" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

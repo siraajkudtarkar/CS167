@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="B7. top-host" type="Application" factoryName="Application" folderName="AppSQL">
+    <option name="MAIN_CLASS_NAME" value="edu.ucr.cs.cs167.<UCRNetID>.AppSQL" />
+    <module name="<UCRNetID>_lab6" />
+    <option name="PROGRAM_PARAMETERS" value="top-host nasa_19950801.tsv" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
